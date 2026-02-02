@@ -1,0 +1,32 @@
+<!-- index.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Ana Sayfa{% endblock %}
+
+{% block content %}
+    <div class="hero d-flex align-items-center justify-content-center text-center" style="background-image: url('https://via.placeholder.com/1920x1080?text=Hero+Image'); height: 100vh; color: white;">
+        <div>
+            <h1 class="display-1" style="font-family: 'Playfair Display', serif;">İbrahim Balaban</h1>
+            <p class="lead">Türk Ressam ve Yazar</p>
+        </div>
+    </div>
+
+    <section class="container my-5">
+        <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif; color: #c0392b;">Son Eklenen Eserler</h2>
+        <div class="row">
+            {% for eser in son_eklenen %}
+                <div class="col-md-4 mb-4">
+                    <div class="card hover-effect">
+                        <img src="{{ eser.image_url }}" class="card-img-top" alt="{{ eser.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ eser.title }}</h5>
+                            <p class="card-text">{{ eser.year }} - {{ eser.technique }} - {{ eser.size }}</p>
+                            <a href="/eser/{{ eser.slug }}" class="btn btn-outline-danger">Detay</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

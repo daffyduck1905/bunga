@@ -1,0 +1,35 @@
+<!-- eser_detay.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}{{ eser.title }}{% endblock %}
+
+{% block content %}
+    <section class="container my-5">
+        <h1 class="text-center mb-4" style="font-family: 'Playfair Display', serif; color: #c0392b;">{{ eser.title }}</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <img src="{{ eser.image_url }}" class="img-fluid rounded shadow" alt="{{ eser.title }}" style="max-height: 80vh; object-fit: contain;">
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-8 mx-auto">
+                <div class="card border-0">
+                    <div class="card-body p-0">
+                        <p><strong>Yıl:</strong> {{ eser.year }}</p>
+                        <p><strong>Teknik:</strong> {{ eser.technique }}</p>
+                        <p><strong>Boyut:</strong> {{ eser.size }}</p>
+                        <hr>
+                        <p class="lead">{{ eser.description }}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <a href="/galeri" class="btn btn-outline-danger">Koleksiyona Dön</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

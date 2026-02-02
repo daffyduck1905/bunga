@@ -1,0 +1,25 @@
+<!-- galeri.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Koleksiyon{% endblock %}
+
+{% block content %}
+    <section class="container my-5">
+        <h1 class="text-center mb-5" style="font-family: 'Playfair Display', serif; color: #c0392b;">Koleksiyon</h1>
+        <div class="row">
+            {% for eser in eserler %}
+                <div class="col-md-4 mb-4">
+                    <div class="card hover-effect">
+                        <img src="{{ eser.image_url }}" class="card-img-top" alt="{{ eser.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ eser.title }}</h5>
+                            <p class="card-text">{{ eser.year }} - {{ eser.technique }} - {{ eser.size }}</p>
+                            <a href="/eser/{{ eser.slug }}" class="btn btn-outline-danger">Detay</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
