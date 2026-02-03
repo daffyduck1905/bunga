@@ -1,48 +1,20 @@
 <!-- eserdetay.html -->
 {% extends 'base.html' %}
-{% block title %}{{ eser.title }}{% endblock %}
+{% block title %}Eser Detay{% endblock %}
 
 {% block content %}
 <section class="container my-5">
   <div class="section-title reveal">
-    <h2>{{ eser.title }}</h2>
+    <h2>Eser Detay</h2>
     <div class="accent-line"></div>
   </div>
 
-  <div class="row justify-content-center reveal">
-    <div class="col-lg-10">
-      <div class="card p-3">
-        <img src="{{ eser.image_url }}" class="img-fluid rounded" alt="{{ eser.title }}" style="max-height: 78vh; object-fit: contain;">
-      </div>
-    </div>
+  <div class="alert alert-info">
+    Bu sayfa artık kullanılmıyor. Eserler galeri klasöründen otomatik gösteriliyor.
   </div>
 
-  <div class="row mt-4 justify-content-center">
-    <div class="col-lg-10 reveal">
-      <div class="card p-4">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <div class="opacity-75">Yıl</div>
-            <div class="fw-bold">{{ eser.year }}</div>
-          </div>
-          <div class="col-md-4">
-            <div class="opacity-75">Teknik</div>
-            <div class="fw-bold">{{ eser.technique }}</div>
-          </div>
-          <div class="col-md-4">
-            <div class="opacity-75">Boyut</div>
-            <div class="fw-bold">{{ eser.size }}</div>
-          </div>
-        </div>
-        <hr style="border-color: rgba(212,175,55,.22);">
-        <p class="lead mb-0">{{ eser.description }}</p>
-
-        <div class="mt-4 d-flex gap-2 flex-wrap">
-          <a href="{{ url_for('galeri') }}" class="btn btn-outline-gold">Koleksiyona Dön</a>
-          <a href="{{ url_for('contact') }}" class="btn btn-gold">Bu Eser Hakkında Sor</a>
-        </div>
-      </div>
-    </div>
+  <div class="text-center">
+    <a href="{{ url_for('galeri') }}" class="btn btn-gold">Galeriye Dön</a>
   </div>
 </section>
 {% endblock %}
