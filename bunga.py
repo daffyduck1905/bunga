@@ -6,12 +6,15 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Mesajların kaydedileceği dosya
 MESSAGES_FILE = os.path.join(BASE_DIR, "messages.json")
 
-# Galeri
+# Galeri klasörü
 GALLERY_DIR = os.path.join(BASE_DIR, "static", "gallery", "eserler")
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 
+# Sanatçı (istersen burayı sonra doldururuz)
 artist = {
     "name": "Fatih Bakır",
     "title": "Geleneksel El Sanatları Sanatçısı • Oyma & Altın Varak",
@@ -24,35 +27,46 @@ artist = {
 def list_gallery_images():
     if not os.path.isdir(GALLERY_DIR):
         return []
-    return [
-        f"gallery/eserler/{f}"
-        for f in sorted(os.listdir(GALLERY_DIR))
-        if os.path.splitext(f.lower())[1] in ALLOWED_EXT
-    ]
+    files = []
+    for f in os.listdir(GALLERY_DIR):
+        if os.path.splitext(f.lower())[1] in ALLOWED_EXT:
+            files.append(f)
+    files.sort()
+    return [f"gallery/eserler/{f}" for f in files]
 
 
 def load_messages():
+    # Dosya yoksa boş liste
     if not os.path.exists(MESSAGES_FILE):
         return []
-    with open(MESSAGES_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+
+    # Dosya bozuksa site çökmesin diye güvenli oku
+    try:
+        with open(MESSAGES_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data if isinstance(data, list) else []
+    except Exception:
+        return []
 
 
-def save_message(data):
+def save_message(msg: dict):
     messages = load_messages()
-    messages.append(data)
+    messages.append(msg)
     with open(MESSAGES_FILE, "w", encoding="utf-8") as f:
         json.dump(messages, f, ensure_ascii=False, indent=2)
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", artist=artist, featured_paths=list_gallery_images()[:6])
+    image_paths = list_gallery_images()
+    featured_paths = image_paths[:6]
+    return render_template("index.html", artist=artist, featured_paths=featured_paths)
 
 
 @app.route("/galeri")
 def galeri():
-    return render_template("galeri.html", image_paths=list_gallery_images())
+    image_paths = list_gallery_images()
+    return render_template("galeri.html", image_paths=image_paths)
 
 
 @app.route("/hakkinda")
@@ -63,18 +77,30 @@ def about():
 @app.route("/iletisim", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        data = {
-            "full_name": request.form.get("full_name"),
-            "email": request.form.get("email"),
-            "phone": request.form.get("phone"),
-            "message": request.form.get("message"),
+        full_name = (request.form.get("full_name") or "").strip()
+        email = (request.form.get("email") or "").strip()
+        phone = (request.form.get("phone") or "").strip()
+        message = (request.form.get("message") or "").strip()
+
+        save_message({
+            "full_name": full_name,
+            "email": email,
+            "phone": phone,
+            "message": message,
             "date": datetime.now().strftime("%d.%m.%Y %H:%M")
-        }
-        save_message(data)
+        })
+
         return redirect(url_for("contact", sent="1"))
 
     return render_template("contact.html")
 
 
-# 🔒 GİZLİ SAYFA – SADECE SEN
-@app.route
+# ✅ BURASI ÖNEMLİ: decorator düzgün olmalı
+@app.route("/admin/mesajlar")
+def admin_messages():
+    messages = load_messages()[::-1]  # en yeni en üstte
+    return render_template("admin_messages.html", messages=messages)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
