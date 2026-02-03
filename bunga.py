@@ -1,11 +1,17 @@
 import os
 import json
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# ✅ Session için şart (rastgele bir şey yap)
+app.secret_key = "COK_GIZLI_BIR_SEY_YAZ_123456"
+
+# ✅ Admin şifresi (istersen değiştir)
+ADMIN_PASSWORD = "1234"
 
 # Mesajların kaydedileceği dosya
 MESSAGES_FILE = os.path.join(BASE_DIR, "messages.json")
@@ -14,7 +20,6 @@ MESSAGES_FILE = os.path.join(BASE_DIR, "messages.json")
 GALLERY_DIR = os.path.join(BASE_DIR, "static", "gallery", "eserler")
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 
-# Sanatçı (istersen burayı sonra doldururuz)
 artist = {
     "name": "Fatih Bakır",
     "title": "Geleneksel El Sanatları Sanatçısı • Oyma & Altın Varak",
@@ -36,11 +41,8 @@ def list_gallery_images():
 
 
 def load_messages():
-    # Dosya yoksa boş liste
     if not os.path.exists(MESSAGES_FILE):
         return []
-
-    # Dosya bozuksa site çökmesin diye güvenli oku
     try:
         with open(MESSAGES_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -95,10 +97,35 @@ def contact():
     return render_template("contact.html")
 
 
-# ✅ BURASI ÖNEMLİ: decorator düzgün olmalı
+# ==========================
+# ✅ ADMIN (ŞİFRELİ) BÖLÜM
+# ==========================
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        password = request.form.get("password") or ""
+        if password == ADMIN_PASSWORD:
+            session["admin"] = True
+            return redirect(url_for("admin_messages"))
+        return render_template("admin_login.html", error="Şifre yanlış")
+
+    return render_template("admin_login.html")
+
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop("admin", None)
+    return redirect(url_for("index"))
+
+
 @app.route("/admin/mesajlar")
 def admin_messages():
-    messages = load_messages()[::-1]  # en yeni en üstte
+    # ✅ giriş yoksa login'e at
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    messages = load_messages()[::-1]  # en yeni üstte
     return render_template("admin_messages.html", messages=messages)
 
 
