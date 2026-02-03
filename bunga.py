@@ -1,5 +1,7 @@
 import os
 import smtplib
+import traceback
+from datetime import datetime
 from email.mime.text import MIMEText
 from email.utils import formataddr
 from flask import Flask, render_template, request, redirect, url_for
@@ -12,6 +14,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GALLERY_DIR = os.path.join(BASE_DIR, "static", "gallery", "eserler")
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 
+# Debug log dosyası (PythonAnywhere'de kesin çalışır)
+MAIL_DEBUG_LOG = os.path.join(BASE_DIR, "mail_debug.log")
+
 # Sanatçı
 artist = {
     "name": "Fatih Bakır",
@@ -23,6 +28,15 @@ artist = {
 
 # Mail hedefi
 DEST_EMAIL = "fatihbakir23@outlook.com"
+
+
+def _log_mail_debug(text: str) -> None:
+    try:
+        with open(MAIL_DEBUG_LOG, "a", encoding="utf-8") as f:
+            f.write(text + "\n")
+    except Exception:
+        # Log yazamazsa bile site patlamasın
+        pass
 
 
 def list_gallery_images():
@@ -40,16 +54,22 @@ def list_gallery_images():
 def send_contact_email(full_name: str, email: str, phone: str, message: str) -> None:
     """
     Outlook SMTP ile mail gönderir.
-    Gerekli env değişkenleri:
+    WSGI içinde set edilen env'ler:
       SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
     """
     smtp_host = os.environ.get("SMTP_HOST", "smtp-mail.outlook.com")
     smtp_port = int(os.environ.get("SMTP_PORT", "587"))
-    smtp_user = os.environ.get("SMTP_USER")  # ör: fatihbakir23@outlook.com
+    smtp_user = os.environ.get("SMTP_USER")  # fatihbakir23@outlook.com
     smtp_pass = os.environ.get("SMTP_PASS")  # şifre / app password
 
+    # Env kontrolünü logla (şifreyi yazmadan!)
+    _log_mail_debug(
+        f"[{datetime.now().isoformat()}] ENV CHECK | HOST={smtp_host} PORT={smtp_port} "
+        f"USER={'SET' if smtp_user else 'MISSING'} PASS={'SET' if smtp_pass else 'MISSING'}"
+    )
+
     if not smtp_user or not smtp_pass:
-        raise RuntimeError("SMTP_USER / SMTP_PASS tanımlı değil.")
+        raise RuntimeError("SMTP_USER / SMTP_PASS tanımlı değil (WSGI içinde set edilmemiş olabilir).")
 
     subject = f"Yeni İletişim Formu: {full_name}"
     body = (
@@ -65,10 +85,10 @@ def send_contact_email(full_name: str, email: str, phone: str, message: str) -> 
     msg["Subject"] = subject
     msg["From"] = formataddr(("Fatih Bakır Sitesi", smtp_user))
     msg["To"] = DEST_EMAIL
-    msg["Reply-To"] = email  # Yanıtla'ya basınca kullanıcı maili gelsin
+    msg["Reply-To"] = email
 
-    # STARTTLS (587) ile gönder
-    with smtplib.SMTP(smtp_host, smtp_port, timeout=20) as server:
+    # STARTTLS (587)
+    with smtplib.SMTP(smtp_host, smtp_port, timeout=25) as server:
         server.ehlo()
         server.starttls()
         server.ehlo()
@@ -104,12 +124,12 @@ def contact():
 
         try:
             send_contact_email(full_name, email, phone, message)
+            _log_mail_debug(f"[{datetime.now().isoformat()}] SEND OK | from_form={email}")
             return redirect(url_for("contact", sent="1"))
         except Exception as e:
-            app.logger.exception("MAIL GONDERME HATASI")  # <-- bunu Error log/Server log'a basar
+            _log_mail_debug(f"[{datetime.now().isoformat()}] SEND FAIL | {repr(e)}")
+            _log_mail_debug(traceback.format_exc())
             return redirect(url_for("contact", sent="0"))
-
-
 
     return render_template("contact.html")
 
