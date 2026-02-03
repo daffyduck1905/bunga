@@ -1,20 +1,21 @@
 :root{
-  --gold: #D4AF37;
+  --gold:#D4AF37;
   --gold2:#f1d77a;
   --gold3:#b88a1c;
-  --bg1:#070708;
-  --bg2:#111114;
-  --txt: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.72);
+
+  --bg0:#070708;
+  --bg1:#0e0e10;
+  --txt:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.72);
 }
 
 body{
   font-family:'Lato',sans-serif;
-  color: var(--txt);
+  color:var(--txt);
   background:
-    radial-gradient(1000px 600px at 15% 0%, rgba(212,175,55,.12), transparent 60%),
-    radial-gradient(900px 550px at 85% 5%, rgba(241,215,122,.10), transparent 62%),
-    linear-gradient(180deg, var(--bg1), var(--bg2));
+    radial-gradient(1100px 600px at 20% 0%, rgba(212,175,55,.12), transparent 60%),
+    radial-gradient(900px 550px at 80% 0%, rgba(241,215,122,.10), transparent 62%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
   min-height:100vh;
 }
 
@@ -22,141 +23,190 @@ h1,h2,h3,h4,h5,h6,.navbar-brand{
   font-family:'Playfair Display',serif;
 }
 
-.gold-grad{
-  background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color: transparent;
-}
-
 .navbar{
-  border-bottom: 1px solid rgba(212,175,55,.18);
+  border-bottom:1px solid rgba(212,175,55,.18);
 }
 .navbar .nav-link{
-  color: rgba(255,255,255,.88) !important;
+  color:rgba(255,255,255,.88)!important;
   opacity:.92;
 }
-.navbar .nav-link:hover{ color: var(--gold2) !important; }
+.navbar .nav-link:hover{ color:var(--gold2)!important; }
 
 footer{
-  background: rgba(0,0,0,.55);
-  border-top: 1px solid rgba(212,175,55,.18);
+  background:rgba(0,0,0,.55);
+  border-top:1px solid rgba(212,175,55,.18);
 }
 
-/* Hero */
-.hero{
-  position:relative;
-  min-height: 78vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+/* -----------------------------
+   Buttons (index.html kullanıyor)
+------------------------------*/
+.btn-gold{
+  border:1px solid rgba(212,175,55,.55)!important;
+  background:rgba(212,175,55,.10)!important;
+  color:rgba(255,255,255,.94)!important;
+  border-radius:14px!important;
+  padding:10px 16px!important;
+  transition:transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.btn-gold:hover{
+  transform:translateY(-1px);
+  background:rgba(212,175,55,.16)!important;
+  border-color:rgba(241,215,122,.85)!important;
+}
+
+.btn-outline-gold{
+  border:1px solid rgba(212,175,55,.55)!important;
+  background:transparent!important;
+  color:rgba(255,255,255,.90)!important;
+  border-radius:14px!important;
+  padding:10px 16px!important;
+  transition:transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.btn-outline-gold:hover{
+  transform:translateY(-1px);
+  background:rgba(212,175,55,.10)!important;
+  border-color:rgba(241,215,122,.85)!important;
+}
+
+.btn-soft{
+  border:1px solid rgba(255,255,255,.22)!important;
+  background:rgba(255,255,255,.06)!important;
+  color:rgba(255,255,255,.92)!important;
+  border-radius:14px!important;
+  padding:10px 16px!important;
+}
+.btn-soft:hover{
+  background:rgba(255,255,255,.10)!important;
+}
+
+/* -----------------------------
+   Cards
+------------------------------*/
+.card{
+  border:1px solid rgba(212,175,55,.16);
+  background:rgba(255,255,255,.04);
+  border-radius:18px;
   overflow:hidden;
-  border-bottom: 1px solid rgba(212,175,55,.18);
-}
-.hero::before{
-  content:"";
-  position:absolute; inset:0;
-  background:
-    radial-gradient(900px 500px at 50% 25%, rgba(212,175,55,.14), transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.80));
-  z-index:0;
-}
-.hero-inner{
-  z-index:1;
-  position:relative;
-  padding: 64px 18px;
-  max-width: 980px;
+  box-shadow:0 16px 44px rgba(0,0,0,.34);
 }
 
-.glass{
-  background: rgba(0,0,0,.38);
-  backdrop-filter: blur(12px);
+.hover-effect{
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.hover-effect:hover{
+  transform:translateY(-4px);
+  border-color:rgba(212,175,55,.35);
+  box-shadow:0 26px 70px rgba(0,0,0,.46);
+}
+
+.card-img-top{
+  height:240px;
+  object-fit:cover;
+}
+
+/* -----------------------------
+   Sections / Titles
+------------------------------*/
+.section-pad{
+  padding: 70px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom: 34px;
+}
+.section-title h2{
+  margin-bottom: 10px;
+  letter-spacing:1px;
+}
+.accent-line{
+  width: 120px;
+  height: 3px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+  opacity: .95;
+}
+
+/* -----------------------------
+   Reveal (sen koymuşsun, görünüm için basit)
+------------------------------*/
+.reveal{
+  opacity:1;
+  transform:none;
+}
+
+/* -----------------------------
+   Hero Carousel
+------------------------------*/
+.carousel-hero .carousel-item{
+  min-height: 85vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.carousel-hero .carousel-item::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(900px 500px at 50% 25%, rgba(212,175,55,.14), transparent 60%),
+              linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.80));
+}
+
+.carousel-hero .carousel-caption{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  max-width: 920px;
+  width: calc(100% - 36px);
+  padding: 42px 26px;
+  background: rgba(0,0,0,.34);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(212,175,55,.18);
   border-radius: 22px;
   box-shadow: 0 28px 70px rgba(0,0,0,.55);
 }
 
-.hr-gold{
-  border: none;
+.carousel-hero .carousel-caption h1{
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 10px;
+}
+
+.carousel-hero .carousel-caption p{
+  color: rgba(255,255,255,.78);
+  line-height: 1.75;
+}
+
+.hero-line{
+  width: 120px;
   height: 3px;
-  width: 110px;
-  margin: 18px auto;
+  margin: 0 auto 18px auto;
+  border-radius: 999px;
   background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-  border-radius: 999px;
 }
 
-/* Buttons */
-.btn-gold{
-  border: 1px solid rgba(212,175,55,.55);
-  background: rgba(212,175,55,.10);
-  color: rgba(255,255,255,.94);
-  padding: 10px 16px;
-  border-radius: 14px;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-  text-decoration:none;
-  display:inline-block;
-}
-.btn-gold:hover{
-  transform: translateY(-1px);
-  background: rgba(212,175,55,.16);
-  border-color: rgba(241,215,122,.85);
-  color: rgba(255,255,255,.96);
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,.6));
 }
 
-/* Cards */
-.card{
-  border: 1px solid rgba(212,175,55,.16);
-  background: rgba(255,255,255,.04);
-  border-radius: 18px;
-  overflow:hidden;
-  box-shadow: 0 16px 44px rgba(0,0,0,.34);
-}
-.hover{
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-}
-.hover:hover{
-  transform: translateY(-4px);
-  border-color: rgba(212,175,55,.35);
-  box-shadow: 0 26px 70px rgba(0,0,0,.46);
-}
-
-.card-img-top{
-  height: 240px;
-  object-fit: cover;
-}
-
-.badge-gold{
-  display:inline-block;
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(212,175,55,.32);
-  background: rgba(212,175,55,.08);
-  color: rgba(255,255,255,.9);
-  font-size:.92rem;
-}
-
-/* Form */
+/* -----------------------------
+   Form
+------------------------------*/
 .form-control{
-  background: rgba(255,255,255,.04) !important;
-  border: 1px solid rgba(212,175,55,.18) !important;
-  color: rgba(255,255,255,.92) !important;
-  border-radius: 14px !important;
+  background:rgba(255,255,255,.04)!important;
+  border:1px solid rgba(212,175,55,.18)!important;
+  color:rgba(255,255,255,.92)!important;
+  border-radius:14px!important;
 }
 .form-control:focus{
-  box-shadow: 0 0 0 .2rem rgba(212,175,55,.14) !important;
-  border-color: rgba(241,215,122,.75) !important;
+  box-shadow:0 0 0 .2rem rgba(212,175,55,.14)!important;
+  border-color:rgba(241,215,122,.75)!important;
 }
-
-/* Senin istediğin: odaklanınca arka plan beyaz olmasın, sadece yazı gold olsun */
+/* odaklanınca arka plan beyaz olmasın, yazı gold */
 .form-control:focus,
 .form-control:not(:placeholder-shown){
-  color: var(--gold2) !important;
-}
-
-/* Modal image */
-.modal-content{
-  background: rgba(0,0,0,.78);
-  border: 1px solid rgba(212,175,55,.22);
-  border-radius: 18px;
+  color:var(--gold2)!important;
 }

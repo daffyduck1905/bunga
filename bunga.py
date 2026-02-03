@@ -5,59 +5,54 @@ app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Galeri: static/gallery/eserler/
+# Galeri klasörü: static/gallery/eserler/
 GALLERY_DIR = os.path.join(BASE_DIR, "static", "gallery", "eserler")
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 
 artist = {
     "name": "Fatih Bakır",
-    "title": "Geleneksel El Sanatları Sanatçısı • Oyma & Altın Varak",
-    "email": "fatihbakir23@outlook.com",  # burada mailini yazıyoruz
-    "location": "Türkiye",
-    "bio_long": (
-        "Fatih Bakır, ahşap oyma ve altın varak uygulamalarını bir araya getirerek "
-        "zamansız motifleri modern bir estetikle yorumlayan geleneksel el sanatları sanatçısıdır.\n\n"
-        "Her eser; sabır, detay ve ustalık gerektiren katmanlı bir üretim sürecinin sonucudur. "
-        "Doğal ahşabın karakteri, oyma işçiliğiyle şekillenir; altın varak ise esere tarihî bir ihtişam katar.\n\n"
-        "EĞİTİM:\n"
-        "• Eskişehir Üniversitesi — Kamu Yönetimi\n"
-    ),
-    "highlights": [
-        "Ahşap Oyma (rölyef & derin oyma)",
-        "Altın Varak Uygulama (klasik & modern yüzeyler)",
-        "Kişiye özel tasarım (isim, arma, motif, tablo)"
-    ]
+    "title": "Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı",
+    "email": "fatihbakir23@outlook.com",
+    "profile_photo": ""  # istersen sonra kullanırsın
 }
 
 
-def list_gallery_images():
-    """Klasördeki görselleri dosya adı olarak döndürür."""
+def list_gallery_paths():
+    """
+    static/gallery/eserler içindeki görselleri
+    template'lerde url_for('static', filename=path) ile kullanılacak şekilde döndürür.
+    Örn: 'gallery/eserler/001.jpg'
+    """
     if not os.path.isdir(GALLERY_DIR):
         return []
+
     files = []
-    for filename in os.listdir(GALLERY_DIR):
-        ext = os.path.splitext(filename.lower())[1]
+    for fn in os.listdir(GALLERY_DIR):
+        ext = os.path.splitext(fn.lower())[1]
         if ext in ALLOWED_EXT:
-            files.append(filename)
+            files.append(fn)
+
     files.sort()
-    return files
+    return [f"gallery/eserler/{f}" for f in files]
 
 
 @app.route("/")
 def index():
-    images = list_gallery_images()
-    featured = images[:8]
-    return render_template("index.html", artist=artist, featured=featured)
+    image_paths = list_gallery_paths()
+    featured_paths = image_paths[:6]  # index.html'deki blok bunu bekliyor
+    return render_template("index.html", artist=artist, featured_paths=featured_paths)
 
 
 @app.route("/galeri")
 def galeri():
-    images = list_gallery_images()
-    return render_template("galeri.html", artist=artist, images=images)
+    image_paths = list_gallery_paths()
+    # galeri.html'i de buna göre yazacağız: featured değil image_paths
+    return render_template("galeri.html", artist=artist, image_paths=image_paths)
 
 
 @app.route("/eser/<filename>")
 def eser_detay(filename):
+    # filename sadece dosya adı olmalı: 001.jpg gibi
     ext = os.path.splitext(filename.lower())[1]
     if ext not in ALLOWED_EXT:
         abort(404)
@@ -66,6 +61,7 @@ def eser_detay(filename):
     if not os.path.isfile(full_path):
         abort(404)
 
+    # template içinde url_for('static', filename='gallery/eserler/' ~ filename) yapacağız
     return render_template("eserdetay.html", artist=artist, filename=filename)
 
 
@@ -76,7 +72,6 @@ def about():
 
 @app.route("/iletisim", methods=["GET", "POST"])
 def contact():
-    # Formu saklamıyoruz / mail atmıyoruz. Sadece “gönderildi” feedback’i.
     if request.method == "POST":
         return redirect(url_for("contact", sent="1"))
     return render_template("contact.html", artist=artist)
