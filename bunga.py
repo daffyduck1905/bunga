@@ -105,9 +105,10 @@ def contact():
         try:
             send_contact_email(full_name, email, phone, message)
             return redirect(url_for("contact", sent="1"))
-        except Exception:
-            # Prod'da hata detayını kullanıcıya basmayalım
+        except Exception as e:
+            print("MAIL HATASI:", repr(e))
             return redirect(url_for("contact", sent="0"))
+
 
     return render_template("contact.html")
 
