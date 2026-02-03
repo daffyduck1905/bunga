@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Biyografi | {{ artist.name }}{% endblock %}
+{% block title %}Biyografi | Fatih Bakır{% endblock %}
 
 {% block content %}
 <style>
@@ -8,14 +8,14 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 80px 0;
+    padding: 90px 0;
     overflow: hidden;
   }
 
   .bio-background {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('{{ artist.profile_photo if artist.profile_photo else "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=80" }}');
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
     filter: blur(12px) brightness(0.35);
@@ -24,13 +24,13 @@
   }
 
   .bio-card {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 20px;
-    padding: 60px;
+    border-radius: 22px;
+    padding: 64px;
     color: #ffffff;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7);
   }
 
   .bio-header {
@@ -39,65 +39,108 @@
     letter-spacing: 3px;
   }
 
-  .bio-body-text {
-    font-size: 1.15rem;
-    line-height: 2.05;
-    text-align: justify;
-    white-space: pre-line;
-    color: #f0f0f0;
+  .bio-subtitle {
+    opacity: 0.75;
+    font-size: 1.25rem;
   }
 
-  .achievement-list {
+  .bio-body-text {
+    font-size: 1.15rem;
+    line-height: 2.1;
+    text-align: justify;
+    color: #f0f0f0;
+    margin-top: 40px;
+  }
+
+  .info-box {
     border-left: 4px solid #D4AF37;
-    padding-left: 20px;
+    padding: 18px 22px;
     background: rgba(255, 255, 255, 0.05);
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 12px 12px 0;
+    margin-top: 40px;
+  }
+
+  .info-box h5 {
+    color: #D4AF37;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 14px;
+  }
+
+  .info-box p {
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+
+  .bio-actions {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 </style>
 
-<div class="bio-section">
+<section class="bio-section">
   <div class="bio-background"></div>
+
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="bio-card reveal">
+
+          <!-- HEADER -->
           <div class="text-center mb-5">
-            <h1 class="display-3 bio-header">{{ artist.name }}</h1>
-            <p class="h4 text-light opacity-75">{{ artist.title }}</p>
-            <hr style="width: 110px; margin: 20px auto; border-top: 3px solid #D4AF37;">
+            <h1 class="display-3 bio-header">Fatih Bakır</h1>
+            <p class="bio-subtitle">Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı</p>
+            <hr style="width:120px;margin:22px auto;border-top:3px solid #D4AF37;">
           </div>
 
+          <!-- BIO -->
           <div class="bio-body-text">
-            {{ artist.bio_long }}
+            Fatih Bakır, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
+            yorumlayan, eserlerinde sabır, emek ve ustalığı merkeze alan bir sanatçıdır.
+            Ahşabı yalnızca bir malzeme olarak değil, geçmişle bugün arasında kurulan
+            yaşayan bir bağ olarak ele alır.
+
+            <br><br>
+
+            Sanat yolculuğu, el işçiliğine ve doğal malzemelere duyduğu ilgiyle başlamıştır.
+            Zaman içerisinde ahşap oyma sanatını derinlemesine öğrenmiş, bu kadim zanaatı
+            altın varak tekniğiyle birleştirerek kendine özgü bir ifade dili geliştirmiştir.
+            Her eserinde, yüzeyin altındaki karakteri ve ruhu ortaya çıkarmayı amaçlar.
+
+            <br><br>
+
+            Çalışmalarının tamamı el işçiliğiyle üretilir. Seri üretim anlayışından uzak
+            duran sanatçı, her parçayı tek ve özgün bir eser olarak ele alır. Oyma
+            sürecindeki her çizgi ve her detay bilinçli bir kompozisyonun parçasıdır.
+            Altın varak uygulamaları ise eserlere zamansız bir asalet kazandırır.
+
+            <br><br>
+
+            Fatih Bakır için sanat, yalnızca ortaya çıkan sonuç değil; aynı zamanda
+            geçirilen zaman, gösterilen emek ve sürdürülen geleneğin kendisidir.
+            Eserleri, izleyiciye sabrın ve el emeğinin değerini hatırlatmayı amaçlar.
           </div>
 
-          {% if artist.exhibitions and artist.exhibitions|length > 0 %}
-          <div class="row mt-5">
-            <div class="col-md-12">
-              <h3 class="bio-header h4 mb-4">Projeler ve Başarılar</h3>
-              <div class="row">
-                {% for item in artist.exhibitions %}
-                <div class="col-md-6 mb-3">
-                  <div class="achievement-list">
-                    {{ item }}
-                  </div>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
+          <!-- EDUCATION -->
+          <div class="info-box">
+            <h5>Eğitim</h5>
+            <p><strong>Üniversite:</strong> Eskişehir Üniversitesi</p>
+            <p><strong>Bölüm:</strong> Kamu Yönetimi</p>
+            <p><strong>Not:</strong> Akademik eğitimin yanı sıra sanatını usta-çırak geleneği ve
+              bireysel çalışmalarla geliştirmiştir.</p>
           </div>
-          {% endif %}
 
-          <div class="d-flex gap-2 justify-content-center flex-wrap mt-5">
-            <a class="btn btn-gold" href="{{ url_for('galeri') }}">Eserleri Gör</a>
-            <a class="btn btn-outline-gold" href="{{ url_for('contact') }}">İletişime Geç</a>
+          <!-- ACTIONS -->
+          <div class="bio-actions">
+            <a href="{{ url_for('galeri') }}" class="btn btn-gold">Eserleri Gör</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-outline-gold">İletişime Geç</a>
           </div>
 
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 {% endblock %}
