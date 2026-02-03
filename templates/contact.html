@@ -1,39 +1,53 @@
 <!-- contact.html -->
-
 {% extends 'base.html' %}
-
 {% block title %}İletişim{% endblock %}
 
 {% block content %}
-    <section class="container my-5">
-        <h1 class="text-center mb-5" style="font-family: 'Playfair Display', serif; color: #c0392b;">İletişim</h1>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <h3>İletişim Bilgileri</h3>
-                <p><strong>E-posta:</strong> info@ibrahimbalaban.com</p>
-                <p><strong>Telefon:</strong> +90 555 123 45 67</p>
-                <p><strong>Adres:</strong> Bursa / İstanbul</p>
-            </div>
-            
-            <div class="col-md-6">
-                <h3>Mesaj Gönder</h3>
-                <form method="POST">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Adınız</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-posta</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Mesajınız</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-danger">Gönder</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<section class="container my-5">
+  <div class="section-title reveal">
+    <h2>İletişim</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="row g-4 mt-2">
+    <div class="col-md-6 reveal">
+      <div class="card p-4 h-100">
+        <h4 class="mb-3">İletişim Bilgileri</h4>
+        <p class="mb-2"><strong>E-posta:</strong> info@ornek.com</p>
+        <p class="mb-2"><strong>Telefon:</strong> +90 5xx xxx xx xx</p>
+        <p class="mb-0"><strong>Adres:</strong> İstanbul / Türkiye</p>
+
+        <hr style="border-color: rgba(212,175,55,.22);">
+
+        <p class="opacity-75 mb-0">
+          Sipariş ve özel çalışmalar için kısa bir mesaj bırakman yeterli.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 reveal">
+      <div class="card p-4">
+        <h4 class="mb-3">Mesaj Gönder</h4>
+        <form method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Adınız</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Ad Soyad">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">E-posta</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="ornek@mail.com">
+          </div>
+
+          <div class="mb-3">
+            <label for="message" class="form-label">Mesajınız</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required placeholder="Ne yaptırmak istiyorsun? Ölçü, motif, foto vb."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold w-100">Gönder</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

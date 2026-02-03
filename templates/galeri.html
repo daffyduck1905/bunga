@@ -1,25 +1,115 @@
 <!-- galeri.html -->
-
 {% extends 'base.html' %}
-
 {% block title %}Koleksiyon{% endblock %}
 
 {% block content %}
-    <section class="container my-5">
-        <h1 class="text-center mb-5" style="font-family: 'Playfair Display', serif; color: #c0392b;">Koleksiyon</h1>
-        <div class="row">
-            {% for eser in eserler %}
-                <div class="col-md-4 mb-4">
-                    <div class="card hover-effect">
-                        <img src="{{ eser.image_url }}" class="card-img-top" alt="{{ eser.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ eser.title }}</h5>
-                            <p class="card-text">{{ eser.year }} - {{ eser.technique }} - {{ eser.size }}</p>
-                            <a href="/eser/{{ eser.slug }}" class="btn btn-outline-danger">Detay</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+<section class="container my-5">
+  <div class="section-title reveal">
+    <h2>Koleksiyon</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  {% if image_paths and image_paths|length > 0 %}
+    <div class="gallery-wrap">
+      <div class="gallery-grid reveal">
+        {% for path in image_paths %}
+          <button class="thumb" data-full="{{ url_for('static', filename=path) }}" aria-label="Eseri aç">
+            <img src="{{ url_for('static', filename=path) }}" alt="Eser {{ loop.index }}" loading="lazy">
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning mt-4">
+      Galeri klasöründe fotoğraf bulunamadı.
+      <br><b>static/gallery/eserler/</b> içine .jpg / .png / .webp dosyası atınca otomatik görünecek.
+    </div>
+  {% endif %}
+
+  <!-- İstersen alttaki eski “eserler kartları” da dursun diye bırakıyorum -->
+  {% if eserler and eserler|length > 0 %}
+  <hr class="my-5" style="border-color: rgba(212,175,55,.22);">
+  <div class="section-title reveal">
+    <h2>Seçili Eserler</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="row">
+    {% for eser in eserler %}
+      <div class="col-md-4 mb-4 reveal">
+        <div class="card hover-effect">
+          <img src="{{ eser.image_url }}" class="card-img-top" alt="{{ eser.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ eser.title }}</h5>
+            <p class="card-text opacity-75">{{ eser.year }} • {{ eser.technique }} • {{ eser.size }}</p>
+            <a href="{{ url_for('eser_detay', slug=eser.slug) }}" class="btn btn-outline-gold">Detay</a>
+          </div>
         </div>
-    </section>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lbClose" aria-label="Kapat">✕</button>
+  <button class="lightbox-nav prev" id="lbPrev" aria-label="Önceki">‹</button>
+  <img class="lightbox-img" id="lbImg" alt="Eser">
+  <button class="lightbox-nav next" id="lbNext" aria-label="Sonraki">›</button>
+</div>
+
+<script>
+(() => {
+  const thumbs = Array.from(document.querySelectorAll(".thumb"));
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const closeBtn = document.getElementById("lbClose");
+  const prevBtn = document.getElementById("lbPrev");
+  const nextBtn = document.getElementById("lbNext");
+
+  let index = -1;
+
+  function openAt(i) {
+    index = i;
+    const full = thumbs[index].dataset.full;
+    lbImg.src = full;
+    lb.classList.add("open");
+    lb.setAttribute("aria-hidden", "false");
+    document.body.classList.add("no-scroll");
+  }
+
+  function close() {
+    lb.classList.remove("open");
+    lb.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("no-scroll");
+    lbImg.src = "";
+  }
+
+  function prev() {
+    if (thumbs.length === 0) return;
+    openAt((index - 1 + thumbs.length) % thumbs.length);
+  }
+  function next() {
+    if (thumbs.length === 0) return;
+    openAt((index + 1) % thumbs.length);
+  }
+
+  thumbs.forEach((btn, i) => btn.addEventListener("click", () => openAt(i)));
+  closeBtn.addEventListener("click", close);
+  prevBtn.addEventListener("click", prev);
+  nextBtn.addEventListener("click", next);
+
+  lb.addEventListener("click", (e) => {
+    if (e.target === lb) close();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+})();
+</script>
 {% endblock %}

@@ -1,35 +1,48 @@
-<!-- eser_detay.html -->
-
+<!-- eserdetay.html -->
 {% extends 'base.html' %}
-
 {% block title %}{{ eser.title }}{% endblock %}
 
 {% block content %}
-    <section class="container my-5">
-        <h1 class="text-center mb-4" style="font-family: 'Playfair Display', serif; color: #c0392b;">{{ eser.title }}</h1>
-        
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <img src="{{ eser.image_url }}" class="img-fluid rounded shadow" alt="{{ eser.title }}" style="max-height: 80vh; object-fit: contain;">
-            </div>
+<section class="container my-5">
+  <div class="section-title reveal">
+    <h2>{{ eser.title }}</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="row justify-content-center reveal">
+    <div class="col-lg-10">
+      <div class="card p-3">
+        <img src="{{ eser.image_url }}" class="img-fluid rounded" alt="{{ eser.title }}" style="max-height: 78vh; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4 justify-content-center">
+    <div class="col-lg-10 reveal">
+      <div class="card p-4">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="opacity-75">Yıl</div>
+            <div class="fw-bold">{{ eser.year }}</div>
+          </div>
+          <div class="col-md-4">
+            <div class="opacity-75">Teknik</div>
+            <div class="fw-bold">{{ eser.technique }}</div>
+          </div>
+          <div class="col-md-4">
+            <div class="opacity-75">Boyut</div>
+            <div class="fw-bold">{{ eser.size }}</div>
+          </div>
         </div>
-        
-        <div class="row mt-4">
-            <div class="col-md-8 mx-auto">
-                <div class="card border-0">
-                    <div class="card-body p-0">
-                        <p><strong>Yıl:</strong> {{ eser.year }}</p>
-                        <p><strong>Teknik:</strong> {{ eser.technique }}</p>
-                        <p><strong>Boyut:</strong> {{ eser.size }}</p>
-                        <hr>
-                        <p class="lead">{{ eser.description }}</p>
-                    </div>
-                </div>
-                
-                <div class="mt-4 text-center">
-                    <a href="/galeri" class="btn btn-outline-danger">Koleksiyona Dön</a>
-                </div>
-            </div>
+        <hr style="border-color: rgba(212,175,55,.22);">
+        <p class="lead mb-0">{{ eser.description }}</p>
+
+        <div class="mt-4 d-flex gap-2 flex-wrap">
+          <a href="{{ url_for('galeri') }}" class="btn btn-outline-gold">Koleksiyona Dön</a>
+          <a href="{{ url_for('contact') }}" class="btn btn-gold">Bu Eser Hakkında Sor</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
