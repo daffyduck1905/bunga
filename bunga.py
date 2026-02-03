@@ -106,8 +106,9 @@ def contact():
             send_contact_email(full_name, email, phone, message)
             return redirect(url_for("contact", sent="1"))
         except Exception as e:
-            print("MAIL HATASI:", repr(e))
+            app.logger.exception("MAIL GONDERME HATASI")  # <-- bunu Error log/Server log'a basar
             return redirect(url_for("contact", sent="0"))
+
 
 
     return render_template("contact.html")
