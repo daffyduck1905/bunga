@@ -1,78 +1,68 @@
-<!-- galeri.html -->
 {% extends 'base.html' %}
-{% block title %}Koleksiyon{% endblock %}
+{% block title %}Koleksiyon | {{ artist.name }}{% endblock %}
 
 {% block content %}
 <section class="container my-5">
-  <div class="section-title reveal">
-    <h2>Koleksiyon</h2>
-    <div class="accent-line"></div>
+  <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+    <h1 class="mb-0" style="font-family:'Playfair Display',serif;">Koleksiyon</h1>
+    <span class="badge-gold">{{ images|length }} eser</span>
   </div>
 
-  {% if image_paths and image_paths|length > 0 %}
-    <div class="gallery-wrap">
-      <div class="gallery-grid reveal">
-        {% for path in image_paths %}
-          <button class="thumb" data-full="{{ url_for('static', filename=path) }}" aria-label="Eseri aç">
-            <img src="{{ url_for('static', filename=path) }}" alt="Eser {{ loop.index }}" loading="lazy">
-          </button>
-        {% endfor %}
-      </div>
+  {% if images and images|length > 0 %}
+    <div class="row">
+      {% for img in images %}
+        <div class="col-md-4 col-sm-6 mb-4">
+          <div class="card hover">
+            <img
+              src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+              class="card-img-top"
+              alt="{{ img }}"
+              style="cursor:pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#imgModal"
+              data-img="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+              data-name="{{ img }}"
+            >
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div class="small" style="color: rgba(255,255,255,.72)">{{ img }}</div>
+              <a class="btn-gold" href="/eser/{{ img }}">Detay</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   {% else %}
-    <div class="alert alert-warning mt-4">
-      Galeri klasöründe fotoğraf yok.
-      <br><b>static/gallery/eserler/</b> içine .jpg/.png/.webp atınca otomatik görünür.
+    <div class="alert alert-warning">
+      Galeri klasöründe fotoğraf yok. <b>static/gallery/eserler/</b> içine foto atınca otomatik çıkar.
     </div>
   {% endif %}
 </section>
 
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox-close" id="lbClose" aria-label="Kapat">✕</button>
-  <button class="lightbox-nav prev" id="lbPrev" aria-label="Önceki">‹</button>
-  <img class="lightbox-img" id="lbImg" alt="Eser">
-  <button class="lightbox-nav next" id="lbNext" aria-label="Sonraki">›</button>
+<!-- Lightbox Modal -->
+<div class="modal fade" id="imgModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title gold-grad" id="imgTitle">Eser</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="imgPreview" src="" class="img-fluid rounded" alt="preview" style="max-height:80vh; object-fit:contain;">
+      </div>
+    </div>
+  </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
-(() => {
-  const thumbs = Array.from(document.querySelectorAll(".thumb"));
-  const lb = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lbImg");
-  const closeBtn = document.getElementById("lbClose");
-  const prevBtn = document.getElementById("lbPrev");
-  const nextBtn = document.getElementById("lbNext");
-  let index = -1;
-
-  function openAt(i) {
-    index = i;
-    lbImg.src = thumbs[index].dataset.full;
-    lb.classList.add("open");
-    lb.setAttribute("aria-hidden", "false");
-    document.body.classList.add("no-scroll");
-  }
-  function close() {
-    lb.classList.remove("open");
-    lb.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("no-scroll");
-    lbImg.src = "";
-  }
-  function prev() { openAt((index - 1 + thumbs.length) % thumbs.length); }
-  function next() { openAt((index + 1) % thumbs.length); }
-
-  thumbs.forEach((btn, i) => btn.addEventListener("click", () => openAt(i)));
-  closeBtn.addEventListener("click", close);
-  prevBtn.addEventListener("click", prev);
-  nextBtn.addEventListener("click", next);
-
-  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
-
-  window.addEventListener("keydown", (e) => {
-    if (!lb.classList.contains("open")) return;
-    if (e.key === "Escape") close();
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
+  const modal = document.getElementById('imgModal');
+  modal.addEventListener('show.bs.modal', function (event) {
+    const img = event.relatedTarget;
+    const src = img.getAttribute('data-img');
+    const name = img.getAttribute('data-name');
+    document.getElementById('imgPreview').src = src;
+    document.getElementById('imgTitle').textContent = name || "Eser";
   });
-})();
 </script>
 {% endblock %}

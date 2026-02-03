@@ -1,117 +1,56 @@
-<!-- contact.html -->
 {% extends 'base.html' %}
-{% block title %}İletişim{% endblock %}
+{% block title %}İletişim | {{ artist.name }}{% endblock %}
 
 {% block content %}
-<style>
-  /* Bu sayfaya özel: focus'ta beyazlamayı engelle + yazıyı gold yap */
-  .contact-form .form-control,
-  .contact-form textarea.form-control{
-    background: rgba(255,255,255,.06) !important; /* tema sabit */
-    border: 1px solid rgba(255,255,255,.12) !important;
-    color: rgba(255,255,255,.90) !important;
-    border-radius: 14px;
-    transition: border-color .18s ease, box-shadow .18s ease;
-  }
-
-  .contact-form .form-control::placeholder{
-    color: rgba(255,255,255,.45);
-  }
-
-  .contact-form .form-control:focus,
-  .contact-form textarea.form-control:focus{
-    background: rgba(255,255,255,.06) !important; /* BEYAZ OLMAZ */
-    border-color: rgba(212,175,55,.55) !important;
-    box-shadow: 0 0 0 .25rem rgba(212,175,55,.20) !important;
-    outline: none !important;
-  }
-
-  /* Kullanıcı yazınca yazı GOLD GRADIENT */
-  .contact-form .form-control.has-text,
-  .contact-form textarea.form-control.has-text{
-    background: rgba(255,255,255,.06) !important;
-    background-image: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    color: transparent !important;
-    caret-color: rgba(212,175,55,.95) !important;
-  }
-
-  /* Autofill beyaz basmasın */
-  .contact-form input:-webkit-autofill,
-  .contact-form textarea:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
-    -webkit-text-fill-color: rgba(255,255,255,.90) !important;
-    transition: background-color 9999s ease-in-out 0s;
-  }
-</style>
-
 <section class="container my-5">
-  <div class="section-title reveal">
-    <h2>İletişim</h2>
-    <div class="accent-line"></div>
-  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="glass p-5">
+        <div class="text-center mb-4">
+          <h1 class="gold-grad mb-2">İletişim</h1>
+          <div style="color: rgba(255,255,255,.78);">İstersen doğrudan mail at, istersen formu kullan.</div>
+          <hr class="hr-gold">
+        </div>
 
-  <div class="row justify-content-center mt-2">
-    <div class="col-lg-7 col-md-9 reveal">
-      <div class="card p-4 contact-form">
-        <h4 class="mb-3">Mesaj Gönder</h4>
-        <p class="opacity-75 mb-4">
-          İstediğiniz çalışma hakkında kısa bilgi bırakın. Size en kısa sürede dönüş yapılır.
-        </p>
+        <div class="mb-4 text-center">
+          <span class="badge-gold">Mail: {{ artist.email }}</span>
+        </div>
 
-        {% if request.args.get("sent") == "1" %}
-          <div class="alert alert-success" style="background: rgba(255,255,255,.06); border-color: rgba(212,175,55,.25); color: rgba(255,255,255,.92);">
-            Mesajınız başarıyla gönderildi. Teşekkürler.
-          </div>
-        {% elif request.args.get("sent") == "0" %}
-          <div class="alert alert-warning" style="background: rgba(255,255,255,.06); border-color: rgba(212,175,55,.25); color: rgba(255,255,255,.92);">
-            Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin.
-          </div>
+        {% if request.args.get('sent') == '1' %}
+          <div class="alert alert-success">Mesaj alındı. Teşekkürler.</div>
         {% endif %}
 
         <form method="POST">
           <div class="mb-3">
-            <label for="full_name" class="form-label">Ad Soyad</label>
-            <input type="text" class="form-control" id="full_name" name="full_name" required placeholder="Adınız ve soyadınız">
+            <label class="form-label">Ad Soyad</label>
+            <input type="text" class="form-control" name="full_name" placeholder="Ad Soyad" required>
           </div>
 
           <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email" required placeholder="ornek@mail.com">
+            <label class="form-label">E-mail</label>
+            <input type="email" class="form-control" name="email" placeholder="ornek@mail.com" required>
           </div>
 
           <div class="mb-3">
-            <label for="phone" class="form-label">Telefon</label>
-            <input type="tel" class="form-control" id="phone" name="phone" required placeholder="+90 5xx xxx xx xx">
+            <label class="form-label">Telefon</label>
+            <input type="text" class="form-control" name="phone" placeholder="+90 ..." required>
           </div>
 
           <div class="mb-3">
-            <label for="message" class="form-label">Hayalinizdeki çalışmayı ve varsa referansları buraya yazınız.</label>
-            <textarea class="form-control" id="message" name="message" rows="6" required
-              placeholder="Örn: Portre oyma, ölçü, kullanılacak motif, varsa referans foto vb."></textarea>
+            <label class="form-label">Ne istiyorsunuz?</label>
+            <textarea class="form-control" name="message" rows="6"
+              placeholder="İstediğiniz çalışmayı / ölçüleri / örnek fikri yazın..." required></textarea>
           </div>
 
-          <button type="submit" class="btn btn-gold w-100">Gönder</button>
+          <button class="btn-gold w-100" type="submit">Gönder</button>
         </form>
+
+        <div class="mt-4 small" style="color: rgba(255,255,255,.68);">
+          Not: Form şu an sadece “talep iletildi” diye kayıt/mesaj gönderiyor. İstersen bir sonraki adımda
+          (SMTP değil) HTTPS üzerinden mail API ile gerçek gönderime bağlarız.
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  // Yazı yazınca "has-text" -> yazı gold gradient
-  (() => {
-    const fields = document.querySelectorAll('.contact-form .form-control');
-    const toggle = (el) => {
-      if ((el.value || '').trim().length > 0) el.classList.add('has-text');
-      else el.classList.remove('has-text');
-    };
-    fields.forEach(el => {
-      toggle(el);
-      el.addEventListener('input', () => toggle(el));
-      el.addEventListener('blur', () => toggle(el));
-    });
-  })();
-</script>
 {% endblock %}
