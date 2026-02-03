@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Gelen Mesajlar{% endblock %}
+
+{% block content %}
+<section class="container my-5">
+  <h2 class="mb-4">📩 Gelen Mesajlar</h2>
+
+  {% if messages %}
+    {% for m in messages %}
+      <div class="card mb-3 p-3">
+        <strong>{{ m.full_name }}</strong> – {{ m.date }}<br>
+        <small>{{ m.email }} | {{ m.phone }}</small>
+        <hr>
+        <p>{{ m.message }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Henüz mesaj yok.</p>
+  {% endif %}
+</section>
+{% endblock %}
