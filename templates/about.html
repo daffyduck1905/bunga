@@ -88,14 +88,12 @@
       <div class="col-lg-10">
         <div class="bio-card reveal">
 
-          <!-- HEADER -->
           <div class="text-center mb-5">
             <h1 class="display-3 bio-header">Fatih Bakır</h1>
             <p class="bio-subtitle">Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı</p>
             <hr style="width:120px;margin:22px auto;border-top:3px solid #D4AF37;">
           </div>
 
-          <!-- BIO -->
           <div class="bio-body-text">
             Fatih Bakır, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
             yorumlayan, eserlerinde sabır, emek ve ustalığı merkeze alan bir sanatçıdır.
@@ -123,7 +121,6 @@
             Eserleri, izleyiciye sabrın ve el emeğinin değerini hatırlatmayı amaçlar.
           </div>
 
-          <!-- EDUCATION -->
           <div class="info-box">
             <h5>Eğitim</h5>
             <p><strong>Üniversite:</strong> Eskişehir Üniversitesi</p>
@@ -132,10 +129,9 @@
               bireysel çalışmalarla geliştirmiştir.</p>
           </div>
 
-          <!-- ACTIONS -->
           <div class="bio-actions">
             <a href="{{ url_for('galeri') }}" class="btn btn-gold">Eserleri Gör</a>
-            <a href="{{ url_for('contact') }}" class="btn btn-outline-gold">İletişime Geç</a>
+            <a href="mailto:{{ artist.email }}" class="btn btn-outline-gold">Mail Gönder</a>
           </div>
 
         </div>
