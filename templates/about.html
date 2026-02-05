@@ -2,6 +2,14 @@
 {% block title %}Biyografi | Fatih Bakır{% endblock %}
 
 {% block content %}
+
+<!-- Büyük Logo -->
+<div class="page-logo">
+  <img src="{{ url_for('static', filename='logo.png') }}"
+       alt="Fatih Bakır Logo"
+       class="page-logo-img">
+</div>
+
 <style>
   .bio-section {
     position: relative;
@@ -131,7 +139,7 @@
 
           <div class="bio-actions">
             <a href="{{ url_for('galeri') }}" class="btn btn-gold">Eserleri Gör</a>
-            <a href="mailto:{{ artist.email }}" class="btn btn-outline-gold">Mail Gönder</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-outline-gold">İletişime Geç</a>
           </div>
 
         </div>

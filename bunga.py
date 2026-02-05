@@ -13,9 +13,9 @@ artist = {
     "name": "Fatih Bakır",
     "title": "Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı",
     "email": "fatihbakir23@outlook.com",
-    "instagram": "fhtbkr",   # DÜZELTİLDİ
+    "instagram": "fhtbkr",  # DÜZELTİLDİ
+    "profile_photo": ""
 }
-
 
 
 def list_gallery_files():
@@ -33,22 +33,24 @@ def list_gallery_files():
     return files
 
 
-def files_to_paths(files):
-    """Dosya adlarını url_for('static', filename=...) için path'e çevirir."""
+def list_gallery_paths():
+    """url_for('static', filename=...) ile kullanılacak path listesi: gallery/eserler/001.jpg"""
+    files = list_gallery_files()
     return [f"gallery/eserler/{f}" for f in files]
 
 
 @app.route("/")
 def index():
-    files = list_gallery_files()
-    featured_paths = files_to_paths(files)[:6]
+    image_paths = list_gallery_paths()
+    featured_paths = image_paths[:6]  # index.html bunu bekliyor
     return render_template("index.html", artist=artist, featured_paths=featured_paths)
 
 
 @app.route("/galeri")
 def galeri():
-    files = list_gallery_files()
-    return render_template("galeri.html", artist=artist, images=files)
+    # galeri.html dosya adlarını "images" olarak bekliyor
+    images = list_gallery_files()
+    return render_template("galeri.html", artist=artist, images=images)
 
 
 @app.route("/eser/<filename>")

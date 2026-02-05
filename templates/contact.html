@@ -2,6 +2,14 @@
 {% block title %}İletişim | {{ artist.name }}{% endblock %}
 
 {% block content %}
+
+<!-- Büyük Logo -->
+<div class="page-logo">
+  <img src="{{ url_for('static', filename='logo.png') }}"
+       alt="Fatih Bakır Logo"
+       class="page-logo-img">
+</div>
+
 <section class="section-pad">
   <div class="container">
     <div class="section-title reveal">
@@ -11,42 +19,18 @@
 
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="glass p-5 reveal">
-          <div class="text-center mb-4">
-            <h3 class="gold-grad mb-2" style="letter-spacing:.6px;">Ulaşmak için</h3>
-            <div style="color: rgba(255,255,255,.72);">
-              Sipariş, fiyat, özel çalışma ve iş birliği için aşağıdaki kanallardan ulaşabilirsiniz.
-            </div>
-          </div>
+        <div class="glass p-5 reveal text-center">
+          <p class="mb-4" style="color: rgba(255,255,255,.78); line-height: 1.8;">
+            Sipariş, özel çalışma ve iş birlikleri için aşağıdaki kanallardan ulaşabilirsiniz.
+          </p>
 
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="card p-4 h-100 hover-effect">
-                <div class="gold-grad" style="font-family:'Playfair Display',serif; font-size:1.2rem;">E-posta</div>
-                <div class="mt-2" style="color: rgba(255,255,255,.78);">{{ artist.email }}</div>
-                <div class="mt-3">
-                  <a class="btn btn-gold w-100" href="mailto:{{ artist.email }}">Mail Gönder</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="card p-4 h-100 hover-effect">
-                <div class="gold-grad" style="font-family:'Playfair Display',serif; font-size:1.2rem;">Instagram</div>
-                <div class="mt-2" style="color: rgba(255,255,255,.78);">@{{ artist.instagram }}</div>
-                <div class="mt-3">
-                  <a class="btn btn-outline-gold w-100"
-                     href="https://instagram.com/{{ artist.instagram }}"
-                     target="_blank" rel="noopener">
-                    Instagram'a Git
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 text-center" style="color: rgba(255,255,255,.65); font-size:.95rem;">
-            Not: Paylaşmak istediğiniz görsel/örnek varsa mail üzerinden gönderebilirsiniz.
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a class="btn btn-gold" href="mailto:{{ artist.email }}">E-posta</a>
+            <a class="btn btn-outline-gold"
+               href="https://instagram.com/{{ artist.instagram }}"
+               target="_blank" rel="noopener">
+              Instagram (@{{ artist.instagram }})
+            </a>
           </div>
 
         </div>
@@ -54,4 +38,5 @@
     </div>
   </div>
 </section>
+
 {% endblock %}
