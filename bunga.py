@@ -13,8 +13,9 @@ artist = {
     "name": "Fatih Bakır",
     "title": "Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı",
     "email": "fatihbakir23@outlook.com",
-    "instagram": "fthbkr",
+    "instagram": "fhtbkr",   # DÜZELTİLDİ
 }
+
 
 
 def list_gallery_files():
