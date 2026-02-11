@@ -191,9 +191,10 @@
     <div class="col-md-4 mb-4 reveal">
       <div class="card hover-effect">
         <a href="{{ url_for('galeri') }}" class="text-decoration-none">
-          <img src="{{ url_for('static', filename=path) }}"
-               class="card-img-top"
-               alt="Öne çıkan eser {{ loop.index }}">
+          <img src="{{ url_for('static', filename=path) }}?v={{ config.VERSION }}"
+            class="card-img-top"
+            alt="Öne çıkan eser {{ loop.index }}">
+
         </a>
       </div>
     </div>
