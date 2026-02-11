@@ -3,7 +3,6 @@ import time
 from flask import Flask, render_template, abort, request
 
 app = Flask(__name__)
-app.config["VERSION"] = "1.0.2"
 
 # Flask static cache'i kapat (dev gibi davran)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
