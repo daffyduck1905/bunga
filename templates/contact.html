@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}İletişim | {{ artist.name }}{% endblock %}
+
+{% block content %}
+
+<!-- Büyük Logo -->
+<div class="page-logo">
+  <img src="{{ url_for('static', filename='logo.png') }}"
+       alt="Fatih Bakır Logo"
+       class="page-logo-img">
+</div>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>İletişim</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="glass p-5 reveal text-center">
+          <p class="mb-4" style="color: rgba(255,255,255,.78); line-height: 1.8;">
+            Sipariş, özel çalışma ve iş birlikleri için aşağıdaki kanallardan ulaşabilirsiniz.
+          </p>
+
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a class="btn btn-gold" href="mailto:{{ artist.email }}">E-posta</a>
+            <a class="btn btn-outline-gold"
+               href="https://instagram.com/{{ artist.instagram }}"
+               target="_blank" rel="noopener">
+              Instagram (@{{ artist.instagram }})
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

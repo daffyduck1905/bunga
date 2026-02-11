@@ -1,0 +1,234 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %}Ana Sayfa | Fatih Bakır{% endblock %}
+
+{% block content %}
+
+<div id="heroCarousel" class="carousel slide carousel-hero" data-bs-ride="carousel" data-bs-interval="4500">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="3"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active"
+      style="background-image:url('https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1562000/1562272.jpg');">
+      <div class="carousel-caption text-center fb-reveal">
+        <div class="hero-line"></div>
+        <h1 class="mb-2">Ahşapta Sabır, Altında Asalet</h1>
+        <p class="mb-3">Her eser tek ve eşsizdir. Oyma sanatı, altın varak ve el işçiliğinin birleştiği zamansız bir koleksiyon.</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+          <a class="btn btn-gold" href="{{ url_for('galeri') }}">Koleksiyona Git</a>
+          <a class="btn btn-outline-gold" href="{{ url_for('contact') }}">İletişime Geç</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-item"
+      style="background-image:url('https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1562000/1562273.jpg');">
+      <div class="carousel-caption text-center fb-reveal">
+        <div class="hero-line"></div>
+        <h1 class="mb-2">Gelenekten Geleceğe</h1>
+        <p class="mb-3">Ustalıkla seçilen ağaç, incelikli oyma ve varak dokunuşları… Her detay bir hikâye.</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+          <a class="btn btn-gold" href="{{ url_for('about') }}">Sanatçıyı Tanı</a>
+          <a class="btn btn-soft" href="{{ url_for('galeri') }}">Öne Çıkanlar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-item"
+      style="background-image:url('https://isbh.tmgrup.com.tr/sbh/2021/06/05/650x344/elazigli-ressamin-yaptigi-ahsap-oymaciligi-ve-alti-1622880918663.jpg');">
+      <div class="carousel-caption text-center fb-reveal">
+        <div class="hero-line"></div>
+        <h1 class="mb-2">Sipariş Üzerine Özel Çalışma</h1>
+        <p class="mb-3">Resme göre oyma, motif, isim ve özel kompozisyonlar — tamamen sana özel.</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+          <a class="btn btn-gold" href="{{ url_for('contact') }}">Sipariş Sor</a>
+          <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}">Galeriye Bak</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Önceki">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Sonraki">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<section class="section-pad">
+  <div class="container">
+    <!-- BURADA reveal -> scroll-reveal -->
+    <div class="section-title scroll-reveal">
+      <h2>Ustalık Süreci</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- 1 -->
+      <div class="col-md-3 scroll-reveal">
+        <div class="card p-4 h-100">
+          <h5 class="mb-2"
+              style="
+                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              ">
+            1) Seçim
+          </h5>
+
+          <p class="mb-0"
+             style="
+               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+               -webkit-background-clip: text;
+               background-clip: text;
+               color: transparent;
+               opacity: .95;
+             ">
+            Uygun ağaç ve form seçilir, yüzey hazırlanır.
+          </p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="col-md-3 scroll-reveal">
+        <div class="card p-4 h-100">
+          <h5 class="mb-2"
+              style="
+                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              ">
+            2) Oyma
+          </h5>
+
+          <p class="mb-0"
+             style="
+               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+               -webkit-background-clip: text;
+               background-clip: text;
+               color: transparent;
+               opacity: .95;
+             ">
+            Motif/portre tasarıma göre sabırla işlenir.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="col-md-3 scroll-reveal">
+        <div class="card p-4 h-100">
+          <h5 class="mb-2"
+              style="
+                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              ">
+            3) Varak
+          </h5>
+
+          <p class="mb-0"
+             style="
+               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+               -webkit-background-clip: text;
+               background-clip: text;
+               color: transparent;
+               opacity: .95;
+             ">
+            Altın varak uygulamasıyla asil bir parlaklık kazanır.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="col-md-3 scroll-reveal">
+        <div class="card p-4 h-100">
+          <h5 class="mb-2"
+              style="
+                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              ">
+            4) Son Dokunuş
+          </h5>
+
+          <p class="mb-0"
+             style="
+               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+               -webkit-background-clip: text;
+               background-clip: text;
+               color: transparent;
+               opacity: .95;
+             ">
+            Koruma/son işlem ve sunum için hazır hale gelir.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="background: rgba(255,255,255,.02); border-top: 1px solid rgba(212,175,55,.10); border-bottom: 1px solid rgba(212,175,55,.10);">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Öne Çıkan Eserler</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    {% if featured_paths and featured_paths|length > 0 %}
+<div class="row">
+  {% for path in featured_paths %}
+    <div class="col-md-4 mb-4 reveal">
+      <div class="card hover-effect">
+        <a href="{{ url_for('galeri') }}" class="text-decoration-none">
+          <img src="{{ url_for('static', filename=path) }}"
+               class="card-img-top"
+               alt="Öne çıkan eser {{ loop.index }}">
+        </a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+    {% else %}
+      <div class="alert alert-warning">
+        Henüz fotoğraf yok. <b>static/gallery/eserler/</b> içine foto ekleyince burada da çıkacak.
+      </div>
+    {% endif %}
+
+    <div class="text-center mt-3 reveal">
+      <a class="btn btn-gold" href="{{ url_for('galeri') }}">Tüm Koleksiyon</a>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var items = document.querySelectorAll(".scroll-reveal, .reveal");
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("scroll-visible");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  items.forEach(function(el){
+    observer.observe(el);
+  });
+});
+</script>
+
+
+{% endblock %}

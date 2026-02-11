@@ -1,0 +1,480 @@
+:root{
+  --gold:#D4AF37;
+  --gold2:#f1d77a;
+  --gold3:#b88a1c;
+
+  --bg0:#070708;
+  --bg1:#0e0e10;
+
+  --txt:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.72);
+
+  --line: rgba(212,175,55,.18);
+  --glass: rgba(0,0,0,.36);
+}
+
+/* =========================
+   GLOBAL (RENK ZORLAMA)
+========================= */
+*{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  font-family:'Lato',sans-serif;
+  color:var(--txt);
+  background:
+    radial-gradient(1100px 600px at 20% 0%, rgba(212,175,55,.12), transparent 60%),
+    radial-gradient(900px 550px at 80% 0%, rgba(241,215,122,.10), transparent 62%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  min-height:100vh;
+}
+
+h1,h2,h3,h4,h5,h6,.navbar-brand{
+  font-family:'Playfair Display',serif;
+}
+
+a{ color: inherit; text-decoration: none; }
+a:hover{ color: var(--gold2); }
+
+/* Bootstrap bazı yerlerde bg-white / text-dark basabiliyor, ezelim */
+.bg-white{ background: transparent !important; }
+.text-dark{ color: var(--txt) !important; }
+.text-black{ color: var(--txt) !important; }
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar{
+  border-bottom:1px solid var(--line);
+  background: rgba(0,0,0,.55) !important;
+  backdrop-filter: blur(12px);
+}
+
+.navbar .nav-link{
+  color: rgba(255,255,255,.88) !important;
+  opacity: .92;
+}
+
+.navbar .nav-link:hover{
+  color: var(--gold2) !important;
+}
+
+.nav-logo{
+  height:32px;
+  width:auto;
+  display:block;
+  opacity:.98;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer{
+  background: rgba(0,0,0,.55) !important;
+  border-top: 1px solid var(--line);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-gold{
+  border:1px solid rgba(212,175,55,.55) !important;
+  background: rgba(212,175,55,.10) !important;
+  color: rgba(255,255,255,.94) !important;
+  border-radius: 14px !important;
+  padding: 10px 16px !important;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+
+.btn-gold:hover{
+  transform: translateY(-1px);
+  background: rgba(212,175,55,.16) !important;
+  border-color: rgba(241,215,122,.85) !important;
+  color: rgba(255,255,255,.98) !important;
+}
+
+.btn-outline-gold{
+  border:1px solid rgba(212,175,55,.55) !important;
+  background: transparent !important;
+  color: rgba(255,255,255,.90) !important;
+  border-radius: 14px !important;
+  padding: 10px 16px !important;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+
+.btn-outline-gold:hover{
+  transform: translateY(-1px);
+  background: rgba(212,175,55,.10) !important;
+  border-color: rgba(241,215,122,.85) !important;
+}
+
+.btn-soft{
+  border:1px solid rgba(255,255,255,.22) !important;
+  background: rgba(255,255,255,.06) !important;
+  color: rgba(255,255,255,.92) !important;
+  border-radius: 14px !important;
+  padding: 10px 16px !important;
+}
+
+.btn-soft:hover{
+  background: rgba(255,255,255,.10) !important;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card{
+  border:1px solid rgba(212,175,55,.16);
+  background: rgba(255,255,255,.04) !important;
+  border-radius: 18px;
+  overflow:hidden;
+  box-shadow: 0 16px 44px rgba(0,0,0,.34);
+  color: var(--txt);
+}
+
+.card-body, .card-title, .card-text{
+  color: var(--txt) !important;
+}
+
+.hover-effect{
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.hover-effect:hover{
+  transform: translateY(-4px);
+  border-color: rgba(212,175,55,.35);
+  box-shadow: 0 26px 70px rgba(0,0,0,.46);
+}
+
+.hover{
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.hover:hover{
+  transform: translateY(-4px);
+  border-color: rgba(212,175,55,.35);
+  box-shadow: 0 26px 70px rgba(0,0,0,.46);
+}
+
+.card-img-top{
+  height: 240px;
+  object-fit: cover;
+}
+
+/* =========================
+   SECTIONS / TITLES
+========================= */
+.section-pad{ padding: 70px 0; }
+
+.section-title{
+  text-align:center;
+  margin-bottom: 34px;
+}
+.section-title h2{
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  color: var(--txt);
+}
+
+.accent-line{
+  width: 120px;
+  height: 3px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+  opacity: .95;
+}
+
+/* =========================
+   HERO CAROUSEL
+========================= */
+.carousel-hero .carousel-item{
+  min-height: 85vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* overlay */
+.carousel-hero .carousel-item::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 500px at 50% 25%, rgba(212,175,55,.14), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.80));
+}
+
+/* caption */
+.carousel-hero .carousel-caption{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  max-width: 920px;
+  width: calc(100% - 36px);
+  padding: 42px 26px;
+  background: rgba(0,0,0,.34);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.55);
+}
+
+.carousel-hero .carousel-caption h1{
+  color: var(--txt) !important;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 10px;
+}
+
+.carousel-hero .carousel-caption p{
+  color: rgba(255,255,255,.78) !important;
+  line-height: 1.75;
+}
+
+.hero-line{
+  width: 120px;
+  height: 3px;
+  margin: 0 auto 18px auto;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,.6));
+}
+
+/* =========================
+   FORMS (Beyaz focus'ı kapat)
+========================= */
+label, .form-label{ color: rgba(255,255,255,.82) !important; }
+
+.form-control{
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(212,175,55,.18) !important;
+  color: rgba(255,255,255,.92) !important;
+  border-radius: 14px !important;
+}
+
+.form-control::placeholder{
+  color: rgba(255,255,255,.55) !important;
+}
+
+.form-control:focus{
+  background: rgba(255,255,255,.04) !important; /* BEYAZ OLMASIN */
+  box-shadow: 0 0 0 .2rem rgba(212,175,55,.14) !important;
+  border-color: rgba(241,215,122,.75) !important;
+  color: var(--gold2) !important; /* Yazı gold */
+}
+
+/* =========================
+   ALERTS (Beyaz arka planı kapat)
+========================= */
+.alert{
+  border-radius: 14px;
+  border: 1px solid rgba(212,175,55,.22) !important;
+  background: rgba(0,0,0,.35) !important;
+  color: rgba(255,255,255,.88) !important;
+}
+
+.alert-warning{
+  border-color: rgba(241,215,122,.35) !important;
+  background: rgba(241,215,122,.08) !important;
+  color: rgba(255,255,255,.90) !important;
+}
+
+.alert-success{
+  border-color: rgba(90, 200, 120, .35) !important;
+  background: rgba(90, 200, 120, .08) !important;
+  color: rgba(255,255,255,.90) !important;
+}
+
+/* =========================
+   MODAL (Beyaz içerik kapat)
+========================= */
+.modal-content{
+  background: rgba(0,0,0,.78) !important;
+  border: 1px solid rgba(212,175,55,.22) !important;
+  border-radius: 18px !important;
+  color: var(--txt) !important;
+}
+.modal-header, .modal-body{
+  color: var(--txt) !important;
+}
+
+/* =========================
+   GLASS + BADGE + GRAD TEXT
+========================= */
+.glass{
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.55);
+}
+
+.gold-grad{
+  background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.badge-gold{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212,175,55,.35);
+  background: rgba(212,175,55,.08);
+  color: rgba(255,255,255,.90);
+}
+
+/* =========================
+   PAGE LOGO (Büyük logo)
+========================= */
+.page-logo{
+  display:flex;
+  justify-content:center;
+  margin-top: 34px;
+  margin-bottom: 26px;
+}
+.page-logo-img{
+  height: 110px;
+  width:auto;
+  opacity:.98;
+  filter: drop-shadow(0 18px 35px rgba(0,0,0,.65));
+}
+@media (max-width: 768px){
+  .page-logo-img{ height: 82px; }
+}
+
+/* =========================
+   PREMIUM HERO ANIMATIONS (EKLENDİ)
+========================= */
+
+/* A) AÇILIŞ SLIDE-IN */
+@keyframes fb-slide-in{
+  0% { transform: translateY(26px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* B) AÇILIŞ ZOOM-IN */
+@keyframes fb-zoom-in{
+  0% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* C) SÜREKLİ ÇOK YAVAŞ DRIFT */
+@keyframes fb-drift{
+  0%   { transform: translate3d(0,0,0) scale(1.03); }
+  50%  { transform: translate3d(10px,-10px,0) scale(1.04); }
+  100% { transform: translate3d(0,0,0) scale(1.03); }
+}
+
+/* Drift layer: background-image inline olduğundan 'inherit' ile alıyoruz */
+.carousel-hero .carousel-item{
+  overflow:hidden;
+}
+
+.carousel-hero .carousel-item::after{
+  content:"";
+  position:absolute;
+  inset:-22px;
+  background: inherit;                 /* inline background-image’i alır */
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: fb-drift 18s ease-in-out infinite, fb-zoom-in 1.2s ease-out both;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Overlay üstte kalsın */
+.carousel-hero .carousel-item::before{
+  z-index: 1;
+}
+
+/* Caption önde kalsın */
+.carousel-hero .carousel-caption{
+  z-index: 2;
+}
+
+/* Caption içeriği slide-in (stagger) */
+.fb-reveal > *{
+  animation: fb-slide-in 1.15s cubic-bezier(0,0,.2,1) both;
+}
+
+.fb-reveal > *:nth-child(1){ animation-delay: .10s; }
+.fb-reveal > *:nth-child(2){ animation-delay: .22s; }
+.fb-reveal > *:nth-child(3){ animation-delay: .34s; }
+.fb-reveal > *:nth-child(4){ animation-delay: .46s; }
+
+/* Hareket azalt tercihinde kapat */
+@media (prefers-reduced-motion: reduce){
+  .carousel-hero .carousel-item::after,
+  .fb-reveal > *{
+    animation:none !important;
+    transform:none !important;
+  }
+}
+/* =======================================================
+   TEK REVEAL SİSTEMİ (BLUR + SLIDE) - FINAL
+======================================================= */
+
+/* Başlangıç hali */
+.reveal,
+.scroll-reveal,
+.fb-reveal > *{
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(40px);
+}
+
+/* Hero içi: otomatik (sayfa açılışında) */
+.fb-reveal > *{
+  animation: fb-ultra-blur 1.2s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* Hero stagger */
+.fb-reveal > *:nth-child(1){ animation-delay:.15s; }
+.fb-reveal > *:nth-child(2){ animation-delay:.35s; }
+.fb-reveal > *:nth-child(3){ animation-delay:.55s; }
+.fb-reveal > *:nth-child(4){ animation-delay:.75s; }
+
+/* Scroll görünür olunca */
+.scroll-visible{
+  animation: fb-ultra-blur 1s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* Keyframes */
+@keyframes fb-ultra-blur{
+  0%{
+    opacity:0;
+    filter: blur(14px);
+    transform: translateY(40px) scale(0.98);
+  }
+  60%{
+    filter: blur(4px);
+  }
+  100%{
+    opacity:1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .reveal,
+  .scroll-reveal,
+  .fb-reveal > *,
+  .scroll-visible{
+    animation:none !important;
+    transform:none !important;
+    filter:none !important;
+    opacity:1 !important;
+  }
+}
+
