@@ -21,9 +21,10 @@
         <div class="col-md-4 col-sm-6 mb-4">
           <div class="card hover-effect">
             <a href="/eser/{{ img }}" class="text-decoration-none">
-          <img src="{{ url_for('static', filename=path) }}?v={{ config.VERSION }}"
-            class="card-img-top"
-            alt="Öne Çıkan Eserler {{ loop.index }}">
+              <img
+                src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+                class="card-img-top"
+                alt="Eser"
               >
             </a>
           </div>
