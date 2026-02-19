@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Ana Sayfa | Fatih Bakır{% endblock %}
+
+{% block content %}
+
+<div id="heroCarousel" class="carousel slide">
+  <div class="container hero-wrap">
+
+    <div class="hero-card scroll-reveal">
+      <div class="hero-inner">
+
+        <div class="hero-text">
+          <h1>{{ artist.name }}</h1>
+          <p>{{ artist.title }}</p>
+
+          <div class="hero-badges">
+            <div class="badge-pill">Ahşap Oyma</div>
+            <div class="badge-pill">Altın Varak</div>
+            <div class="badge-pill">Tarih Temalı Eserler</div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a class="btn btn-gold" href="{{ url_for('galeri') }}">Galeri</a>
+            <a class="btn btn-outline-gold" href="{{ url_for('about') }}">Hakkında</a>
+            <a class="btn btn-outline-gold" href="{{ url_for('contact') }}">İletişim</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          {% if featured_paths and featured_paths|length > 0 %}
+            <img src="{{ url_for('static', filename=featured_paths[0]) }}?v={{ asset_version }}" alt="Öne Çıkan Eser">
+          {% else %}
+            <img src="{{ url_for('static', filename='brand/logo.png') }}?v={{ asset_version }}" alt="Logo">
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="container my-5">
+  <div class="section-title scroll-reveal">
+    <h2>Öne Çıkan Eserler</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  {% if featured_paths and featured_paths|length > 0 %}
+    <div class="row">
+      {% for path in featured_paths %}
+        {% set filename = path.rsplit("/", 1)[-1] %}
+        <div class="col-md-4 mb-4 scroll-reveal">
+          <div class="card hover-effect">
+            <a href="{{ url_for('eser_detay', filename=filename) }}">
+              <img src="{{ url_for('static', filename=path) }}?v={{ asset_version }}"
+                   class="card-img-top"
+                   alt="Eser {{ loop.index }}">
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      Henüz galeriye eser eklenmemiş. <b>static/gallery/eserler/</b> içine görsel koyunca otomatik çıkar.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4 scroll-reveal">
+    <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}">Tüm Koleksiyon</a>
+  </div>
+</section>
+
+{% endblock %}

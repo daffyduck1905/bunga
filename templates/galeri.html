@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Galeri | Fatih Bakır{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="page-logo scroll-reveal">
+    <img class="page-logo-img" src="{{ url_for('static', filename='brand/logo.png') }}?v={{ asset_version }}" alt="Logo">
+  </div>
+
+  <div class="section-title scroll-reveal">
+    <h2>Galeri</h2>
+    <div class="accent-line"></div>
+  </div>
+
+  {% if image_paths and image_paths|length > 0 %}
+    <div class="row">
+      {% for path in image_paths %}
+        {% set filename = path.rsplit("/", 1)[-1] %}
+        <div class="col-md-4 mb-4 scroll-reveal">
+          <div class="card hover-effect">
+            <a href="{{ url_for('eser_detay', filename=filename) }}">
+              <img src="{{ url_for('static', filename=path) }}?v={{ asset_version }}"
+                   class="card-img-top"
+                   alt="Eser {{ loop.index }}">
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      Galeri klasöründe fotoğraf yok. <b>static/gallery/eserler/</b> içine görsel koyunca otomatik çıkar.
+    </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}
