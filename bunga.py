@@ -17,7 +17,11 @@ artist = {
     "title": "Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı",
     "email": "fatihbakir23@outlook.com",
     "instagram": "fhtbkr",
-    "profile_photo": ""
+    "profile_photo": "",
+    # About sayfasında kullanılıyor
+    "bio_long": "Buraya sanatçının uzun biyografisini yazabilirsin.",
+    "university": "—",
+    "department": "—",
 }
 
 
@@ -45,27 +49,23 @@ def compute_cache_buster():
     """
     Cache'i öldürmek için:
     - klasörde dosya varsa en yeni dosyanın mtime'ını kullan
-    - yoksa time.time() kullan
+    - yoksa time() kullan
     """
-    try:
-        files = list_gallery_files()
-        if not files:
-            return int(time.time())
-
-        latest = 0
-        for fn in files:
-            p = os.path.join(GALLERY_DIR, fn)
-            latest = max(latest, int(os.path.getmtime(p)))
-        return latest
-    except Exception:
+    if not os.path.isdir(GALLERY_DIR):
         return int(time.time())
+
+    latest = 0
+    for fn in os.listdir(GALLERY_DIR):
+        full = os.path.join(GALLERY_DIR, fn)
+        if os.path.isfile(full):
+            latest = max(latest, int(os.path.getmtime(full)))
+
+    return latest or int(time.time())
 
 
 @app.after_request
 def add_no_cache_headers(resp):
-    """
-    HTML sayfaların cache'ini kapat (tarayıcı eski sayfayı göstermesin).
-    """
+    # Tarayıcı cache'i agresifse bile güncellesin
     resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
     resp.headers["Pragma"] = "no-cache"
     resp.headers["Expires"] = "0"
@@ -80,19 +80,21 @@ def index():
         "index.html",
         artist=artist,
         featured_paths=featured_paths,
-        cache_buster=cache_buster
+        cache_buster=cache_buster,
+        asset_version=cache_buster,
     )
 
 
 @app.route("/galeri")
 def galeri():
-    images = list_gallery_files()
+    image_paths = list_gallery_paths()
     cache_buster = compute_cache_buster()
     return render_template(
         "galeri.html",
         artist=artist,
-        images=images,
-        cache_buster=cache_buster
+        image_paths=image_paths,
+        cache_buster=cache_buster,
+        asset_version=cache_buster,
     )
 
 
@@ -106,25 +108,53 @@ def eser_detay(filename):
     if not os.path.isfile(full_path):
         abort(404)
 
+    files = list_gallery_files()
+    prev_filename = None
+    next_filename = None
+    try:
+        i = files.index(filename)
+        if i > 0:
+            prev_filename = files[i - 1]
+        if i < len(files) - 1:
+            next_filename = files[i + 1]
+    except ValueError:
+        pass
+
     cache_buster = compute_cache_buster()
+    image_path = f"gallery/eserler/{filename}"
+
     return render_template(
         "eserdetay.html",
         artist=artist,
         filename=filename,
-        cache_buster=cache_buster
+        image_path=image_path,
+        prev_filename=prev_filename,
+        next_filename=next_filename,
+        cache_buster=cache_buster,
+        asset_version=cache_buster,
     )
 
 
 @app.route("/hakkinda")
 def about():
     cache_buster = compute_cache_buster()
-    return render_template("about.html", artist=artist, cache_buster=cache_buster)
+    return render_template(
+        "about.html",
+        artist=artist,
+        cache_buster=cache_buster,
+        asset_version=cache_buster,
+    )
 
 
 @app.route("/iletisim")
 def contact():
     cache_buster = compute_cache_buster()
-    return render_template("contact.html", artist=artist, cache_buster=cache_buster)
+    return render_template(
+        "contact.html",
+        artist=artist,
+        cache_buster=cache_buster,
+        asset_version=cache_buster,
+    )
 
 
 if __name__ == "__main__":
