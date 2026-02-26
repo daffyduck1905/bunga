@@ -1,6 +1,5 @@
-about.html
 {% extends 'base.html' %}
-{% block title %}Biyografi | Fatih Bakır{% endblock %}
+{% block title %}Biyografi | {{ artist.name }}{% endblock %}
 
 {% block content %}
 <style>
@@ -91,14 +90,14 @@ about.html
 
           <!-- HEADER -->
           <div class="text-center mb-5">
-            <h1 class="display-3 bio-header">Fatih Bakır</h1>
-            <p class="bio-subtitle">Geleneksel Ahşap Oyma ve Altın Varak Sanatçısı</p>
+            <h1 class="display-3 bio-header">{{ artist.name }}</h1>
+            <p class="bio-subtitle">{{ artist.title }}</p>
             <hr style="width:120px;margin:22px auto;border-top:3px solid #D4AF37;">
           </div>
 
           <!-- BIO -->
           <div class="bio-body-text">
-            Fatih Bakır, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
+            {{ artist.name }}, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
             yorumlayan, eserlerinde sabır, emek ve ustalığı merkeze alan bir sanatçıdır.
             Ahşabı yalnızca bir malzeme olarak değil, geçmişle bugün arasında kurulan
             yaşayan bir bağ olarak ele alır.
@@ -119,18 +118,21 @@ about.html
 
             <br><br>
 
-            Fatih Bakır için sanat, yalnızca ortaya çıkan sonuç değil; aynı zamanda
+            {{ artist.name }} için sanat, yalnızca ortaya çıkan sonuç değil; aynı zamanda
             geçirilen zaman, gösterilen emek ve sürdürülen geleneğin kendisidir.
             Eserleri, izleyiciye sabrın ve el emeğinin değerini hatırlatmayı amaçlar.
           </div>
 
-          <!-- EDUCATION -->
+          <!-- INFO -->
           <div class="info-box">
-            <h5>Eğitim</h5>
-            <p><strong>Üniversite:</strong> Eskişehir Üniversitesi</p>
-            <p><strong>Bölüm:</strong> Kamu Yönetimi</p>
-            <p><strong>Not:</strong> Akademik eğitimin yanı sıra sanatını usta-çırak geleneği ve
-              bireysel çalışmalarla geliştirmiştir.</p>
+            <h5>İletişim</h5>
+            <p><strong>E-posta:</strong> {{ artist.email }}</p>
+            <p>
+              <strong>Instagram:</strong>
+              <a href="https://instagram.com/fhtbkr" target="_blank" style="color:#D4AF37;">
+                {{ artist.instagram }}
+              </a>
+            </p>
           </div>
 
           <!-- ACTIONS -->
@@ -144,4 +146,5 @@ about.html
     </div>
   </div>
 </section>
+
 {% endblock %}
