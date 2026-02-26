@@ -1,40 +1,65 @@
 {% extends 'base.html' %}
-{% block title %}Galeri | Fatih Bakır{% endblock %}
+{% block title %}Galeri | {{ artist.name }}{% endblock %}
 
 {% block content %}
-
-<div class="container">
-
-  <div class="page-logo scroll-reveal">
-    <img class="page-logo-img" src="{{ url_for('static', filename='brand/logo.png') }}?v={{ asset_version }}" alt="Logo">
+<section class="container my-5">
+  <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+    <h1 class="mb-0">Galeri</h1>
+    <span class="badge-gold">{{ images|length }} foto</span>
   </div>
 
-  <div class="section-title scroll-reveal">
-    <h2>Galeri</h2>
-    <div class="accent-line"></div>
-  </div>
-
-  {% if image_paths and image_paths|length > 0 %}
+  {% if images and images|length > 0 %}
     <div class="row">
-      {% for path in image_paths %}
-        {% set filename = path.rsplit("/", 1)[-1] %}
-        <div class="col-md-4 mb-4 scroll-reveal">
-          <div class="card hover-effect">
-            <a href="{{ url_for('eser_detay', filename=filename) }}">
-              <img src="{{ url_for('static', filename=path) }}?v={{ asset_version }}"
-                   class="card-img-top"
-                   alt="Eser {{ loop.index }}">
-            </a>
+      {% for img in images %}
+        <div class="col-md-4 col-sm-6 mb-4">
+          <div class="card hover">
+            <img
+              src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+              class="card-img-top"
+              alt="{{ img }}"
+              style="cursor:pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#imgModal"
+              data-img="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+              data-name="{{ img }}"
+            >
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div class="small" style="color: rgba(255,255,255,.72)">{{ img }}</div>
+              <a class="btn-gold" href="/eser/{{ img }}">Detay</a>
+            </div>
           </div>
         </div>
       {% endfor %}
     </div>
   {% else %}
     <div class="alert alert-warning">
-      Galeri klasöründe fotoğraf yok. <b>static/gallery/eserler/</b> içine görsel koyunca otomatik çıkar.
+      Galeri boş. Foto eklemek için: <b>static/gallery/eserler</b>
     </div>
   {% endif %}
+</section>
 
+<div class="modal fade" id="imgModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title gold-grad" id="imgTitle">Önizleme</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="imgPreview" src="" class="img-fluid rounded" alt="preview" style="max-height:80vh; object-fit:contain;">
+      </div>
+    </div>
+  </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
+<script>
+  const modal = document.getElementById('imgModal');
+  modal.addEventListener('show.bs.modal', function (event) {
+    const img = event.relatedTarget;
+    document.getElementById('imgPreview').src = img.getAttribute('data-img');
+    document.getElementById('imgTitle').textContent = img.getAttribute('data-name') || "Önizleme";
+  });
+</script>
 {% endblock %}

@@ -1,95 +1,40 @@
+<!-- TEMPLATE-TEST-20260226 -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{{ artist.name }}{% endblock %}</title>
 
-  <title>{% block title %}Fatih Bakır{% endblock %}</title>
-
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='brand/favicon.png') }}?v={{ asset_version }}">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='bunga.css') }}?v={{ asset_version }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='bunga.css') }}" />
 </head>
-
 <body>
-
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
-        <!-- küçük logo -->
-        <img class="nav-logo" src="{{ url_for('static', filename='brand/logo.png') }}?v={{ asset_version }}" alt="Logo">
-        <span>Fatih Bakır</span>
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Menü">
+      <a class="navbar-brand" href="/">{{ artist.name }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Ana Sayfa</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('galeri') }}">Galeri</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">Hakkında</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">İletişim</a></li>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Ana Sayfa</a></li>
+          <li class="nav-item"><a class="nav-link" href="/galeri">Galeri</a></li>
+          <li class="nav-item"><a class="nav-link" href="/hakkinda">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link" href="/iletisim">İletişim</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- CONTENT -->
   {% block content %}{% endblock %}
 
-  <!-- FOOTER -->
-  <footer class="text-center py-4 mt-5">
-    <div class="container">
-      <div class="small" style="color: rgba(255,255,255,.72)">
-        © 2026 Fatih Bakır • Ahşap Oyma & Altın Varak
-      </div>
-    </div>
+  <footer class="text-white text-center py-3 mt-5">
+    <p class="mb-0">&copy; 2026 {{ artist.name }}. Tüm hakları saklıdır.</p>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Scroll reveal (blur reveal) -->
-  <script>
-    (function(){
-      const els = document.querySelectorAll(".scroll-reveal");
-      if(!els.length) return;
-
-      const show = (el) => {
-        el.classList.add("scroll-visible");
-        // görünür olunca gizleme class'ını kaldır: bazı cihazlarda observer kaçırırsa sayfa komple "yok" gibi kalmasın
-        el.classList.remove("scroll-reveal");
-      };
-
-      // Eski tarayıcı fallback
-      if(!("IntersectionObserver" in window)){
-        els.forEach(show);
-        return;
-      }
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            show(e.target);
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      els.forEach(el => io.observe(el));
-    })();
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>
