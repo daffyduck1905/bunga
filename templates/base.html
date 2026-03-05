@@ -1,89 +1,111 @@
 <!-- base.html -->
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}{{ artist.name }}{% endblock %}</title>
 
-  <!-- FAVICON (senin yapında static/favicon.png) -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}?v={{ asset_version }}">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<title>{% block title %}{{ artist.name }}{% endblock %}</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- CSS (senin yapında static/bunga.css) -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='bunga.css') }}?v={{ asset_version }}" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="{{ url_for('static', filename='bunga.css') }}?v={{ asset_version }}" />
+
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">{{ artist.name }}</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="/">Ana Sayfa</a></li>
-          <li class="nav-item"><a class="nav-link" href="/galeri">Galeri</a></li>
-          <li class="nav-item"><a class="nav-link" href="/hakkinda">Hakkında</a></li>
-          <li class="nav-item"><a class="nav-link" href="/iletisim">İletişim</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<div class="container">
 
-  <!-- PAGE CONTENT -->
-  {% block content %}{% endblock %}
+<a class="navbar-brand d-flex align-items-center gap-2" href="/">
 
-  <!-- FOOTER -->
-  <footer class="text-white text-center py-3 mt-5">
-    <p class="mb-0">&copy; 2026 {{ artist.name }}. Tüm hakları saklıdır.</p>
-  </footer>
+<img src="{{ url_for('static', filename='logo.png') }}" style="height:36px">
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<span>Fatih Bakır</span>
 
-  <!-- =========================================================
-       SCROLL NETLEŞME EFEKTİ (BLUR -> SHARP)
-       - .scroll-reveal veya .reveal class'ı olan elemanlar
-         sayfaya girince "scroll-visible" olur
-       ========================================================= -->
-  <script>
-    (function () {
-      const els = document.querySelectorAll(".scroll-reveal, .reveal");
+</a>
 
-      // Eski tarayıcı fallback
-      if (!("IntersectionObserver" in window)) {
-        els.forEach(el => el.classList.add("scroll-visible"));
-        return;
-      }
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
 
-      // Gözlemci
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("scroll-visible");
-            // istersen bir kez görüneni gözlemden çıkar:
-            io.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.12,
-        rootMargin: "0px 0px -10% 0px"
-      });
+<div class="collapse navbar-collapse" id="nav">
 
-      els.forEach(el => io.observe(el));
-    })();
-  </script>
+<ul class="navbar-nav ms-auto">
 
-  {% block scripts %}{% endblock %}
+<li class="nav-item">
+<a class="nav-link" href="/">Ana Sayfa</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="/galeri">Galeri</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="/hakkinda">Hakkında</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="/iletisim">İletişim</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer class="text-white text-center py-3 mt-5">
+
+<p class="mb-0">
+© 2026 {{ artist.name }}
+</p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+(function () {
+
+const els = document.querySelectorAll('.scroll-reveal, .reveal');
+
+if (!('IntersectionObserver' in window)) {
+
+els.forEach(el => el.classList.add('scroll-visible'));
+
+return;
+
+}
+
+const io = new IntersectionObserver((entries) => {
+
+entries.forEach(e => {
+
+if (e.isIntersecting) e.target.classList.add('scroll-visible');
+
+});
+
+}, { threshold: 0.12 });
+
+els.forEach(el => io.observe(el));
+
+})();
+
+</script>
+
+{% block scripts %}{% endblock %}
+
 </body>
 </html>
