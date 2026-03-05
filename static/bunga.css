@@ -113,7 +113,7 @@ a:hover{ color: var(--gold2); }
 }
 
 .carousel-hero .carousel-item{
-  min-height: 72vh;
+  min-height: 72vh; /* slider görünmeme sorununu çözer */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -183,7 +183,7 @@ a:hover{ color: var(--gold2); }
 }
 
 /* =========================
-   CARDS
+   CARDS / GALLERY
 ========================= */
 .card{
   border: 1px solid rgba(212,175,55,.16);
@@ -199,10 +199,29 @@ a:hover{ color: var(--gold2); }
   object-fit: cover;
   display:block;
   transition: transform .35s ease;
+  position: relative;
+}
+
+/* ====== ALTIN ÇERÇEVE OVERLAY (SADECE GALERİ KARTINDA) ====== */
+.card-img-top::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("/static/frame.png") center/contain no-repeat;
+  pointer-events:none;
 }
 
 .hover-effect:hover .card-img-top{
   transform: scale(1.03);
+}
+
+.badge-gold{
+  border: 1px solid rgba(212,175,55,.32);
+  background: rgba(0,0,0,.22);
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  color: rgba(255,255,255,.85);
+  font-size: .9rem;
 }
 
 /* =========================
@@ -253,9 +272,9 @@ a:hover{ color: var(--gold2); }
   box-shadow: 0 25px 65px rgba(0,0,0,.55);
 }
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+/* =========================================================
+   SCROLL REVEAL (BULANIK -> NET)
+========================================================= */
 .scroll-reveal,
 .reveal{
   opacity: 0;
@@ -265,6 +284,7 @@ a:hover{ color: var(--gold2); }
     opacity 0.95s cubic-bezier(.2,.7,.2,1),
     filter 1.15s cubic-bezier(.2,.7,.2,1),
     transform 0.95s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, filter, transform;
 }
 
 .scroll-visible{
@@ -298,12 +318,12 @@ footer{
     filter:none !important;
     opacity:1 !important;
   }
+  .scroll-visible{
+    transform:none !important;
+    filter:none !important;
+    opacity:1 !important;
+  }
 }
-
-/* =========================
-   GALERİ ÇERÇEVE
-========================= */
-
 .gallery-frame{
   position:relative;
   width:100%;

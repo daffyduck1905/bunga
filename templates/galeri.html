@@ -24,13 +24,13 @@
 
 <div class="col-md-4 col-sm-6 mb-5 scroll-reveal text-center">
 
-<div class="eser-frame">
+<div class="gallery-frame">
 
 <a href="{{ url_for('eser_detay', filename=img) }}">
 
 <img
 src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
-class="eser-img"
+class="frame-image"
 >
 
 </a>
@@ -41,7 +41,7 @@ class="eser-img"
 
 <a class="btn btn-outline-gold btn-sm"
 href="{{ url_for('eser_detay', filename=img) }}">
-Detay
+Detayı Aç
 </a>
 
 </div>
