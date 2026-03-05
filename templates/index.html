@@ -10,7 +10,12 @@
   url_for('static', filename='gallery/eserler/101.png')
 ] %}
 
-{% set hero_imgs = [] %}
+{% set hero_imgs = [
+  url_for('static', filename='gallery/eserler/99.png'),
+  url_for('static', filename='gallery/eserler/100.png'),
+  url_for('static', filename='gallery/eserler/101.png')
+] %}
+
 {% if featured_paths and featured_paths|length > 0 %}
   {% for p in featured_paths[:3] %}
     {% set _ = hero_imgs.append(url_for('static', filename=p)) %}
@@ -28,7 +33,7 @@
   <div class="carousel-inner">
 
     <div class="carousel-item active"
-      style="background-image:url('{% if hero_imgs and hero_imgs|length >= 1 %}{{ hero_imgs[0] }}{% else %}{{ fallback_imgs[0] }}{% endif %}');">
+      style="background-image:url('{{ hero_imgs[0] }}');">
       <div class="carousel-caption text-center">
         <div class="hero-line scroll-reveal"></div>
         <h1 class="mb-2 scroll-reveal">Ahşapta Sabır, Altında Asalet</h1>
@@ -43,7 +48,7 @@
     </div>
 
     <div class="carousel-item"
-      style="background-image:url('{% if hero_imgs and hero_imgs|length >= 2 %}{{ hero_imgs[1] }}{% else %}{{ fallback_imgs[1] }}{% endif %}');">
+      style="background-image:url('{{ hero_imgs[1] }}');">
       <div class="carousel-caption text-center">
         <div class="hero-line scroll-reveal"></div>
         <h1 class="mb-2 scroll-reveal">Gelenekten Geleceğe</h1>
@@ -58,7 +63,7 @@
     </div>
 
     <div class="carousel-item"
-      style="background-image:url('{% if hero_imgs and hero_imgs|length >= 3 %}{{ hero_imgs[2] }}{% else %}{{ fallback_imgs[2] }}{% endif %}');">
+      style="background-image:url('{{ hero_imgs[2] }}');">
       <div class="carousel-caption text-center">
         <div class="hero-line scroll-reveal"></div>
         <h1 class="mb-2 scroll-reveal">Sipariş Üzerine Özel Çalışma</h1>
