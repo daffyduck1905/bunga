@@ -1,54 +1,41 @@
 <!-- contact.html -->
+
 {% extends 'base.html' %}
-{% block title %}İletişim | {{ artist.name }}{% endblock %}
+
+{% block title %}İletişim{% endblock %}
 
 {% block content %}
 
+<div class="text-center mt-5 scroll-reveal">
+
+<img src="{{ url_for('static', filename='logo.png') }}" style="height:120px">
+
+</div>
+
 <section class="container my-5">
 
-  <div class="page-logo scroll-reveal">
-    <img class="page-logo-img" src="{{ url_for('static', filename='logo.png') }}?v={{ asset_version }}" alt="Logo">
-  </div>
+<h1 class="text-center mb-4 scroll-reveal">İletişim</h1>
 
-  <div class="section-title scroll-reveal">
-    <h2>İletişim</h2>
-    <div class="accent-line"></div>
-  </div>
+<div class="card p-4 scroll-reveal">
 
-  <div class="row g-4 justify-content-center">
+<p>
+Eserler, özel siparişler veya sergiler hakkında bilgi almak için
+aşağıdaki iletişim kanallarından ulaşabilirsiniz.
+</p>
 
-    <div class="col-lg-8">
-      <div class="card p-4 scroll-reveal">
-        <h3 style="margin:0 0 .6rem;">Bize Ulaşın</h3>
-        <div style="color: rgba(255,255,255,.72); line-height:1.7;">
-          Sergi, satın alma veya özel sipariş için aşağıdaki kanallardan iletişime geçebilirsiniz.
-        </div>
+<p>
+<strong>E-posta:</strong>
+{{ artist.email }}
+</p>
 
-        <div class="mt-4 d-flex flex-column gap-3">
+<p>
+<strong>Instagram:</strong>
+<a href="https://instagram.com/{{ artist.instagram }}" target="_blank">
+@{{ artist.instagram }}
+</a>
+</p>
 
-          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-            <div style="color: rgba(255,255,255,.72);">E-posta</div>
-            <div><a href="mailto:{{ artist.email }}" class="btn btn-outline-gold">{{ artist.email }}</a></div>
-          </div>
-
-          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-            <div style="color: rgba(255,255,255,.72);">Instagram</div>
-            <div>
-              <a class="btn btn-outline-gold" href="https://instagram.com/{{ artist.instagram }}" target="_blank" rel="noopener">
-                @{{ artist.instagram }}
-              </a>
-            </div>
-          </div>
-
-          <div class="mt-2" style="color: rgba(255,255,255,.72); line-height:1.7;">
-            Mesajlarınıza en kısa sürede dönüş yapmaya çalışıyoruz.
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
+</div>
 
 </section>
 

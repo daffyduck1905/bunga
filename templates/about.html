@@ -1,147 +1,130 @@
 <!-- about.html -->
+
 {% extends 'base.html' %}
-{% block title %}Biyografi | {{ artist.name }}{% endblock %}
+
+{% block title %}Hakkında{% endblock %}
 
 {% block content %}
-<style>
-  .bio-section {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 90px 0;
-    overflow: hidden;
-  }
 
-  .bio-background {
-    position: absolute;
-    inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=80');
-    background-size: cover;
-    background-position: center;
-    filter: blur(12px) brightness(0.35);
-    transform: scale(1.1);
-    z-index: -1;
-  }
+<div class="text-center mt-5 scroll-reveal">
 
-  .bio-card {
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 22px;
-    padding: 64px;
-    color: #ffffff;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.7);
-  }
+<img src="{{ url_for('static', filename='logo.png') }}" style="height:130px">
 
-  .bio-header {
-    font-family: 'Playfair Display', serif;
-    color: #D4AF37;
-    letter-spacing: 3px;
-  }
+</div>
 
-  .bio-subtitle {
-    opacity: 0.75;
-    font-size: 1.25rem;
-  }
+<section class="container my-5">
 
-  .bio-body-text {
-    font-size: 1.15rem;
-    line-height: 2.1;
-    text-align: justify;
-    color: #f0f0f0;
-    margin-top: 40px;
-  }
+<h1 class="text-center mb-5 scroll-reveal">
+Sanatçı Hakkında
+</h1>
 
-  .info-box {
-    border-left: 4px solid #D4AF37;
-    padding: 18px 22px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 0 12px 12px 0;
-    margin-top: 40px;
-  }
+<div class="glass p-5 scroll-reveal">
 
-  .info-box h5 {
-    color: #D4AF37;
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 14px;
-  }
+<p>
 
-  .info-box p {
-    margin-bottom: 6px;
-    opacity: 0.9;
-  }
+Elazığlı sanatçı <strong>Fatih Bakır</strong>,
+geleneksel ahşap oymacılığı ile Osmanlı döneminin
+ihtişamlı altın varak sanatını bir araya getiren
+Türkiye Cumhuriyeti Kültür ve Turizm Bakanlığı
+tescilli bir Devlet Sanatçısıdır.
 
-  .bio-actions {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-</style>
+</p>
 
-<section class="bio-section">
-  <div class="bio-background"></div>
+<p>
 
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="bio-card scroll-reveal">
+Sanata olan yatkınlığını demir ustası olan
+babasından alan Bakır,
+çocukluk yıllarında babasının yanında çalışarak
+el becerisini geliştirmiştir.
+Her ne kadar akademik eğitimini
+Siyaset Bilimi ve Kamu Yönetimi alanında tamamlamış olsa da
+asıl tutkusu olan görsel sanatlar onu
+yeniden sanat yolculuğuna yönlendirmiştir.
 
-          <div class="text-center mb-5">
-            <h1 class="display-3 bio-header">{{ artist.name }}</h1>
-            <p class="bio-subtitle">{{ artist.title }}</p>
-            <hr style="width:120px;margin:22px auto;border-top:3px solid #D4AF37;">
-          </div>
+</p>
 
-          <div class="bio-body-text">
-            {{ artist.name }}, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
-            yorumlayan, eserlerinde sabır, emek ve ustalığı merkeze alan bir sanatçıdır.
-            Ahşabı yalnızca bir malzeme olarak değil, geçmişle bugün arasında kurulan
-            yaşayan bir bağ olarak ele alır.
+<p>
 
-            <br><br>
+Sanatçı zaman içerisinde
+Mimar Sinan Güzel Sanatlar Üniversitesi'nden
+alanında uzman akademisyenlerden aldığı eğitimlerle
+tekniklerini geliştirmiş,
+geleneksel el sanatlarını modern bir estetik anlayışıyla
+yeniden yorumlamayı başarmıştır.
 
-            Sanat yolculuğu, el işçiliğine ve doğal malzemelere duyduğu ilgiyle başlamıştır.
-            Zaman içerisinde ahşap oyma sanatını derinlemesine öğrenmiş, bu kadim zanaatı
-            altın varak tekniğiyle birleştirerek kendine özgü bir ifade dili geliştirmiştir.
-            Her eserinde, yüzeyin altındaki karakteri ve ruhu ortaya çıkarmayı amaçlar.
+</p>
 
-            <br><br>
+<p>
 
-            Çalışmalarının tamamı el işçiliğiyle üretilir. Seri üretim anlayışından uzak
-            duran sanatçı, her parçayı tek ve özgün bir eser olarak ele alır. Oyma
-            sürecindeki her çizgi ve her detay bilinçli bir kompozisyonun parçasıdır.
-            Altın varak uygulamaları ise eserlere zamansız bir asalet kazandırır.
+Fatih Bakır’ın eserlerini farklı kılan en önemli unsur,
+ahşap oyma tekniği ile altın varak sanatını
+kendi üslubunda birleştirmesidir.
+Sanatçı önce seçtiği figürü veya fotoğrafı
+ahşap yüzey üzerine aktarır,
+daha sonra gölge ve derinlik kazandıran
+oyma teknikleriyle eseri şekillendirir.
+Son aşamada ise İtalyan altın varağı uygulayarak
+esere hem tarihsel bir atmosfer
+hem de metalik bir ihtişam kazandırır.
 
-            <br><br>
+</p>
 
-            {{ artist.name }} için sanat, yalnızca ortaya çıkan sonuç değil; aynı zamanda
-            geçirilen zaman, gösterilen emek ve sürdürülen geleneğin kendisidir.
-            Eserleri, izleyiciye sabrın ve el emeğinin değerini hatırlatmayı amaçlar.
-          </div>
+<p>
 
-          <div class="info-box">
-            <h5>İletişim</h5>
-            <p><strong>E-posta:</strong> {{ artist.email }}</p>
-            <p>
-              <strong>Instagram:</strong>
-              <a href="https://instagram.com/{{ artist.instagram }}" target="_blank" style="color:#D4AF37;">
-                {{ artist.instagram }}
-              </a>
-            </p>
-          </div>
+Eserlerinde sıklıkla
+Osmanlı tarihinden figürler,
+tarihi portreler ve Elazığ’ın
+zengin kültürel mirası yer alır.
+Sanatçının en dikkat çekici çalışmalarından biri,
+36 Osmanlı padişahının portrelerinden oluşan
+özel koleksiyonudur.
 
-          <div class="bio-actions">
-            <a href="{{ url_for('galeri') }}" class="btn btn-gold">Eserleri Gör</a>
-            <a href="{{ url_for('contact') }}" class="btn btn-outline-gold">İletişime Geç</a>
-          </div>
+</p>
 
-        </div>
-      </div>
-    </div>
-  </div>
+<p>
+
+Bunun yanında Harput’un tarihi dokusunu
+yansıtan kabartma eserler,
+tarihi fotoğrafların ahşap üzerine
+yeniden yorumlanması gibi çalışmalar
+sanatçının portföyünde önemli bir yer tutmaktadır.
+
+</p>
+
+<p>
+
+Fatih Bakır’ın eserleri yalnızca Türkiye’de değil,
+uluslararası alanda da ilgi görmektedir.
+Başta Katar olmak üzere
+Azerbaycan, Almanya ve Rusya gibi
+birçok ülkeden sanat koleksiyoncuları
+tarafından sipariş edilmektedir.
+
+</p>
+
+<p>
+
+Sanatçı çalışmalarını Elazığ’daki atölyesinde
+tamamen geleneksel el aletleri kullanarak üretmektedir.
+Seri üretim yöntemleri veya CNC teknolojisi
+kullanmayan Bakır,
+her eserini tek ve özgün bir sanat çalışması olarak ele alır.
+
+</p>
+
+<p>
+
+Fatih Bakır için sanat yalnızca bir üretim süreci değil,
+aynı zamanda geçmiş ile gelecek arasında kurulan
+bir kültür köprüsüdür.
+Bu nedenle sanatçı zaman zaman gençlere
+usta-çırak geleneği içinde
+ahşap oyma sanatını öğretmeye de devam etmektedir.
+
+</p>
+
+</div>
+
 </section>
 
 {% endblock %}
