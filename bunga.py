@@ -94,7 +94,9 @@ def create_app() -> Flask:
         if not full.exists() or not full.is_file():
             abort(404)
 
-        return render_template("eserdetay.html", filename=safe)
+        images = list_gallery_images()
+
+        return render_template("eserdetay.html", filename=safe, images=images)
 
     @app.get("/referans/<path:filename>")
     def referans_detay(filename: str):
