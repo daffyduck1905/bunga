@@ -4,16 +4,12 @@
 
 {% block content %}
 
-<div class="container text-center my-5">
-
-<div id="viewerWrapper" style="overflow:hidden; cursor:grab; display:inline-block;">
+<div class="container text-center my-5 scroll-reveal">
 
 <img
 id="viewerImage"
 src="{{ url_for('static', filename='referanslar/' ~ filename) }}"
-style="max-width:100%; height:auto; transform-origin:center center; transition:transform .1s">
-
-</div>
+style="max-width:100%; height:auto;">
 
 </div>
 
@@ -76,76 +72,6 @@ window.location = "/referanslar";
 }
 
 }
-
-});
-
-
-/* =====================
-ZOOM + DRAG
-===================== */
-
-const img = document.getElementById("viewerImage");
-const wrapper = document.getElementById("viewerWrapper");
-
-let scale = 1;
-let posX = 0;
-let posY = 0;
-let startX = 0;
-let startY = 0;
-let dragging = false;
-
-wrapper.addEventListener("wheel", function(e){
-
-e.preventDefault();
-
-if(e.deltaY < 0){
-
-scale += 0.1;
-
-}else{
-
-scale -= 0.1;
-
-}
-
-scale = Math.min(Math.max(1, scale), 5);
-
-img.style.transform =
-"translate(" + posX + "px," + posY + "px) scale(" + scale + ")";
-
-});
-
-
-wrapper.addEventListener("mousedown", function(e){
-
-dragging = true;
-
-wrapper.style.cursor = "grabbing";
-
-startX = e.clientX - posX;
-startY = e.clientY - posY;
-
-});
-
-
-window.addEventListener("mouseup", function(){
-
-dragging = false;
-
-wrapper.style.cursor = "grab";
-
-});
-
-
-window.addEventListener("mousemove", function(e){
-
-if(!dragging) return;
-
-posX = e.clientX - startX;
-posY = e.clientY - startY;
-
-img.style.transform =
-"translate(" + posX + "px," + posY + "px) scale(" + scale + ")";
 
 });
 
