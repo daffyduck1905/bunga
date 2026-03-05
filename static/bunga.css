@@ -199,6 +199,16 @@ a:hover{ color: var(--gold2); }
   object-fit: cover;
   display:block;
   transition: transform .35s ease;
+  position: relative;
+}
+
+/* ====== ALTIN ÇERÇEVE OVERLAY (SADECE GALERİ KARTINDA) ====== */
+.card-img-top::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("/static/frame.png") center/contain no-repeat;
+  pointer-events:none;
 }
 
 .hover-effect:hover .card-img-top{
@@ -264,14 +274,11 @@ a:hover{ color: var(--gold2); }
 
 /* =========================================================
    SCROLL REVEAL (BULANIK -> NET)
-   İSTEDİĞİN EFEKT BURASI:
-   - başlangıç: biraz blur + aşağıdan gelir
-   - görünür olunca: blur 0 + kusursuz net
 ========================================================= */
 .scroll-reveal,
 .reveal{
   opacity: 0;
-  filter: blur(18px);              /* <-- daha hissedilir bulanıklık */
+  filter: blur(18px);
   transform: translateY(46px);
   transition:
     opacity 0.95s cubic-bezier(.2,.7,.2,1),
@@ -282,7 +289,7 @@ a:hover{ color: var(--gold2); }
 
 .scroll-visible{
   opacity: 1 !important;
-  filter: blur(0) !important;      /* <-- netleşme */
+  filter: blur(0) !important;
   transform: translateY(0) !important;
 }
 
