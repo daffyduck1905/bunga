@@ -22,31 +22,27 @@
 
 {% for img in images %}
 
-<div class="col-md-4 col-sm-6 mb-4 scroll-reveal">
+<div class="col-md-4 col-sm-6 mb-5 scroll-reveal text-center">
 
-<div class="card hover-effect">
+<div class="eser-frame">
 
-<div class="gallery-frame">
+<a href="{{ url_for('eser_detay', filename=img) }}">
 
 <img
 src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
-class="card-img-top"
-style="cursor:pointer"
-data-bs-toggle="modal"
-data-bs-target="#imgModal"
-data-img="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+class="eser-img"
 >
+
+</a>
 
 </div>
 
-<div class="card-body text-center">
+<div class="mt-3">
 
 <a class="btn btn-outline-gold btn-sm"
 href="{{ url_for('eser_detay', filename=img) }}">
 Detay
 </a>
-
-</div>
 
 </div>
 
