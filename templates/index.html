@@ -1,14 +1,8 @@
 <!-- index.html -->
 {% extends 'base.html' %}
-{% block title %}Ana Sayfa{% endblock %}
+{% block title %}Ana Sayfa | {{ artist.name }}{% endblock %}
 
 {% block content %}
-
-{# -------------------------------------------------------
-   HERO CAROUSEL
-   - Öncelik: featured_paths içindeki ilk 3 görsel
-   - Eğer yoksa: Unsplash fallback görselleri
--------------------------------------------------------- #}
 
 {% set fallback_imgs = [
   "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=2000&q=80",
@@ -23,8 +17,8 @@
   {% endfor %}
 {% endif %}
 
+<!-- HERO / SLIDER -->
 <div id="heroCarousel" class="carousel slide carousel-hero" data-bs-ride="carousel" data-bs-interval="4500">
-
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="1"></button>
     <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="2"></button>
@@ -33,42 +27,45 @@
 
   <div class="carousel-inner">
 
-    {# 1. SLIDE #}
     <div class="carousel-item active"
       style="background-image:url('{% if hero_imgs and hero_imgs|length >= 1 %}{{ hero_imgs[0] }}{% else %}{{ fallback_imgs[0] }}{% endif %}');">
       <div class="carousel-caption text-center">
-        <div class="hero-line"></div>
-        <h1 class="mb-2">Ahşapta Sabır, Altında Asalet</h1>
-        <p class="mb-3">Her eser tek ve eşsizdir. Oyma sanatı, altın varak ve el işçiliğinin birleştiği zamansız bir koleksiyon.</p>
-        <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <div class="hero-line scroll-reveal"></div>
+        <h1 class="mb-2 scroll-reveal">Ahşapta Sabır, Altında Asalet</h1>
+        <p class="mb-3 scroll-reveal">
+          Her eser tek ve eşsizdir. Oyma sanatı, altın varak ve el işçiliğinin birleştiği zamansız bir koleksiyon.
+        </p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
           <a class="btn btn-gold" href="{{ url_for('galeri') }}">Koleksiyona Git</a>
           <a class="btn btn-outline-gold" href="{{ url_for('contact') }}">İletişime Geç</a>
         </div>
       </div>
     </div>
 
-    {# 2. SLIDE #}
     <div class="carousel-item"
       style="background-image:url('{% if hero_imgs and hero_imgs|length >= 2 %}{{ hero_imgs[1] }}{% else %}{{ fallback_imgs[1] }}{% endif %}');">
       <div class="carousel-caption text-center">
-        <div class="hero-line"></div>
-        <h1 class="mb-2">Gelenekten Geleceğe</h1>
-        <p class="mb-3">Ustalıkla seçilen ağaç, incelikli oyma ve varak dokunuşları… Her detay bir hikâye.</p>
-        <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <div class="hero-line scroll-reveal"></div>
+        <h1 class="mb-2 scroll-reveal">Gelenekten Geleceğe</h1>
+        <p class="mb-3 scroll-reveal">
+          Ustalıkla seçilen ağaç, incelikli oyma ve varak dokunuşları… Her detay bir hikâye.
+        </p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
           <a class="btn btn-gold" href="{{ url_for('about') }}">Sanatçıyı Tanı</a>
-          <a class="btn btn-soft" href="{{ url_for('galeri') }}">Öne Çıkanlar</a>
+          <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}">Öne Çıkanlar</a>
         </div>
       </div>
     </div>
 
-    {# 3. SLIDE #}
     <div class="carousel-item"
       style="background-image:url('{% if hero_imgs and hero_imgs|length >= 3 %}{{ hero_imgs[2] }}{% else %}{{ fallback_imgs[2] }}{% endif %}');">
       <div class="carousel-caption text-center">
-        <div class="hero-line"></div>
-        <h1 class="mb-2">Sipariş Üzerine Özel Çalışma</h1>
-        <p class="mb-3">Resme göre oyma, motif, isim ve özel kompozisyonlar — tamamen sana özel.</p>
-        <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <div class="hero-line scroll-reveal"></div>
+        <h1 class="mb-2 scroll-reveal">Sipariş Üzerine Özel Çalışma</h1>
+        <p class="mb-3 scroll-reveal">
+          Resme göre oyma, motif, isim ve özel kompozisyonlar — tamamen sana özel.
+        </p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
           <a class="btn btn-gold" href="{{ url_for('contact') }}">Sipariş Sor</a>
           <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}">Galeriye Bak</a>
         </div>
@@ -85,126 +82,50 @@
   </button>
 </div>
 
+<!-- SÜREÇ -->
 <section class="section-pad">
   <div class="container">
-    <div class="section-title reveal">
+    <div class="section-title scroll-reveal">
       <h2>Ustalık Süreci</h2>
       <div class="accent-line"></div>
     </div>
 
     <div class="row g-4">
-
-      <!-- 1 -->
-      <div class="col-md-3 reveal">
+      <div class="col-md-3 scroll-reveal">
         <div class="card p-4 h-100">
-          <h5 class="mb-2"
-              style="
-                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-              ">
-            1) Seçim
-          </h5>
-
-          <p class="mb-0"
-             style="
-               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-               -webkit-background-clip: text;
-               background-clip: text;
-               color: transparent;
-               opacity: .95;
-             ">
-            Uygun ağaç ve form seçilir, yüzey hazırlanır.
-          </p>
+          <h5 class="mb-2 gold-grad-text">1) Seçim</h5>
+          <p class="mb-0 gold-grad-text" style="opacity:.95;">Uygun ağaç ve form seçilir, yüzey hazırlanır.</p>
         </div>
       </div>
 
-      <!-- 2 -->
-      <div class="col-md-3 reveal">
+      <div class="col-md-3 scroll-reveal">
         <div class="card p-4 h-100">
-          <h5 class="mb-2"
-              style="
-                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-              ">
-            2) Oyma
-          </h5>
-
-          <p class="mb-0"
-             style="
-               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-               -webkit-background-clip: text;
-               background-clip: text;
-               color: transparent;
-               opacity: .95;
-             ">
-            Motif/portre tasarıma göre sabırla işlenir.
-          </p>
+          <h5 class="mb-2 gold-grad-text">2) Oyma</h5>
+          <p class="mb-0 gold-grad-text" style="opacity:.95;">Motif/portre tasarıma göre sabırla işlenir.</p>
         </div>
       </div>
 
-      <!-- 3 -->
-      <div class="col-md-3 reveal">
+      <div class="col-md-3 scroll-reveal">
         <div class="card p-4 h-100">
-          <h5 class="mb-2"
-              style="
-                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-              ">
-            3) Varak
-          </h5>
-
-          <p class="mb-0"
-             style="
-               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-               -webkit-background-clip: text;
-               background-clip: text;
-               color: transparent;
-               opacity: .95;
-             ">
-            Altın varak uygulamasıyla asil bir parlaklık kazanır.
-          </p>
+          <h5 class="mb-2 gold-grad-text">3) Varak</h5>
+          <p class="mb-0 gold-grad-text" style="opacity:.95;">Altın varak uygulamasıyla asil bir parlaklık kazanır.</p>
         </div>
       </div>
 
-      <!-- 4 -->
-      <div class="col-md-3 reveal">
+      <div class="col-md-3 scroll-reveal">
         <div class="card p-4 h-100">
-          <h5 class="mb-2"
-              style="
-                background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-              ">
-            4) Son Dokunuş
-          </h5>
-
-          <p class="mb-0"
-             style="
-               background: linear-gradient(135deg, #f1d77a, var(--gold), #b88a1c);
-               -webkit-background-clip: text;
-               background-clip: text;
-               color: transparent;
-               opacity: .95;
-             ">
-            Koruma/son işlem ve sunum için hazır hale gelir.
-          </p>
+          <h5 class="mb-2 gold-grad-text">4) Son Dokunuş</h5>
+          <p class="mb-0 gold-grad-text" style="opacity:.95;">Koruma/son işlem ve sunum için hazır hale gelir.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<section class="section-pad" style="background: rgba(255,255,255,.02); border-top: 1px solid rgba(212,175,55,.10); border-bottom: 1px solid rgba(212,175,55,.10);">
+<!-- ÖNE ÇIKANLAR -->
+<section class="section-pad section-muted">
   <div class="container">
-    <div class="section-title reveal">
+    <div class="section-title scroll-reveal">
       <h2>Öne Çıkan Eserler</h2>
       <div class="accent-line"></div>
     </div>
@@ -213,7 +134,7 @@
       <div class="row">
         {% for path in featured_paths %}
           {% set filename = path.split('/')[-1] %}
-          <div class="col-md-4 mb-4 reveal">
+          <div class="col-md-4 mb-4 scroll-reveal">
             <div class="card hover-effect">
               <a href="{{ url_for('eser_detay', filename=filename) }}" class="text-decoration-none">
                 <img src="{{ url_for('static', filename=path) }}" class="card-img-top" alt="Eser {{ loop.index }}">
@@ -227,12 +148,12 @@
         {% endfor %}
       </div>
     {% else %}
-      <div class="alert alert-warning">
-        Henüz fotoğraf yok. <b>static/gallery/eserler/</b> içine foto ekleyince burada da çıkacak.
+      <div class="alert alert-warning scroll-reveal">
+        Henüz fotoğraf yok. <b>static/gallery/eserler/</b> içine foto ekleyince burada görünecek.
       </div>
     {% endif %}
 
-    <div class="text-center mt-3 reveal">
+    <div class="text-center mt-3 scroll-reveal">
       <a class="btn btn-gold" href="{{ url_for('galeri') }}">Tüm Koleksiyon</a>
     </div>
   </div>

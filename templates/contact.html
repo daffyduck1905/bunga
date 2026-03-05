@@ -1,12 +1,13 @@
+<!-- contact.html -->
 {% extends 'base.html' %}
-{% block title %}İletişim | Fatih Bakır{% endblock %}
+{% block title %}İletişim | {{ artist.name }}{% endblock %}
 
 {% block content %}
 
 <section class="container my-5">
 
   <div class="page-logo scroll-reveal">
-    <img class="page-logo-img" src="{{ url_for('static', filename='brand/logo.png') }}?v={{ asset_version }}" alt="Logo">
+    <img class="page-logo-img" src="{{ url_for('static', filename='logo.png') }}?v={{ asset_version }}" alt="Logo">
   </div>
 
   <div class="section-title scroll-reveal">

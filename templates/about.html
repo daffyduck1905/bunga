@@ -1,3 +1,4 @@
+<!-- about.html -->
 {% extends 'base.html' %}
 {% block title %}Biyografi | {{ artist.name }}{% endblock %}
 
@@ -86,16 +87,14 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
-        <div class="bio-card reveal">
+        <div class="bio-card scroll-reveal">
 
-          <!-- HEADER -->
           <div class="text-center mb-5">
             <h1 class="display-3 bio-header">{{ artist.name }}</h1>
             <p class="bio-subtitle">{{ artist.title }}</p>
             <hr style="width:120px;margin:22px auto;border-top:3px solid #D4AF37;">
           </div>
 
-          <!-- BIO -->
           <div class="bio-body-text">
             {{ artist.name }}, geleneksel ahşap oyma sanatını çağdaş bir estetik anlayışla
             yorumlayan, eserlerinde sabır, emek ve ustalığı merkeze alan bir sanatçıdır.
@@ -123,19 +122,17 @@
             Eserleri, izleyiciye sabrın ve el emeğinin değerini hatırlatmayı amaçlar.
           </div>
 
-          <!-- INFO -->
           <div class="info-box">
             <h5>İletişim</h5>
             <p><strong>E-posta:</strong> {{ artist.email }}</p>
             <p>
               <strong>Instagram:</strong>
-              <a href="https://instagram.com/fhtbkr" target="_blank" style="color:#D4AF37;">
+              <a href="https://instagram.com/{{ artist.instagram }}" target="_blank" style="color:#D4AF37;">
                 {{ artist.instagram }}
               </a>
             </p>
           </div>
 
-          <!-- ACTIONS -->
           <div class="bio-actions">
             <a href="{{ url_for('galeri') }}" class="btn btn-gold">Eserleri Gör</a>
             <a href="{{ url_for('contact') }}" class="btn btn-outline-gold">İletişime Geç</a>

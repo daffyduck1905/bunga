@@ -1,18 +1,19 @@
+<!-- galeri.html -->
 {% extends 'base.html' %}
 {% block title %}Galeri | {{ artist.name }}{% endblock %}
 
 {% block content %}
 <section class="container my-5">
   <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
-    <h1 class="mb-0">Galeri</h1>
-    <span class="badge-gold">{{ images|length }} foto</span>
+    <h1 class="mb-0 scroll-reveal">Galeri</h1>
+    <span class="badge-gold scroll-reveal">{{ images|length }} foto</span>
   </div>
 
   {% if images and images|length > 0 %}
     <div class="row">
       {% for img in images %}
-        <div class="col-md-4 col-sm-6 mb-4">
-          <div class="card hover">
+        <div class="col-md-4 col-sm-6 mb-4 scroll-reveal">
+          <div class="card hover-effect">
             <img
               src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
               class="card-img-top"
@@ -25,22 +26,23 @@
             >
             <div class="card-body d-flex justify-content-between align-items-center">
               <div class="small" style="color: rgba(255,255,255,.72)">{{ img }}</div>
-              <a class="btn-gold" href="/eser/{{ img }}">Detay</a>
+              <a class="btn-gold" href="{{ url_for('eser_detay', filename=img) }}">Detay</a>
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
   {% else %}
-    <div class="alert alert-warning">
+    <div class="alert alert-warning scroll-reveal">
       Galeri boş. Foto eklemek için: <b>static/gallery/eserler</b>
     </div>
   {% endif %}
 </section>
 
+<!-- MODAL -->
 <div class="modal fade" id="imgModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content modal-glass">
       <div class="modal-header border-0">
         <h5 class="modal-title gold-grad" id="imgTitle">Önizleme</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
