@@ -4,22 +4,50 @@
 
 {% block content %}
 
-<div class="container text-center my-5 scroll-reveal">
+<div class="container text-center my-5">
 
 <img
-id="viewerImage"
 src="{{ url_for('static', filename='referanslar/' ~ filename) }}"
 style="max-width:100%; height:auto;">
 
 </div>
 
+
+<div class="container mb-5">
+
+<div class="thumb-wrapper">
+
+<button class="thumb-arrow" onclick="scrollThumb(-1)">‹</button>
+
+<div id="thumbStrip" class="thumb-strip">
+
+{% set refs = ["120.jpeg","121.jpeg","125.jpeg","135.jpeg"] %}
+
+{% for img in refs %}
+
+<a href="{{ url_for('referans_detay', filename=img) }}"
+class="thumb-item {% if img == filename %}active-thumb{% endif %}">
+
+<img src="{{ url_for('static', filename='referanslar/' ~ img) }}">
+
+</a>
+
+{% endfor %}
+
+</div>
+
+<button class="thumb-arrow" onclick="scrollThumb(1)">›</button>
+
+</div>
+
+</div>
+
 {% endblock %}
+
 
 {% block scripts %}
 
 <script>
-
-const current = "{{ filename }}";
 
 const images = [
 "120.jpeg",
@@ -27,6 +55,8 @@ const images = [
 "125.jpeg",
 "135.jpeg"
 ];
+
+const current = "{{ filename }}";
 
 let index = images.indexOf(current);
 
@@ -74,6 +104,20 @@ window.location = "/referanslar";
 }
 
 });
+
+function scrollThumb(dir){
+
+const strip = document.getElementById("thumbStrip");
+
+strip.scrollBy({
+
+left: dir * 200,
+
+behavior:"smooth"
+
+});
+
+}
 
 </script>
 
