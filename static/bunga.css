@@ -324,3 +324,27 @@ footer{
     opacity:1 !important;
   }
 }
+/* =========================
+   GALERİ ÇERÇEVE
+========================= */
+
+.gallery-frame{
+  position:relative;
+  width:100%;
+  height:320px;
+}
+
+.gallery-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.gallery-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("/static/gallery/eserler/104.png") center/contain no-repeat;
+  pointer-events:none;
+}
