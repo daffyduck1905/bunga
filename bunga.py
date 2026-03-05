@@ -96,6 +96,23 @@ def create_app() -> Flask:
 
         return render_template("eserdetay.html", filename=safe)
 
+    @app.get("/referans/<path:filename>")
+    def referans_detay(filename: str):
+
+        safe = secure_filename(filename)
+
+        full = STATIC_DIR / "referanslar" / safe
+
+        if not full.exists() or not full.is_file():
+            abort(404)
+
+        return render_template("referansdetay.html", filename=safe)
+
+    @app.get("/referanslar")
+    def referanslar():
+
+        return render_template("referanslar.html")
+
     @app.get("/hakkinda")
     def about():
 
@@ -105,22 +122,6 @@ def create_app() -> Flask:
     def contact():
 
         return render_template("contact.html")
-
-    # =========================
-    # REFERANSLAR SAYFASI
-    # =========================
-
-    @app.get("/referanslar")
-    def referanslar():
-
-        images = [
-            "referanslar/120.jpeg",
-            "referanslar/121.jpeg",
-            "referanslar/125.jpeg",
-            "referanslar/135.jpeg",
-        ]
-
-        return render_template("referanslar.html", images=images)
 
     @app.errorhandler(404)
     def page_not_found(e):

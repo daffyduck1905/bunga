@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Referans{% endblock %}
+
+{% block content %}
+
+<div class="container text-center my-5 scroll-reveal">
+
+<img
+src="{{ url_for('static', filename='referanslar/' ~ filename) }}"
+style="max-width:100%; height:auto;">
+
+</div>
+
+{% endblock %}
