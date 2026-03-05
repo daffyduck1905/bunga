@@ -6,9 +6,18 @@
 
 <div class="container text-center my-5">
 
+<div class="viewer-wrapper">
+
+<button class="viewer-arrow left" onclick="prevImage()">❮</button>
+
 <img
+id="viewerImage"
 src="{{ url_for('static', filename='gallery/eserler/' ~ filename) }}"
-style="max-width:100%; height:auto;">
+class="viewer-img">
+
+<button class="viewer-arrow right" onclick="nextImage()">❯</button>
+
+</div>
 
 </div>
 
@@ -23,12 +32,13 @@ style="max-width:100%; height:auto;">
 
 {% for img in images %}
 
-<a href="{{ url_for('eser_detay', filename=img) }}"
-class="thumb-item {% if img == filename %}active-thumb{% endif %}">
+<div
+class="thumb-item {% if img == filename %}active-thumb{% endif %}"
+onclick="openImage('{{ img }}')">
 
 <img src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}">
 
-</a>
+</div>
 
 {% endfor %}
 
@@ -42,12 +52,9 @@ class="thumb-item {% if img == filename %}active-thumb{% endif %}">
 
 {% endblock %}
 
-
 {% block scripts %}
 
 <script>
-
-const current = "{{ filename }}";
 
 const images = [
 {% for img in images %}
@@ -55,58 +62,83 @@ const images = [
 {% endfor %}
 ];
 
-let index = images.indexOf(current);
+let index = images.indexOf("{{ filename }}");
 
-let locked = false;
+const viewer = document.getElementById("viewerImage");
 
-function go(i){
 
-if(locked) return;
+function updateViewer(){
 
-locked = true;
+viewer.src = "/static/gallery/eserler/" + images[index];
 
-if(i < 0) i = images.length - 1;
-if(i >= images.length) i = 0;
+document.querySelectorAll(".thumb-item").forEach((el,i)=>{
 
-window.location = "/eser/" + images[i];
+el.classList.remove("active-thumb");
 
-}
+if(i === index){
 
-document.addEventListener("keydown", function(e){
-
-if(e.repeat) return;
-
-if(e.key === "ArrowRight"){
-
-go(index + 1);
-
-}
-
-if(e.key === "ArrowLeft"){
-
-go(index - 1);
-
-}
-
-if(e.key === "Escape"){
-
-if(!locked){
-
-locked = true;
-
-window.location = "/galeri";
-
-}
+el.classList.add("active-thumb");
 
 }
 
 });
 
+}
+
+
+function nextImage(){
+
+index++;
+
+if(index >= images.length){
+
+index = 0;
+
+}
+
+updateViewer();
+
+}
+
+
+function prevImage(){
+
+index--;
+
+if(index < 0){
+
+index = images.length - 1;
+
+}
+
+updateViewer();
+
+}
+
+
+function openImage(name){
+
+index = images.indexOf(name);
+
+updateViewer();
+
+}
+
+
+document.addEventListener("keydown", function(e){
+
+if(e.key === "ArrowRight") nextImage();
+
+if(e.key === "ArrowLeft") prevImage();
+
+if(e.key === "Escape") window.location = "/galeri";
+
+});
+
+
 function scrollThumb(dir){
 
-const strip = document.getElementById("thumbStrip");
-
-strip.scrollBy({
+document.getElementById("thumbStrip").scrollBy({
 
 left: dir * 200,
 
