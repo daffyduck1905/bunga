@@ -8,31 +8,45 @@
 
 <div class="text-center mt-5 scroll-reveal">
 
-<img src="{{ url_for('static', filename='logo.png') }}" style="height:120px">
+<img src="{{ url_for('static', filename='logo.png') }}" style="height:130px">
 
 </div>
 
 <section class="container my-5">
 
-<h1 class="text-center mb-4 scroll-reveal">İletişim</h1>
+<h1 class="text-center mb-5 scroll-reveal gold-grad-text">
+İletişim
+</h1>
 
-<div class="card p-4 scroll-reveal">
+<div class="glass p-5 scroll-reveal gold-grad-text text-center">
 
-<p>
-Eserler, özel siparişler veya sergiler hakkında bilgi almak için
+<p class="mb-4">
+
+Sanat eserleri hakkında bilgi almak,
+özel sipariş vermek veya sergi davetleri için
 aşağıdaki iletişim kanallarından ulaşabilirsiniz.
+
 </p>
 
-<p>
-<strong>E-posta:</strong>
+<p class="mb-3">
+
+<strong>E-posta</strong><br>
 {{ artist.email }}
+
 </p>
 
-<p>
-<strong>Instagram:</strong>
-<a href="https://instagram.com/{{ artist.instagram }}" target="_blank">
+<p class="mb-3">
+
+<strong>Instagram</strong><br>
 @{{ artist.instagram }}
-</a>
+
+</p>
+
+<p class="mb-3">
+
+<strong>Atölye</strong><br>
+Elazığ / Türkiye
+
 </p>
 
 </div>
