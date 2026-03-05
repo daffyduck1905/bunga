@@ -106,6 +106,22 @@ def create_app() -> Flask:
 
         return render_template("contact.html")
 
+    # =========================
+    # REFERANSLAR SAYFASI
+    # =========================
+
+    @app.get("/referanslar")
+    def referanslar():
+
+        images = [
+            "referanslar/120.jpeg",
+            "referanslar/121.jpeg",
+            "referanslar/125.jpeg",
+            "referanslar/135.jpeg",
+        ]
+
+        return render_template("referanslar.html", images=images)
+
     @app.errorhandler(404)
     def page_not_found(e):
 
