@@ -395,6 +395,9 @@ footer{
 .footer-links a:hover{
   color:var(--gold);
 }
+
+
+
 /* =========================
    THUMBNAIL STRIP
 ========================= */
@@ -408,14 +411,21 @@ THUMBNAIL STRIP
 .viewer-wrapper{
 
 position:relative;
-display:inline-block;
+max-width:900px;
+height:520px;
+margin:auto;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 }
 
 .viewer-img{
 
 max-width:100%;
-height:auto;
+max-height:100%;
+object-fit:contain;
 
 }
 
