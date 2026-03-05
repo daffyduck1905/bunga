@@ -50,15 +50,15 @@
 </li>
 
 <li class="nav-item">
+<a class="nav-link" href="/referanslar">Referanslar</a>
+</li>
+
+<li class="nav-item">
 <a class="nav-link" href="/hakkinda">Hakkında</a>
 </li>
 
 <li class="nav-item">
 <a class="nav-link" href="/iletisim">İletişim</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('referanslar') }}">Referanslar</a>
 </li>
 
 </ul>
@@ -71,11 +71,35 @@
 
 {% block content %}{% endblock %}
 
-<footer class="text-white text-center py-3 mt-5">
+<footer class="footer-main text-white mt-5">
 
-<p class="mb-0">
+<div class="container text-center">
+
+<h4>{{ artist.name }}</h4>
+
+<div style="opacity:.8;margin-bottom:10px">
+{{ artist.title }}
+</div>
+
+<div class="footer-links">
+
+<a href="/">Ana Sayfa</a>
+<a href="/galeri">Galeri</a>
+<a href="/referanslar">Referanslar</a>
+<a href="/hakkinda">Hakkında</a>
+<a href="/iletisim">İletişim</a>
+
+</div>
+
+<div style="margin-top:10px;font-size:14px;opacity:.7">
+{{ artist.email }}
+</div>
+
+<div style="margin-top:8px;font-size:14px;opacity:.6">
 © 2026 {{ artist.name }}
-</p>
+</div>
+
+</div>
 
 </footer>
 

@@ -324,6 +324,27 @@ footer{
     opacity:1 !important;
   }
 }
+.referans-grid img{
+  width:100%;
+  height:140px;
+  object-fit:contain;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  transition:all .35s ease;
+  filter: grayscale(100%);
+}
+
+.referans-grid img:hover{
+  filter: grayscale(0%);
+  transform:scale(1.06);
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+/* =========================
+   ESER HOVER PREMIUM
+========================= */
+
 .gallery-frame{
   position:relative;
   width:100%;
@@ -332,6 +353,11 @@ footer{
   padding:28px;
   background:url("/static/gallery/eserler/104.png") center/contain no-repeat;
   background-size:100% 100%;
+  transition:transform .35s ease;
+}
+
+.gallery-frame:hover{
+  transform:translateY(-6px) scale(1.03);
 }
 
 .frame-image{
@@ -339,4 +365,33 @@ footer{
   height:260px;
   object-fit:cover;
   display:block;
+  transition:transform .4s ease;
+}
+
+.gallery-frame:hover .frame-image{
+  transform:scale(1.06);
+}
+
+/* =========================
+   FOOTER KURUMSAL
+========================= */
+
+.footer-main{
+  padding:40px 0;
+  text-align:center;
+}
+
+.footer-main h4{
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  display:inline-block;
+  margin:6px 10px;
+  color:rgba(255,255,255,.8);
+}
+
+.footer-links a:hover{
+  color:var(--gold);
 }
