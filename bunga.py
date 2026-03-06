@@ -2,7 +2,8 @@
 import os
 from pathlib import Path
 from datetime import datetime
-from flask import Flask, render_template, abort
+import requests
+from flask import Flask, render_template, abort, request, jsonify
 from werkzeug.utils import secure_filename
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -11,6 +12,7 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 GALLERY_DIR = STATIC_DIR / "gallery" / "eserler"
 
 ALLOWED_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+
 
 def list_gallery_images() -> list[str]:
 
@@ -124,6 +126,43 @@ def create_app() -> Flask:
     def contact():
 
         return render_template("contact.html")
+
+
+    # -----------------------------
+    # TRANSLATE API (CORS SORUNU YOK)
+    # -----------------------------
+
+    @app.post("/translate")
+    def translate():
+
+        data = request.json
+
+        text = data.get("text")
+
+        if not text:
+            return jsonify({"translated": text})
+
+        try:
+
+            r = requests.post(
+                "https://translate.argosopentech.com/translate",
+                json={
+                    "q": text,
+                    "source": "tr",
+                    "target": "en",
+                    "format": "text"
+                },
+                timeout=10
+            )
+
+            translated = r.json()["translatedText"]
+
+        except:
+
+            translated = text
+
+        return jsonify({"translated": translated})
+
 
     @app.errorhandler(404)
     def page_not_found(e):

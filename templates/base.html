@@ -60,6 +60,7 @@
 <li class="nav-item">
 <a class="nav-link" href="/iletisim">İletişim</a>
 </li>
+
 <li class="nav-item language-switch">
 
 <a class="lang-btn" data-lang="tr">TR</a>
@@ -188,6 +189,8 @@ modal.show();
 });
 
 </script>
+
+
 <script>
 
 const protectedWords = [
@@ -196,7 +199,7 @@ const protectedWords = [
 "WhatsApp"
 ];
 
-async function translatePage(targetLang){
+async function translatePage(){
 
 const elements = document.querySelectorAll(
 "h1,h2,h3,h4,h5,p,a,span,button,li"
@@ -218,24 +221,21 @@ if(skip) continue;
 
 try{
 
-const res = await fetch("https://libretranslate.de/translate",{
+const res = await fetch("/translate",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify({
-q:text,
-source:"tr",
-target:targetLang,
-format:"text"
+text:text
 })
 });
 
 const data = await res.json();
 
-if(data.translatedText){
+if(data.translated){
 
-el.innerText = data.translatedText;
+el.innerText = data.translated;
 
 }
 
@@ -253,9 +253,11 @@ const lang = btn.dataset.lang;
 
 if(lang === "en"){
 
-translatePage("en");
+translatePage();
 
 }
+
+location.hash = lang;
 
 });
 
