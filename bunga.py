@@ -1,10 +1,12 @@
 # bunga.py
 import os
+import json
 from pathlib import Path
 from datetime import datetime
-import requests
 from flask import Flask, render_template, abort, request, jsonify
 from werkzeug.utils import secure_filename
+import urllib.request
+
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
@@ -128,15 +130,15 @@ def create_app() -> Flask:
         return render_template("contact.html")
 
 
-    # -----------------------------
-    # TRANSLATE API (CORS SORUNU YOK)
-    # -----------------------------
+
+    # -----------------------
+    # ÇEVİRİ API
+    # -----------------------
 
     @app.post("/translate")
     def translate():
 
         data = request.json
-
         text = data.get("text")
 
         if not text:
@@ -144,24 +146,31 @@ def create_app() -> Flask:
 
         try:
 
-            r = requests.post(
+            payload = json.dumps({
+                "q": text,
+                "source": "tr",
+                "target": "en",
+                "format": "text"
+            }).encode("utf-8")
+
+            req = urllib.request.Request(
                 "https://translate.argosopentech.com/translate",
-                json={
-                    "q": text,
-                    "source": "tr",
-                    "target": "en",
-                    "format": "text"
-                },
-                timeout=10
+                data=payload,
+                headers={"Content-Type": "application/json"}
             )
 
-            translated = r.json()["translatedText"]
+            response = urllib.request.urlopen(req, timeout=10)
 
-        except:
+            result = json.loads(response.read().decode())
+
+            translated = result["translatedText"]
+
+        except Exception:
 
             translated = text
 
         return jsonify({"translated": translated})
+
 
 
     @app.errorhandler(404)
