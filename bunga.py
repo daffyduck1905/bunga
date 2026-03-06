@@ -2,19 +2,8 @@
 
 from pathlib import Path
 from datetime import datetime
-
-from flask import (
-    Flask,
-    render_template,
-    abort,
-    request,
-    redirect,
-    url_for,
-    session
-)
-
+from flask import Flask, render_template, abort, request
 from werkzeug.utils import secure_filename
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -25,9 +14,6 @@ GALLERY_DIR = STATIC_DIR / "gallery" / "eserler"
 REFERANS_DIR = STATIC_DIR / "referanslar"
 
 ALLOWED_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-
-
-ADMIN_HASH = generate_password_hash("DINGAdıngaBUNGAbunga.")
 
 
 def list_gallery_images() -> list[str]:
@@ -63,8 +49,6 @@ def create_app() -> Flask:
         static_folder=str(STATIC_DIR),
     )
 
-    app.secret_key = "SUPER_SECRET_KEY_938472983749"
-
     ARTIST = {
         "name": "Fatih Bakır",
         "title": "Ahşap Oyma & Altın Varak",
@@ -90,7 +74,7 @@ def create_app() -> Flask:
 
         images = list_gallery_images()
 
-        featured_paths = build_featured_paths(images)
+        featured_paths = build_featured_paths(images, limit=6)
 
         return render_template(
             "index.html",
@@ -158,56 +142,6 @@ def create_app() -> Flask:
 
         return render_template("contact.html")
 
-    # ADMIN LOGIN
-    @app.route("/panel-giris-8f2a1c", methods=["GET", "POST"])
-    def admin_login():
-
-        if request.method == "POST":
-
-            password = request.form.get("password")
-
-            if check_password_hash(ADMIN_HASH, password):
-
-                session["admin"] = True
-
-                return redirect(url_for("admin_panel"))
-
-        return render_template("admin_login.html")
-
-    # ADMIN PANEL
-    @app.route("/admin-panel", methods=["GET", "POST"])
-    def admin_panel():
-
-        if not session.get("admin"):
-
-            return redirect("/panel-giris-8f2a1c")
-
-        if request.method == "POST":
-
-            file = request.files.get("image")
-
-            if file:
-
-                filename = secure_filename(file.filename)
-
-                save_path = GALLERY_DIR / filename
-
-                file.save(save_path)
-
-        images = list_gallery_images()
-
-        return render_template(
-            "admin.html",
-            images=images
-        )
-
-    @app.get("/logout")
-    def logout():
-
-        session.clear()
-
-        return redirect("/")
-
     @app.errorhandler(404)
     def page_not_found(e):
 
@@ -242,7 +176,6 @@ def create_app() -> Flask:
 
 
 app = create_app()
-
 
 if __name__ == "__main__":
 
