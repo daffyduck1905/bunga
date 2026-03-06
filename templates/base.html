@@ -1,7 +1,7 @@
 <!-- base.html -->
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="{{ 'en' if request.args.get('lang') == 'en' else 'tr' }}">
 <head>
 
 <meta charset="UTF-8" />
@@ -25,7 +25,7 @@
 
 <div class="container">
 
-<a class="navbar-brand d-flex align-items-center gap-2" href="/">
+<a class="navbar-brand d-flex align-items-center gap-2" href="/?lang={{ request.args.get('lang','tr') }}">
 
 <img src="{{ url_for('static', filename='logo.png') }}" style="height:36px">
 
@@ -42,30 +42,40 @@
 <ul class="navbar-nav ms-auto">
 
 <li class="nav-item">
-<a class="nav-link" href="/">Ana Sayfa</a>
+<a class="nav-link" href="/?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Home{% else %}Ana Sayfa{% endif %}
+</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/galeri">Galeri</a>
+<a class="nav-link" href="/galeri?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Gallery{% else %}Galeri{% endif %}
+</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/referanslar">Referanslar</a>
+<a class="nav-link" href="/referanslar?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}References{% else %}Referanslar{% endif %}
+</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/hakkinda">Hakkında</a>
+<a class="nav-link" href="/hakkinda?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}About{% else %}Hakkında{% endif %}
+</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/iletisim">İletişim</a>
+<a class="nav-link" href="/iletisim?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Contact{% else %}İletişim{% endif %}
+</a>
 </li>
 
 <li class="nav-item language-switch">
 
-<a class="lang-btn" data-lang="tr">TR</a>
+<a href="?lang=tr">TR</a>
 <span>|</span>
-<a class="lang-btn" data-lang="en">EN</a>
+<a href="?lang=en">EN</a>
 
 </li>
 
@@ -86,16 +96,34 @@
 <h4>{{ artist.name }}</h4>
 
 <div style="opacity:.8;margin-bottom:10px">
+{% if request.args.get('lang') == 'en' %}
 {{ artist.title }}
+{% else %}
+{{ artist.title }}
+{% endif %}
 </div>
 
 <div class="footer-links">
 
-<a href="/">Ana Sayfa</a>
-<a href="/galeri">Galeri</a>
-<a href="/referanslar">Referanslar</a>
-<a href="/hakkinda">Hakkında</a>
-<a href="/iletisim">İletişim</a>
+<a href="/?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Home{% else %}Ana Sayfa{% endif %}
+</a>
+
+<a href="/galeri?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Gallery{% else %}Galeri{% endif %}
+</a>
+
+<a href="/referanslar?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}References{% else %}Referanslar{% endif %}
+</a>
+
+<a href="/hakkinda?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}About{% else %}Hakkında{% endif %}
+</a>
+
+<a href="/iletisim?lang={{ request.args.get('lang','tr') }}">
+{% if request.args.get('lang') == 'en' %}Contact{% else %}İletişim{% endif %}
+</a>
 
 </div>
 
@@ -110,7 +138,6 @@
 </div>
 
 </footer>
-
 
 <!-- REFERANS ZOOM MODAL -->
 
@@ -131,7 +158,6 @@
 </div>
 
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -165,7 +191,6 @@ els.forEach(el => io.observe(el));
 
 </script>
 
-
 <script>
 
 /* REFERANS FOTO ZOOM */
@@ -183,81 +208,6 @@ document.getElementById('zoomImage').src = this.src;
 modal.show();
 
 });
-
-});
-
-});
-
-</script>
-
-
-<script>
-
-const protectedWords = [
-"Fatih Bakır",
-"Instagram",
-"WhatsApp"
-];
-
-async function translatePage(){
-
-const elements = document.querySelectorAll(
-"h1,h2,h3,h4,h5,p,a,span,button,li"
-);
-
-for(const el of elements){
-
-let text = el.innerText;
-
-if(!text || text.length < 2) continue;
-
-let skip = false;
-
-protectedWords.forEach(w=>{
-if(text.includes(w)) skip = true;
-});
-
-if(skip) continue;
-
-try{
-
-const res = await fetch("/translate",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-text:text
-})
-});
-
-const data = await res.json();
-
-if(data.translated){
-
-el.innerText = data.translated;
-
-}
-
-}catch(e){}
-
-}
-
-}
-
-document.querySelectorAll(".lang-btn").forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-const lang = btn.dataset.lang;
-
-if(lang === "en"){
-
-translatePage();
-
-}
-
-location.hash = lang;
 
 });
 

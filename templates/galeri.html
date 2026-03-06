@@ -2,7 +2,15 @@
 
 {% extends 'base.html' %}
 
-{% block title %}Galeri{% endblock %}
+{% block title %}
+
+{% if request.args.get('lang') == 'en' %}
+Gallery
+{% else %}
+Galeri
+{% endif %}
+
+{% endblock %}
 
 {% block content %}
 
@@ -14,7 +22,15 @@
 
 <section class="container my-5">
 
-<h1 class="text-center mb-4 scroll-reveal">Galeri</h1>
+<h1 class="text-center mb-4 scroll-reveal">
+
+{% if request.args.get('lang') == 'en' %}
+Gallery
+{% else %}
+Galeri
+{% endif %}
+
+</h1>
 
 {% if images and images|length > 0 %}
 
@@ -26,7 +42,7 @@
 
 <div class="gallery-frame">
 
-<a href="{{ url_for('eser_detay', filename=img) }}">
+<a href="{{ url_for('eser_detay', filename=img) }}?lang={{ request.args.get('lang','tr') }}">
 
 <img
 src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
@@ -40,8 +56,14 @@ class="frame-image"
 <div class="mt-3">
 
 <a class="btn btn-outline-gold btn-sm"
-href="{{ url_for('eser_detay', filename=img) }}">
+href="{{ url_for('eser_detay', filename=img) }}?lang={{ request.args.get('lang','tr') }}">
+
+{% if request.args.get('lang') == 'en' %}
+View Details
+{% else %}
 Detayı Aç
+{% endif %}
+
 </a>
 
 </div>
@@ -56,7 +78,11 @@ Detayı Aç
 
 <div class="alert alert-warning">
 
+{% if request.args.get('lang') == 'en' %}
+No artworks have been added to the gallery yet.
+{% else %}
 Galeriye henüz eser eklenmemiş.
+{% endif %}
 
 </div>
 

@@ -2,7 +2,13 @@
 
 {% extends 'base.html' %}
 
-{% block title %}Hakkında{% endblock %}
+{% block title %}
+{% if request.args.get('lang') == 'en' %}
+About
+{% else %}
+Hakkında
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -15,12 +21,29 @@
 <section class="container my-5">
 
 <h1 class="text-center mb-5 scroll-reveal gold-grad-text">
+
+{% if request.args.get('lang') == 'en' %}
+About the Artist
+{% else %}
 Sanatçı Hakkında
+{% endif %}
+
 </h1>
 
 <div class="glass p-5 scroll-reveal gold-grad-text">
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+Artist <strong>Fatih Bakır</strong> from Elazığ is a State Artist
+officially recognized by the Republic of Türkiye Ministry of Culture and Tourism.
+He brings together traditional wood carving and the magnificent
+gold leaf art of the Ottoman period, producing unique works that
+carry the cultural heritage of the past into the present by combining
+history, craftsmanship and aesthetic understanding.
+
+{% else %}
 
 Elazığlı sanatçı <strong>Fatih Bakır</strong>,
 geleneksel ahşap oymacılığı ile Osmanlı döneminin
@@ -31,9 +54,25 @@ Eserlerinde tarih, zanaat ve estetik anlayışı
 bir araya getirerek geçmişin kültürel mirasını
 günümüze taşıyan özgün çalışmalar üretmektedir.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+Bakır inherited his talent for craftsmanship from his father,
+who was an iron master.
+During his childhood he worked alongside his father,
+developing his hand skills and learning the foundations
+of master-level craftsmanship at a very young age.
+Although he completed his academic education in
+Political Science and Public Administration,
+he turned toward visual arts, which was his true passion,
+and devoted his life to this field of art.
+
+{% else %}
 
 Sanata olan yatkınlığını demir ustası olan
 babasından alan Bakır,
@@ -46,9 +85,23 @@ Siyaset Bilimi ve Kamu Yönetimi alanında tamamlamış olsa da,
 asıl tutkusu olan görsel sanatlara yönelmiş
 ve hayatını bu sanat dalına adamıştır.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+Continuing to improve himself throughout his artistic journey,
+Fatih Bakır received professional training from expert
+academicians at Mimar Sinan Fine Arts University.
+Through these studies he elevated both his technical knowledge
+and artistic perspective to a professional level and developed
+a unique style that reinterprets traditional crafts with
+a modern aesthetic approach.
+
+{% else %}
 
 Sanat yolculuğu boyunca kendini geliştirmeye devam eden
 Fatih Bakır,
@@ -60,9 +113,25 @@ Bu süreçte geleneksel el sanatlarının
 modern estetik anlayışıyla yeniden yorumlanabileceğini
 gösteren özgün bir stil geliştirmiştir.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+One of the most distinctive aspects of Fatih Bakır’s art
+is the combination of wood carving and gold leaf techniques
+in his own artistic style.
+The artist first transfers the chosen figure or photograph
+onto the wooden surface.
+He then shapes the form using delicate carving techniques
+that create depth and shadow.
+Finally, the application of Italian gold leaf gives the artwork
+both a historical atmosphere and an impressive metallic brilliance.
+
+{% else %}
 
 Fatih Bakır’ın sanatını benzersiz kılan en önemli özellik,
 ahşap oyma tekniği ile altın varak sanatını
@@ -75,9 +144,27 @@ Son aşamada uygulanan İtalyan altın varağı ise
 esere hem tarihsel bir atmosfer
 hem de etkileyici bir metalik parlaklık kazandırır.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+In many of his works,
+figures from Ottoman history,
+historical portraits and the rich cultural
+heritage of Elazığ frequently appear.
+One of the most remarkable projects of the artist
+is a special collection consisting of portraits
+of the 36 Ottoman sultans.
+While preparing these works,
+each sultan’s historical identity,
+era and personality are carefully researched
+in order to reflect them as accurately as possible.
+
+{% else %}
 
 Sanatçının çalışmalarında sıklıkla
 Osmanlı tarihinden figürler,
@@ -91,9 +178,25 @@ tarihi kimliği, dönemi ve karakteri
 detaylı şekilde araştırılarak
 eserlerde mümkün olan en doğru ifadeyle yansıtılmaya çalışılır.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+Another important body of work by the artist
+is the relief artworks reflecting the historical
+texture of Harput.
+The historical structures of Harput,
+which is included in the UNESCO World Heritage
+Tentative List, and old photographs dating back
+to the 1800s come to life again on wooden surfaces.
+These works are not only artistic creations,
+but also important cultural documents preserving heritage.
+
+{% else %}
 
 Sanatçının bir diğer önemli çalışması ise
 Harput’un tarihi dokusunu yansıtan kabartma eserlerdir.
@@ -105,9 +208,24 @@ Bu çalışmalar yalnızca bir sanat eseri değil,
 aynı zamanda kültürel mirası koruyan
 önemli bir belge niteliği de taşımaktadır.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+The works of Fatih Bakır attract attention
+not only in Türkiye but also in international
+art circles.
+Collectors and art enthusiasts from many countries,
+especially Qatar, Azerbaijan, Germany and Russia,
+show great interest in his works.
+Many artworks are produced by commission
+and become part of private collections.
+
+{% else %}
 
 Fatih Bakır’ın eserleri yalnızca Türkiye’de değil,
 uluslararası sanat çevrelerinde de ilgi görmektedir.
@@ -119,9 +237,24 @@ Birçok eser sipariş üzerine hazırlanmakta
 ve kişiye özel sanat çalışmaları olarak
 koleksiyonlara dahil edilmektedir.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+The artist produces his works in his studio in Elazığ
+using completely traditional hand tools.
+Chisels, carving knives and other classical
+craft tools are used during production.
+No mass production methods or CNC technologies
+are used in these works.
+Therefore each artwork is unique and
+exists as a single original piece.
+
+{% else %}
 
 Sanatçı çalışmalarını Elazığ’daki atölyesinde,
 tamamen geleneksel el aletleri kullanarak üretmektedir.
@@ -132,9 +265,24 @@ Bu nedenle her eser,
 benzersiz bir sanat çalışması ve
 tek nüsha niteliği taşır.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+For Fatih Bakır, art is not merely a production process;
+it is also a powerful cultural bridge between
+the past and the future.
+With this understanding,
+the artist continues to teach the intricacies
+of wood carving to young artists and students
+interested in traditional crafts,
+keeping the master-apprentice tradition alive.
+
+{% else %}
 
 Fatih Bakır için sanat yalnızca bir üretim süreci değildir;
 aynı zamanda geçmiş ile gelecek arasında
@@ -145,9 +293,22 @@ zaman zaman genç sanatçılara ve
 sanata ilgi duyan öğrencilere
 ahşap oyma sanatının inceliklerini öğretmeye devam etmektedir.
 
+{% endif %}
+
 </p>
 
 <p>
+
+{% if request.args.get('lang') == 'en' %}
+
+Working to preserve traditional arts and pass them
+on to future generations,
+Fatih Bakır brings patience, mastery and aesthetic
+understanding together in every artwork,
+reviving the elegance of Turkish handicrafts
+on wooden surfaces.
+
+{% else %}
 
 Geleneksel sanatların korunması ve
 gelecek nesillere aktarılması için çalışan
@@ -156,6 +317,8 @@ her eserinde sabır, ustalık ve estetik anlayışını
 bir araya getirerek
 Türk el sanatlarının zarafetini
 ahşap üzerinde yeniden hayat buldurmaktadır.
+
+{% endif %}
 
 </p>
 

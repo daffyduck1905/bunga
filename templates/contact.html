@@ -2,7 +2,13 @@
 
 {% extends 'base.html' %}
 
-{% block title %}İletişim{% endblock %}
+{% block title %}
+{% if request.args.get('lang') == 'en' %}
+Contact
+{% else %}
+İletişim
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -15,22 +21,47 @@
 <section class="container my-5">
 
 <h1 class="text-center mb-5 scroll-reveal gold-grad-text">
+
+{% if request.args.get('lang') == 'en' %}
+Contact
+{% else %}
 İletişim
+{% endif %}
+
 </h1>
 
 <div class="glass p-5 scroll-reveal gold-grad-text text-center">
 
 <p class="mb-4">
 
+{% if request.args.get('lang') == 'en' %}
+
+You can reach us through the contact channels below
+to get information about the artworks,
+place custom orders, or send exhibition invitations.
+
+{% else %}
+
 Sanat eserleri hakkında bilgi almak,
 özel sipariş vermek veya sergi davetleri için
 aşağıdaki iletişim kanallarından ulaşabilirsiniz.
+
+{% endif %}
 
 </p>
 
 <p class="mb-3">
 
-<strong>E-posta</strong><br>
+<strong>
+
+{% if request.args.get('lang') == 'en' %}
+Email
+{% else %}
+E-posta
+{% endif %}
+
+</strong><br>
+
 {{ artist.email }}
 
 </p>
@@ -38,14 +69,28 @@ aşağıdaki iletişim kanallarından ulaşabilirsiniz.
 <p class="mb-3">
 
 <strong>Instagram</strong><br>
+
 @{{ artist.instagram }}
 
 </p>
 
 <p class="mb-3">
 
-<strong>Atölye</strong><br>
+<strong>
+
+{% if request.args.get('lang') == 'en' %}
+Studio
+{% else %}
+Atölye
+{% endif %}
+
+</strong><br>
+
+{% if request.args.get('lang') == 'en' %}
 Elazığ / Türkiye
+{% else %}
+Elazığ / Türkiye
+{% endif %}
 
 </p>
 

@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Referans{% endblock %}
+{% block title %}
+
+{% if request.args.get('lang') == 'en' %}
+Reference
+{% else %}
+Referans
+{% endif %}
+
+{% endblock %}
 
 {% block content %}
 
@@ -135,7 +143,19 @@ if(e.key === "ArrowRight") nextImage();
 
 if(e.key === "ArrowLeft") prevImage();
 
-if(e.key === "Escape") window.location = "/referanslar";
+if(e.key === "Escape"){
+
+{% if request.args.get('lang') == 'en' %}
+
+window.location = "/referanslar?lang=en";
+
+{% else %}
+
+window.location = "/referanslar?lang=tr";
+
+{% endif %}
+
+}
 
 });
 

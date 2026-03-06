@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Referanslar{% endblock %}
+{% block title %}
+
+{% if request.args.get('lang') == 'en' %}
+References
+{% else %}
+Referanslar
+{% endif %}
+
+{% endblock %}
 
 {% block content %}
 
 <section class="container my-5">
 
 <div class="section-title scroll-reveal">
-<h2>Referanslar</h2>
+
+<h2>
+
+{% if request.args.get('lang') == 'en' %}
+References
+{% else %}
+Referanslar
+{% endif %}
+
+</h2>
+
 <div class="accent-line"></div>
+
 </div>
 
 <div class="row mt-5 referans-grid">
 
 <div class="col-md-3 col-sm-6 mb-4 scroll-reveal">
 
-<a href="{{ url_for('referans_detay', filename='120.jpeg') }}">
+<a href="{{ url_for('referans_detay', filename='120.jpeg') }}?lang={{ request.args.get('lang','tr') }}">
 
 <img
 src="{{ url_for('static', filename='referanslar/120.jpeg') }}"
@@ -27,7 +46,7 @@ class="img-fluid rounded shadow">
 
 <div class="col-md-3 col-sm-6 mb-4 scroll-reveal">
 
-<a href="{{ url_for('referans_detay', filename='121.jpeg') }}">
+<a href="{{ url_for('referans_detay', filename='121.jpeg') }}?lang={{ request.args.get('lang','tr') }}">
 
 <img
 src="{{ url_for('static', filename='referanslar/121.jpeg') }}"
@@ -39,7 +58,7 @@ class="img-fluid rounded shadow">
 
 <div class="col-md-3 col-sm-6 mb-4 scroll-reveal">
 
-<a href="{{ url_for('referans_detay', filename='125.jpeg') }}">
+<a href="{{ url_for('referans_detay', filename='125.jpeg') }}?lang={{ request.args.get('lang','tr') }}">
 
 <img
 src="{{ url_for('static', filename='referanslar/125.jpeg') }}"
@@ -51,7 +70,7 @@ class="img-fluid rounded shadow">
 
 <div class="col-md-3 col-sm-6 mb-4 scroll-reveal">
 
-<a href="{{ url_for('referans_detay', filename='135.jpeg') }}">
+<a href="{{ url_for('referans_detay', filename='135.jpeg') }}?lang={{ request.args.get('lang','tr') }}">
 
 <img
 src="{{ url_for('static', filename='referanslar/135.jpeg') }}"

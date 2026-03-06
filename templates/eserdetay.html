@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Eser{% endblock %}
+{% block title %}
+
+{% if request.args.get('lang') == 'en' %}
+Artwork
+{% else %}
+Eser
+{% endif %}
+
+{% endblock %}
 
 {% block content %}
 
@@ -131,7 +139,19 @@ if(e.key === "ArrowRight") nextImage();
 
 if(e.key === "ArrowLeft") prevImage();
 
-if(e.key === "Escape") window.location = "/galeri";
+if(e.key === "Escape"){
+
+{% if request.args.get('lang') == 'en' %}
+
+window.location = "/galeri?lang=en";
+
+{% else %}
+
+window.location = "/galeri?lang=tr";
+
+{% endif %}
+
+}
 
 });
 

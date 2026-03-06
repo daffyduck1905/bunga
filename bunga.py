@@ -1,11 +1,9 @@
 # bunga.py
-import os
-import json
+
 from pathlib import Path
 from datetime import datetime
-from flask import Flask, render_template, abort, request, jsonify
+from flask import Flask, render_template, abort, request
 from werkzeug.utils import secure_filename
-import urllib.request
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -58,14 +56,19 @@ def create_app() -> Flask:
         "location": "",
     }
 
+    # GLOBAL TEMPLATE DEĞİŞKENLERİ
     @app.context_processor
     def inject_globals():
+
+        lang = request.args.get("lang", "tr")
 
         return {
             "artist": ARTIST,
             "asset_version": datetime.utcnow().strftime("%Y%m%d%H%M%S"),
+            "lang": lang
         }
 
+    # ANA SAYFA
     @app.get("/")
     def index():
 
@@ -78,13 +81,18 @@ def create_app() -> Flask:
             featured_paths=featured_paths
         )
 
+    # GALERİ
     @app.get("/galeri")
     def galeri():
 
         images = list_gallery_images()
 
-        return render_template("galeri.html", images=images)
+        return render_template(
+            "galeri.html",
+            images=images
+        )
 
+    # ESER DETAY
     @app.get("/eser/<path:filename>")
     def eser_detay(filename: str):
 
@@ -100,8 +108,13 @@ def create_app() -> Flask:
 
         images = list_gallery_images()
 
-        return render_template("eserdetay.html", filename=safe, images=images)
+        return render_template(
+            "eserdetay.html",
+            filename=safe,
+            images=images
+        )
 
+    # REFERANS DETAY
     @app.get("/referans/<path:filename>")
     def referans_detay(filename: str):
 
@@ -112,67 +125,30 @@ def create_app() -> Flask:
         if not full.exists() or not full.is_file():
             abort(404)
 
-        return render_template("referansdetay.html", filename=safe)
+        return render_template(
+            "referansdetay.html",
+            filename=safe
+        )
 
+    # REFERANSLAR
     @app.get("/referanslar")
     def referanslar():
 
         return render_template("referanslar.html")
 
+    # HAKKINDA
     @app.get("/hakkinda")
     def about():
 
         return render_template("about.html")
 
+    # İLETİŞİM
     @app.get("/iletisim")
     def contact():
 
         return render_template("contact.html")
 
-
-
-    # -----------------------
-    # ÇEVİRİ API
-    # -----------------------
-
-    @app.post("/translate")
-    def translate():
-
-        data = request.json
-        text = data.get("text")
-
-        if not text:
-            return jsonify({"translated": text})
-
-        try:
-
-            payload = json.dumps({
-                "q": text,
-                "source": "tr",
-                "target": "en",
-                "format": "text"
-            }).encode("utf-8")
-
-            req = urllib.request.Request(
-                "https://translate.argosopentech.com/translate",
-                data=payload,
-                headers={"Content-Type": "application/json"}
-            )
-
-            response = urllib.request.urlopen(req, timeout=10)
-
-            result = json.loads(response.read().decode())
-
-            translated = result["translatedText"]
-
-        except Exception:
-
-            translated = text
-
-        return jsonify({"translated": translated})
-
-
-
+    # 404 SAYFASI
     @app.errorhandler(404)
     def page_not_found(e):
 
@@ -208,6 +184,6 @@ def create_app() -> Flask:
 
 app = create_app()
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     app.run(debug=True)
