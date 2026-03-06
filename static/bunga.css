@@ -543,3 +543,24 @@ cursor:pointer;
 background:#1d1d1d;
 
 }
+.language-switch{
+
+margin-left:20px;
+font-family:'Playfair Display',serif;
+font-weight:600;
+
+}
+
+.language-switch a{
+
+color:#D4AF37;
+padding:0 6px;
+cursor:pointer;
+
+}
+
+.language-switch a:hover{
+
+color:#f1d77a;
+
+}

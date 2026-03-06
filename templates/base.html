@@ -60,6 +60,13 @@
 <li class="nav-item">
 <a class="nav-link" href="/iletisim">İletişim</a>
 </li>
+<li class="nav-item language-switch">
+
+<a class="lang-btn" data-lang="tr">TR</a>
+<span>|</span>
+<a class="lang-btn" data-lang="en">EN</a>
+
+</li>
 
 </ul>
 
@@ -175,6 +182,80 @@ document.getElementById('zoomImage').src = this.src;
 modal.show();
 
 });
+
+});
+
+});
+
+</script>
+<script>
+
+const protectedWords = [
+"Fatih Bakır",
+"Instagram",
+"WhatsApp"
+];
+
+async function translatePage(targetLang){
+
+const elements = document.querySelectorAll(
+"h1,h2,h3,h4,h5,p,a,span,button,li"
+);
+
+for(const el of elements){
+
+let text = el.innerText;
+
+if(!text || text.length < 2) continue;
+
+let skip = false;
+
+protectedWords.forEach(w=>{
+if(text.includes(w)) skip = true;
+});
+
+if(skip) continue;
+
+try{
+
+const res = await fetch("https://libretranslate.de/translate",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+q:text,
+source:"tr",
+target:targetLang,
+format:"text"
+})
+});
+
+const data = await res.json();
+
+if(data.translatedText){
+
+el.innerText = data.translatedText;
+
+}
+
+}catch(e){}
+
+}
+
+}
+
+document.querySelectorAll(".lang-btn").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+const lang = btn.dataset.lang;
+
+if(lang === "en"){
+
+translatePage("en");
+
+}
 
 });
 
