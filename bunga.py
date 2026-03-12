@@ -119,7 +119,10 @@ def create_app() -> Flask:
     def referanslar():
 
         return render_template("referanslar.html")
-
+    @app.route("/google66fa269196c5718f.html")
+    def google_verify():
+        return "google-site-verification: google66fa269196c5718f.html"
+        
     @app.get("/hakkinda")
     def about():
 
@@ -168,3 +171,4 @@ app = create_app()
 if __name__ == "__main__":
 
     app.run(debug=True)
+    
