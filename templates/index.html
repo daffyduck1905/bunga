@@ -29,26 +29,24 @@ Ana Sayfa | {{ artist.name }}
   {% endfor %}
 {% endif %}
 
-<!-- HERO / SLIDER -->
+<!-- HERO -->
 <div id="heroCarousel" class="carousel slide carousel-hero" data-bs-ride="carousel" data-bs-interval="4500">
 
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-  </div>
+<div class="carousel-indicators">
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+</div>
 
-  <div class="carousel-inner">
+<div class="carousel-inner">
 
-    <!-- SLIDE 1 -->
-    <div class="carousel-item active"
-      style="background-image:url('{{ hero_imgs[0] }}');">
+<div class="carousel-item active" style="background-image:url('{{ hero_imgs[0] }}');">
 
-      <div class="carousel-caption text-center">
+<div class="carousel-caption text-center">
 
-        <div class="hero-line scroll-reveal"></div>
+<div class="hero-line scroll-reveal"></div>
 
-        <h1 class="mb-2 scroll-reveal">
+<h1 class="mb-2 scroll-reveal">
 
 {% if request.args.get('lang') == 'en' %}
 Patience in Wood, Nobility in Gold
@@ -56,9 +54,9 @@ Patience in Wood, Nobility in Gold
 Ahşapta Sabır, Altında Asalet
 {% endif %}
 
-        </h1>
+</h1>
 
-        <p class="mb-3 scroll-reveal">
+<p class="mb-3 scroll-reveal">
 
 {% if request.args.get('lang') == 'en' %}
 Each artwork is unique.  
@@ -67,11 +65,11 @@ A timeless collection where carving, gold leaf and craftsmanship come together.
 Her eser tek ve eşsizdir. Oyma sanatı, altın varak ve el işçiliğinin birleştiği zamansız bir koleksiyon.
 {% endif %}
 
-        </p>
+</p>
 
-        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
+<div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
 
-          <a class="btn btn-gold" href="{{ url_for('galeri') }}?lang={{ request.args.get('lang','tr') }}">
+<a class="btn btn-gold" href="{{ url_for('galeri') }}?lang={{ request.args.get('lang','tr') }}">
 
 {% if request.args.get('lang') == 'en' %}
 View Collection
@@ -79,9 +77,9 @@ View Collection
 Koleksiyona Git
 {% endif %}
 
-          </a>
+</a>
 
-          <a class="btn btn-outline-gold" href="{{ url_for('contact') }}?lang={{ request.args.get('lang','tr') }}">
+<a class="btn btn-outline-gold" href="{{ url_for('contact') }}?lang={{ request.args.get('lang','tr') }}">
 
 {% if request.args.get('lang') == 'en' %}
 Contact
@@ -89,22 +87,20 @@ Contact
 İletişime Geç
 {% endif %}
 
-          </a>
+</a>
 
-        </div>
+</div>
 
-      </div>
-    </div>
+</div>
+</div>
 
-    <!-- SLIDE 2 -->
-    <div class="carousel-item"
-      style="background-image:url('{{ hero_imgs[1] }}');">
+<div class="carousel-item" style="background-image:url('{{ hero_imgs[1] }}');">
 
-      <div class="carousel-caption text-center">
+<div class="carousel-caption text-center">
 
-        <div class="hero-line scroll-reveal"></div>
+<div class="hero-line scroll-reveal"></div>
 
-        <h1 class="mb-2 scroll-reveal">
+<h1>
 
 {% if request.args.get('lang') == 'en' %}
 From Tradition to the Future
@@ -112,106 +108,46 @@ From Tradition to the Future
 Gelenekten Geleceğe
 {% endif %}
 
-        </h1>
+</h1>
 
-        <p class="mb-3 scroll-reveal">
+<p>
 
 {% if request.args.get('lang') == 'en' %}
-Carefully selected wood, delicate carving and gold leaf touches…  
 Every detail tells a story.
 {% else %}
-Ustalıkla seçilen ağaç, incelikli oyma ve varak dokunuşları… Her detay bir hikâye.
+Her detay bir hikâye.
 {% endif %}
 
-        </p>
+</p>
 
-        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
+</div>
+</div>
 
-          <a class="btn btn-gold" href="{{ url_for('about') }}?lang={{ request.args.get('lang','tr') }}">
+<div class="carousel-item" style="background-image:url('{{ hero_imgs[2] }}');">
+
+<div class="carousel-caption text-center">
+
+<div class="hero-line scroll-reveal"></div>
+
+<h1>
 
 {% if request.args.get('lang') == 'en' %}
-Meet the Artist
+Custom Artwork
 {% else %}
-Sanatçıyı Tanı
+Özel Çalışma
 {% endif %}
 
-          </a>
+</h1>
 
-          <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}?lang={{ request.args.get('lang','tr') }}">
+</div>
+</div>
 
-{% if request.args.get('lang') == 'en' %}
-Featured Works
-{% else %}
-Öne Çıkanlar
-{% endif %}
-
-          </a>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SLIDE 3 -->
-    <div class="carousel-item"
-      style="background-image:url('{{ hero_imgs[2] }}');">
-
-      <div class="carousel-caption text-center">
-
-        <div class="hero-line scroll-reveal"></div>
-
-        <h1 class="mb-2 scroll-reveal">
-
-{% if request.args.get('lang') == 'en' %}
-Custom Made Artwork
-{% else %}
-Sipariş Üzerine Özel Çalışma
-{% endif %}
-
-        </h1>
-
-        <p class="mb-3 scroll-reveal">
-
-{% if request.args.get('lang') == 'en' %}
-Carvings based on photos, motifs, names and custom compositions — completely personal.
-{% else %}
-Resme göre oyma, motif, isim ve özel kompozisyonlar — tamamen sana özel.
-{% endif %}
-
-        </p>
-
-        <div class="d-flex gap-2 justify-content-center flex-wrap scroll-reveal">
-
-          <a class="btn btn-gold" href="{{ url_for('contact') }}?lang={{ request.args.get('lang','tr') }}">
-
-{% if request.args.get('lang') == 'en' %}
-Request Order
-{% else %}
-Sipariş Sor
-{% endif %}
-
-          </a>
-
-          <a class="btn btn-outline-gold" href="{{ url_for('galeri') }}?lang={{ request.args.get('lang','tr') }}">
-
-{% if request.args.get('lang') == 'en' %}
-View Gallery
-{% else %}
-Galeriye Bak
-{% endif %}
-
-          </a>
-
-        </div>
-
-      </div>
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 <!-- PROCESS -->
+
 <section class="section-pad">
 
 <div class="container">
@@ -247,9 +183,9 @@ Ustalık Süreci
 <p class="mb-0 gold-grad-text">
 
 {% if request.args.get('lang') == 'en' %}
-Suitable wood and form are selected.
+Suitable wood is selected.
 {% else %}
-Uygun ağaç ve form seçilir, yüzey hazırlanır.
+Uygun ağaç seçilir.
 {% endif %}
 
 </p>
@@ -270,9 +206,9 @@ Uygun ağaç ve form seçilir, yüzey hazırlanır.
 <p class="mb-0 gold-grad-text">
 
 {% if request.args.get('lang') == 'en' %}
-Motif or portrait is carved with patience.
+The artwork is carved.
 {% else %}
-Motif/portre tasarıma göre sabırla işlenir.
+Eser oyulur.
 {% endif %}
 
 </p>
@@ -293,9 +229,9 @@ Motif/portre tasarıma göre sabırla işlenir.
 <p class="mb-0 gold-grad-text">
 
 {% if request.args.get('lang') == 'en' %}
-Gold leaf gives the artwork a noble shine.
+Gold leaf gives shine.
 {% else %}
-Altın varak uygulamasıyla asil bir parlaklık kazanır.
+Altın varak parlaklık verir.
 {% endif %}
 
 </p>
@@ -316,9 +252,9 @@ Altın varak uygulamasıyla asil bir parlaklık kazanır.
 <p class="mb-0 gold-grad-text">
 
 {% if request.args.get('lang') == 'en' %}
-Final protection and presentation.
+Final protection.
 {% else %}
-Koruma ve son işlemle eser hazır hale gelir.
+Son koruma uygulanır.
 {% endif %}
 
 </p>
@@ -327,7 +263,78 @@ Koruma ve son işlemle eser hazır hale gelir.
 </div>
 
 </div>
+
 </div>
+
+</section>
+
+<!-- FEATURED WORKS -->
+
+<section class="section-pad section-muted">
+
+<div class="container">
+
+<div class="section-title scroll-reveal">
+
+<h2>
+
+{% if request.args.get('lang') == 'en' %}
+Featured Works
+{% else %}
+Öne Çıkan Eserler
+{% endif %}
+
+</h2>
+
+<div class="accent-line"></div>
+
+</div>
+
+{% if featured_paths and featured_paths|length > 0 %}
+
+<div class="row">
+
+{% for path in featured_paths %}
+
+{% set filename = path.split('/')[-1] %}
+
+<div class="col-md-4 mb-4 scroll-reveal">
+
+<div class="gallery-frame">
+
+<a href="{{ url_for('eser_detay', filename=filename) }}?lang={{ request.args.get('lang','tr') }}">
+
+<img src="{{ url_for('static', filename=path) }}" class="frame-image">
+
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="text-center mt-4 scroll-reveal">
+
+<a class="btn btn-gold"
+href="{{ url_for('galeri') }}?lang={{ request.args.get('lang','tr') }}">
+
+{% if request.args.get('lang') == 'en' %}
+View Full Gallery
+{% else %}
+Tüm Koleksiyon
+{% endif %}
+
+</a>
+
+</div>
+
+</div>
+
 </section>
 
 {% endblock %}
