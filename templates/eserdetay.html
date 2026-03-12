@@ -51,6 +51,33 @@ title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 </div>
 
 
+<!-- DUVARDA GÖR BUTONU -->
+
+<div style="text-align:center;margin-top:20px;">
+
+<button id="wallPreviewBtn"
+style="
+background:#D4AF37;
+border:none;
+padding:12px 28px;
+color:#000;
+font-family:'Playfair Display',serif;
+font-size:18px;
+cursor:pointer;
+">
+
+{% if request.args.get('lang') == 'en' %}
+See on Wall
+{% else %}
+Duvarda Gör
+{% endif %}
+
+</button>
+
+</div>
+
+
+
 <div class="container mb-5">
 
 <div class="thumb-wrapper">
@@ -79,6 +106,58 @@ title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 </div>
 
 <button class="thumb-arrow" onclick="scrollThumb(1)">›</button>
+
+</div>
+
+</div>
+
+
+<!-- DUVAR PREVIEW MODAL -->
+
+<div id="wallModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+z-index:9999;
+justify-content:center;
+align-items:center;
+">
+
+<div style="position:relative;">
+
+<img src="{{ url_for('static', filename='665.png') }}"
+style="max-width:90vw;max-height:90vh;">
+
+<img id="wallArt"
+style="
+position:absolute;
+top:35%;
+left:50%;
+transform:translate(-50%,-50%);
+max-width:320px;
+cursor:move;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+">
+
+<button id="closeWall"
+style="
+position:absolute;
+top:-40px;
+right:0;
+background:#D4AF37;
+border:none;
+padding:8px 15px;
+cursor:pointer;
+font-weight:bold;
+">
+
+X
+
+</button>
 
 </div>
 
@@ -193,6 +272,60 @@ behavior:"smooth"
 });
 
 }
+
+
+
+/* WALL PREVIEW */
+
+const wallBtn = document.getElementById("wallPreviewBtn");
+const wallModal = document.getElementById("wallModal");
+const wallArt = document.getElementById("wallArt");
+const closeWall = document.getElementById("closeWall");
+
+wallBtn.addEventListener("click", () => {
+
+wallArt.src = viewer.src;
+
+wallModal.style.display = "flex";
+
+});
+
+closeWall.addEventListener("click", () => {
+
+wallModal.style.display = "none";
+
+});
+
+
+
+/* DRAG SYSTEM */
+
+let isDragging = false;
+let offsetX, offsetY;
+
+wallArt.addEventListener("mousedown", (e) => {
+
+isDragging = true;
+
+offsetX = e.clientX - wallArt.offsetLeft;
+offsetY = e.clientY - wallArt.offsetTop;
+
+});
+
+document.addEventListener("mousemove", (e) => {
+
+if (!isDragging) return;
+
+wallArt.style.left = (e.clientX - offsetX) + "px";
+wallArt.style.top = (e.clientY - offsetY) + "px";
+
+});
+
+document.addEventListener("mouseup", () => {
+
+isDragging = false;
+
+});
 
 </script>
 
