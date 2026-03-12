@@ -51,9 +51,32 @@ title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 </div>
 
 
-<!-- DUVARDA GÖR BUTONU -->
+
+<!-- DETAY VE DUVARDA GÖR BUTONLARI -->
 
 <div style="text-align:center;margin-top:20px;">
+
+<button
+onclick="goDetail()"
+style="
+background:#D4AF37;
+border:none;
+padding:12px 28px;
+color:#000;
+font-family:'Playfair Display',serif;
+font-size:18px;
+cursor:pointer;
+margin-right:10px;
+">
+
+{% if request.args.get('lang') == 'en' %}
+Detail
+{% else %}
+Detay
+{% endif %}
+
+</button>
+
 
 <button id="wallPreviewBtn"
 style="
@@ -112,9 +135,11 @@ title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 </div>
 
 
-<!-- DUVAR PREVIEW MODAL -->
 
-<div id="wallModal" style="
+<!-- DUVAR PREVIEW -->
+
+<div id="wallModal"
+style="
 display:none;
 position:fixed;
 top:0;
@@ -129,19 +154,23 @@ align-items:center;
 
 <div style="position:relative;">
 
-<img src="{{ url_for('static', filename='665.png') }}"
+<img
+src="{{ url_for('static', filename='665.png') }}"
 style="max-width:90vw;max-height:90vh;">
+
 
 <img id="wallArt"
 style="
 position:absolute;
-top:35%;
+top:38%;
 left:50%;
 transform:translate(-50%,-50%);
-max-width:320px;
+width:274px;
+height:256px;
 cursor:move;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
 ">
+
 
 <button id="closeWall"
 style="
@@ -164,6 +193,8 @@ X
 </div>
 
 {% endblock %}
+
+
 
 {% block scripts %}
 
@@ -275,7 +306,7 @@ behavior:"smooth"
 
 
 
-/* WALL PREVIEW */
+/* DUVAR PREVIEW */
 
 const wallBtn = document.getElementById("wallPreviewBtn");
 const wallModal = document.getElementById("wallModal");
@@ -326,6 +357,14 @@ document.addEventListener("mouseup", () => {
 isDragging = false;
 
 });
+
+
+
+function goDetail(){
+
+console.log("detail button");
+
+}
 
 </script>
 
