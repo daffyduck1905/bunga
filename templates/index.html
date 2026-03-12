@@ -12,15 +12,15 @@ Ana Sayfa | {{ artist.name }}
 {% block content %}
 
 {% set fallback_imgs = [
-  url_for('static', filename='gallery/eserler/99.png'),
-  url_for('static', filename='gallery/eserler/100.png'),
-  url_for('static', filename='gallery/eserler/101.png')
+  url_for('static', filename='gallery/eserler/99.webp'),
+  url_for('static', filename='gallery/eserler/100.webp'),
+  url_for('static', filename='gallery/eserler/101.webp')
 ] %}
 
 {% set hero_imgs = [
-  url_for('static', filename='gallery/eserler/99.png'),
-  url_for('static', filename='gallery/eserler/100.png'),
-  url_for('static', filename='gallery/eserler/101.png')
+  url_for('static', filename='gallery/eserler/99.webp'),
+  url_for('static', filename='gallery/eserler/100.webp'),
+  url_for('static', filename='gallery/eserler/101.webp')
 ] %}
 
 {% if featured_paths and featured_paths|length > 0 %}
