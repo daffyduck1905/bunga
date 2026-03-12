@@ -86,13 +86,13 @@ def create_app() -> Flask:
 
         images = list_gallery_images()
 
-       
         images = [img for img in images if img != "104.png"]
 
         return render_template(
             "galeri.html",
             images=images
         )
+
     @app.get("/eser/<path:filename>")
     def eser_detay(filename: str):
 
@@ -114,54 +114,10 @@ def create_app() -> Flask:
             images=images
         )
 
-    @app.route("/sitemap.xml")
-def sitemap():
-
-    pages = []
-
-    base = "https://fatihbakir.pythonanywhere.com"
-
-    pages.append(base + "/")
-    pages.append(base + "/galeri")
-    pages.append(base + "/referanslar")
-    pages.append(base + "/hakkinda")
-    pages.append(base + "/iletisim")
-
-    images = list_gallery_images()
-
-    for img in images:
-        pages.append(base + "/eser/" + img)
-
-    sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
-    sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-
-    for page in pages:
-        sitemap_xml += "<url>"
-        sitemap_xml += f"<loc>{page}</loc>"
-        sitemap_xml += "</url>"
-
-    sitemap_xml += "</urlset>"
-
-    return sitemap_xml, 200, {"Content-Type": "application/xml"}
-    @app.route("/robots.txt")
-def robots():
-
-    robots_txt = """
-User-agent: *
-Allow: /
-
-Sitemap: https://fatihbakir.pythonanywhere.com/sitemap.xml
-"""
-
-    return robots_txt, 200, {"Content-Type": "text/plain"}
     @app.get("/referanslar")
     def referanslar():
 
         return render_template("referanslar.html")
-    @app.route("/google66fa269196c5718f.html")
-    def google_verify():
-        return "google-site-verification: google66fa269196c5718f.html"
-
 
     @app.get("/hakkinda")
     def about():
@@ -172,6 +128,52 @@ Sitemap: https://fatihbakir.pythonanywhere.com/sitemap.xml
     def contact():
 
         return render_template("contact.html")
+
+    @app.route("/sitemap.xml")
+    def sitemap():
+
+        pages = []
+
+        base = "https://fatihbakir.pythonanywhere.com"
+
+        pages.append(base + "/")
+        pages.append(base + "/galeri")
+        pages.append(base + "/referanslar")
+        pages.append(base + "/hakkinda")
+        pages.append(base + "/iletisim")
+
+        images = list_gallery_images()
+
+        for img in images:
+            pages.append(base + "/eser/" + img)
+
+        sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
+        sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+
+        for page in pages:
+            sitemap_xml += "<url>"
+            sitemap_xml += f"<loc>{page}</loc>"
+            sitemap_xml += "</url>"
+
+        sitemap_xml += "</urlset>"
+
+        return sitemap_xml, 200, {"Content-Type": "application/xml"}
+
+    @app.route("/robots.txt")
+    def robots():
+
+        robots_txt = """
+User-agent: *
+Allow: /
+
+Sitemap: https://fatihbakir.pythonanywhere.com/sitemap.xml
+"""
+
+        return robots_txt, 200, {"Content-Type": "text/plain"}
+
+    @app.route("/google66fa269196c5718f.html")
+    def google_verify():
+        return "google-site-verification: google66fa269196c5718f.html"
 
     @app.errorhandler(404)
     def page_not_found(e):
@@ -211,4 +213,3 @@ app = create_app()
 if __name__ == "__main__":
 
     app.run(debug=True)
-    
