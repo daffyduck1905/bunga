@@ -524,7 +524,21 @@ border:2px solid #D4AF37;
 box-shadow:0 0 12px rgba(212,175,55,.6);
 
 }
+.reference-logo{
 
+max-height:120px;
+object-fit:contain;
+padding:15px;
+
+transition:all .3s ease;
+
+}
+
+.reference-logo:hover{
+
+transform:scale(1.05);
+
+}
 .thumb-arrow{
 
 background:#111;

@@ -112,20 +112,6 @@ def create_app() -> Flask:
             images=images
         )
 
-    @app.get("/referans/<path:filename>")
-    def referans_detay(filename: str):
-
-        safe = secure_filename(filename)
-
-        full = REFERANS_DIR / safe
-
-        if not full.exists() or not full.is_file():
-            abort(404)
-
-        return render_template(
-            "referansdetay.html",
-            filename=safe
-        )
 
     @app.get("/referanslar")
     def referanslar():
