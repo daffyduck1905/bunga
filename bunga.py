@@ -199,9 +199,9 @@ Sitemap: https://fatihbakir.pythonanywhere.com/image-sitemap.xml
 
     # GOOGLE VERIFY
 
-    @app.route("/uk3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A.html")
+    @app.route("/google3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A.html")
     def google_verify():
-        return "google-site-verification=uk3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A"
+        return "google-site-verification: google3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A.html"
 
     return app
 
