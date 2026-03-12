@@ -37,18 +37,12 @@ align-items:center;
 max-width:200px;
 max-height:200px;
 margin-right:30px;
-}
-
-.news-link{
-color:#D4AF37;
-font-family:'Playfair Display',serif;
-font-size:22px;
-text-decoration:none;
+cursor:pointer;
 transition:0.3s;
 }
 
-.news-link:hover{
-opacity:0.7;
+.news-item img:hover{
+opacity:0.8;
 }
 
 @media(max-width:768px){
@@ -155,18 +149,11 @@ Basında Fatih Bakır
 
 <div class="news-item">
 
-<img src="{{ url_for('static', filename='referanslar/199.png') }}">
-
 <a
 href="https://www.aa.com.tr/tr/yasam/elazigli-usta-4-bin-yillik-harput-kabartmasini-oyma-sanatiyla-ahsaba-isledi/2211859"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/199.png') }}">
 
 </a>
 
@@ -174,19 +161,12 @@ Habere Gidin
 
 
 <div class="news-item">
-
-<img src="{{ url_for('static', filename='referanslar/200.png') }}">
 
 <a
 href="https://www.trthaber.com/haber/ozel-haber/tarihi-harput-mahallesinin-asirlik-fotograflarini-ahsaba-isliyor-514414.html"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/200.png') }}">
 
 </a>
 
@@ -194,19 +174,12 @@ Habere Gidin
 
 
 <div class="news-item">
-
-<img src="{{ url_for('static', filename='referanslar/201.png') }}">
 
 <a
 href="https://www.sabah.com.tr/elazig/2021/06/05/evinin-bodrumunda-uretiyor-katar-rusya-almanya-ve-azerbeycana-kadar-gonderiyor"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/201.png') }}">
 
 </a>
 
@@ -214,19 +187,12 @@ Habere Gidin
 
 
 <div class="news-item">
-
-<img src="{{ url_for('static', filename='referanslar/202.png') }}">
 
 <a
 href="https://kanal23.com/haber/elazig/osmanli-padisahlarini-varak-sanatiyla-ahsaba-resmetti-NbitE9yz"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/202.png') }}">
 
 </a>
 
@@ -234,19 +200,12 @@ Habere Gidin
 
 
 <div class="news-item">
-
-<img src="{{ url_for('static', filename='referanslar/203.png') }}">
 
 <a
 href="https://www.haberayrinti.com/ahsap-oymaciligi-yapiyor-yurt-disina-gonderiyor/9106/"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/203.png') }}">
 
 </a>
 
@@ -254,19 +213,12 @@ Habere Gidin
 
 
 <div class="news-item">
-
-<img src="{{ url_for('static', filename='referanslar/204.png') }}">
 
 <a
 href="https://www.elazigsonhaber.com/osmanli-padisahlarini-varak-sanatiyla-ahsaba-resmetti"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/204.png') }}">
 
 </a>
 
@@ -275,18 +227,11 @@ Habere Gidin
 
 <div class="news-item">
 
-<img src="{{ url_for('static', filename='referanslar/205.png') }}">
-
 <a
 href="https://www.aktuelhaber23.com/elazigdan-dunyaya-fatih-bakir-usta-geleneksel-ahsap-oymaciligini-cagdas-sanatla-bulusturuyor/"
-target="_blank"
-class="news-link">
+target="_blank">
 
-{% if request.args.get('lang') == 'en' %}
-Go to News
-{% else %}
-Habere Gidin
-{% endif %}
+<img src="{{ url_for('static', filename='referanslar/205.png') }}">
 
 </a>
 
