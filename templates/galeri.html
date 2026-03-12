@@ -1,5 +1,3 @@
-<!-- galeri.html -->
-
 {% extends 'base.html' %}
 
 {% block title %}
@@ -16,7 +14,12 @@ Galeri
 
 <div class="text-center mt-5 scroll-reveal">
 
-<img src="{{ url_for('static', filename='logo.png') }}" style="height:120px">
+<img 
+src="{{ url_for('static', filename='logo.png') }}"
+style="height:120px"
+alt="Fatih Bakır Elazığ ahşap oyma sanatçı logosu"
+loading="lazy"
+decoding="async">
 
 </div>
 
@@ -47,7 +50,9 @@ Galeri
 <img
 src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
 class="frame-image"
->
+loading="lazy"
+decoding="async"
+alt="Fatih Bakır Elazığ ahşap oyma altın varak sanat eseri {{ loop.index }}">
 
 </a>
 
@@ -59,7 +64,7 @@ class="frame-image"
 href="{{ url_for('eser_detay', filename=img) }}?lang={{ request.args.get('lang','tr') }}">
 
 {% if request.args.get('lang') == 'en' %}
-View Details
+Open Detail
 {% else %}
 Detayı Aç
 {% endif %}

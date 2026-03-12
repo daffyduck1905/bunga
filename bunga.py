@@ -16,17 +16,16 @@ REFERANS_DIR = STATIC_DIR / "referanslar"
 ALLOWED_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 
 
-def list_gallery_images() -> list[str]:
+def list_gallery_images():
 
     if not GALLERY_DIR.exists():
         return []
 
-    files: list[str] = []
+    files = []
 
     for p in GALLERY_DIR.iterdir():
 
         if p.is_file() and p.suffix.lower() in ALLOWED_EXTS:
-
             files.append(p.name)
 
     files.sort(key=lambda x: x.lower())
@@ -34,14 +33,14 @@ def list_gallery_images() -> list[str]:
     return files
 
 
-def build_featured_paths(images: list[str], limit: int = 6) -> list[str]:
+def build_featured_paths(images, limit=6):
 
     featured = images[:limit]
 
     return [f"gallery/eserler/{name}" for name in featured]
 
 
-def create_app() -> Flask:
+def create_app():
 
     app = Flask(
         __name__,
@@ -54,8 +53,6 @@ def create_app() -> Flask:
         "title": "Ahşap Oyma & Altın Varak",
         "email": "fatihbakir23@outlook.com",
         "instagram": "fhtbkr",
-        "phone": "",
-        "location": "",
     }
 
     @app.context_processor
@@ -74,7 +71,7 @@ def create_app() -> Flask:
 
         images = list_gallery_images()
 
-        featured_paths = build_featured_paths(images, limit=6)
+        featured_paths = build_featured_paths(images)
 
         return render_template(
             "index.html",
@@ -94,7 +91,7 @@ def create_app() -> Flask:
         )
 
     @app.get("/eser/<path:filename>")
-    def eser_detay(filename: str):
+    def eser_detay(filename):
 
         safe = secure_filename(filename)
 
@@ -103,7 +100,7 @@ def create_app() -> Flask:
 
         full = GALLERY_DIR / safe
 
-        if not full.exists() or not full.is_file():
+        if not full.exists():
             abort(404)
 
         images = list_gallery_images()
@@ -116,18 +113,17 @@ def create_app() -> Flask:
 
     @app.get("/referanslar")
     def referanslar():
-
         return render_template("referanslar.html")
 
     @app.get("/hakkinda")
     def about():
-
         return render_template("about.html")
 
     @app.get("/iletisim")
     def contact():
-
         return render_template("contact.html")
+
+    # SITEMAP
 
     @app.route("/sitemap.xml")
     def sitemap():
@@ -147,63 +143,65 @@ def create_app() -> Flask:
         for img in images:
             pages.append(base + "/eser/" + img)
 
-        sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
-        sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        xml = '<?xml version="1.0" encoding="UTF-8"?>'
+        xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
         for page in pages:
-            sitemap_xml += "<url>"
-            sitemap_xml += f"<loc>{page}</loc>"
-            sitemap_xml += "</url>"
+            xml += "<url>"
+            xml += f"<loc>{page}</loc>"
+            xml += "</url>"
 
-        sitemap_xml += "</urlset>"
+        xml += "</urlset>"
 
-        return sitemap_xml, 200, {"Content-Type": "application/xml"}
+        return xml, 200, {"Content-Type": "application/xml"}
+
+    # IMAGE SITEMAP
+
+    @app.route("/image-sitemap.xml")
+    def image_sitemap():
+
+        base = "https://fatihbakir.pythonanywhere.com"
+
+        images = list_gallery_images()
+
+        xml = '<?xml version="1.0" encoding="UTF-8"?>'
+        xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        xml += 'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
+
+        for img in images:
+
+            xml += "<url>"
+            xml += f"<loc>{base}/eser/{img}</loc>"
+            xml += "<image:image>"
+            xml += f"<image:loc>{base}/static/gallery/eserler/{img}</image:loc>"
+            xml += "<image:title>Fatih Bakır Ahşap Oyma Sanat Eseri</image:title>"
+            xml += "</image:image>"
+            xml += "</url>"
+
+        xml += "</urlset>"
+
+        return xml, 200, {"Content-Type": "application/xml"}
+
+    # ROBOTS
 
     @app.route("/robots.txt")
     def robots():
 
-        robots_txt = """
+        robots = f"""
 User-agent: *
 Allow: /
 
 Sitemap: https://fatihbakir.pythonanywhere.com/sitemap.xml
+Sitemap: https://fatihbakir.pythonanywhere.com/image-sitemap.xml
 """
 
-        return robots_txt, 200, {"Content-Type": "text/plain"}
+        return robots, 200, {"Content-Type": "text/plain"}
+
+    # GOOGLE VERIFY
 
     @app.route("/google66fa269196c5718f.html")
     def google_verify():
         return "google-site-verification: google66fa269196c5718f.html"
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-
-        return (
-            """
-            <!doctype html>
-            <html lang="tr">
-            <head>
-              <meta charset="utf-8"/>
-              <meta name="viewport" content="width=device-width,initial-scale=1"/>
-              <title>404</title>
-              <style>
-                body{background:#0b0b0d;color:#fff;font-family:Arial;display:flex;min-height:100vh;align-items:center;justify-content:center}
-                a{color:#D4AF37;text-decoration:none}
-              </style>
-            </head>
-            <body>
-              <div style="text-align:center;max-width:520px;padding:24px">
-                <h1 style="margin:0 0 12px">404</h1>
-                <div style="opacity:.8;line-height:1.6;margin-bottom:14px">
-                  Aradığınız sayfa bulunamadı.
-                </div>
-                <a href="/">Ana sayfaya dön</a>
-              </div>
-            </body>
-            </html>
-            """,
-            404,
-        )
 
     return app
 
@@ -211,5 +209,4 @@ Sitemap: https://fatihbakir.pythonanywhere.com/sitemap.xml
 app = create_app()
 
 if __name__ == "__main__":
-
     app.run(debug=True)
