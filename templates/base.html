@@ -9,6 +9,19 @@
 
 <title>{% block title %}{{ artist.name }}{% endblock %}</title>
 
+<!-- SEO META -->
+
+<meta name="description" content="Fatih Bakır - Elazığ merkezli ahşap oyma ve altın varak sanat eserleri. El işçiliği ile üretilmiş özgün sanat eserleri ve özel sipariş çalışmalar.">
+
+<meta name="keywords" content="Fatih Bakır, Elazığ, ahşap oyma, altın varak, el sanatları, sanat eserleri, elazığ sanatçı, elazığ ahşap oyma, harput sanat, geleneksel el sanatları">
+
+<meta name="author" content="Fatih Bakır">
+
+<meta property="og:title" content="Fatih Bakır | Ahşap Oyma ve Altın Varak Sanatı">
+<meta property="og:description" content="Elazığlı sanatçı Fatih Bakır tarafından yapılan ahşap oyma ve altın varak sanat eserleri.">
+<meta property="og:image" content="{{ url_for('static', filename='logo.png') }}">
+<meta property="og:type" content="website">
+
 <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -96,11 +109,7 @@
 <h4>{{ artist.name }}</h4>
 
 <div style="opacity:.8;margin-bottom:10px">
-{% if request.args.get('lang') == 'en' %}
 {{ artist.title }}
-{% else %}
-{{ artist.title }}
-{% endif %}
 </div>
 
 <div class="footer-links">
@@ -127,8 +136,31 @@
 
 </div>
 
+<!-- EMAIL -->
+
 <div style="margin-top:10px;font-size:14px;opacity:.7">
+
+<a href="mailto:{{ artist.email }}?subject=Sanat%20Eseri%20Hakkında"
+style="color:#D4AF37;text-decoration:none;">
+
 {{ artist.email }}
+
+</a>
+
+</div>
+
+<!-- INSTAGRAM -->
+
+<div style="margin-top:6px;font-size:14px;opacity:.7">
+
+<a href="https://instagram.com/{{ artist.instagram }}"
+target="_blank"
+style="color:#D4AF37;text-decoration:none;">
+
+Instagram: @{{ artist.instagram }}
+
+</a>
+
 </div>
 
 <div style="margin-top:8px;font-size:14px;opacity:.6">
