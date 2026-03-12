@@ -86,11 +86,13 @@ def create_app() -> Flask:
 
         images = list_gallery_images()
 
+       
+        images = [img for img in images if img != "104.png"]
+
         return render_template(
             "galeri.html",
             images=images
         )
-
     @app.get("/eser/<path:filename>")
     def eser_detay(filename: str):
 
