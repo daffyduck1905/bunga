@@ -201,7 +201,7 @@ Sitemap: https://fatihbakir.pythonanywhere.com/image-sitemap.xml
 
     @app.route("/google-site-verification.html")
     def google_verify():
-        return "google-site-verification=uk3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A.html"
+        return "google-site-verification=uk3TMT0Wq-GzRmG9wOobyB4lPHrsudjP1v6-QiLX_3A"
 
     return app
 
