@@ -12,6 +12,23 @@ Eser
 
 {% block content %}
 
+<!-- VISUAL ARTWORK SCHEMA -->
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "VisualArtwork",
+ "creator": {
+   "@type": "Person",
+   "name": "Fatih Bakır"
+ },
+ "artMedium": "Ahşap Oyma ve Altın Varak",
+ "artform": "Wood Carving",
+ "description": "Fatih Bakır tarafından yapılan ahşap oyma ve altın varak sanat eseri",
+ "image": "https://fatihbakir.pythonanywhere.com/static/gallery/eserler/{{ filename }}"
+}
+</script>
+
 <div class="container text-center my-5">
 
 <div class="viewer-wrapper">
@@ -21,7 +38,11 @@ Eser
 <img
 id="viewerImage"
 src="{{ url_for('static', filename='gallery/eserler/' ~ filename) }}"
-class="viewer-img">
+class="viewer-img"
+loading="lazy"
+decoding="async"
+alt="Fatih Bakır ahşap oyma altın varak sanat eseri"
+title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 
 <button class="viewer-arrow right" onclick="nextImage()">❯</button>
 
@@ -44,7 +65,12 @@ class="viewer-img">
 class="thumb-item {% if img == filename %}active-thumb{% endif %}"
 onclick="openImage('{{ img }}')">
 
-<img src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}">
+<img
+src="{{ url_for('static', filename='gallery/eserler/' ~ img) }}"
+loading="lazy"
+decoding="async"
+alt="Fatih Bakır ahşap oyma altın varak sanat eseri"
+title="Fatih Bakır ahşap oyma altın varak sanat eseri">
 
 </div>
 

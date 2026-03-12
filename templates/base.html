@@ -69,6 +69,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
+<!-- VISUAL ARTWORK SCHEMA FOR GOOGLE IMAGES -->
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "VisualArtwork",
+ "creator": {
+   "@type": "Person",
+   "name": "Fatih Bakır"
+ },
+ "artMedium": "Ahşap Oyma ve Altın Varak",
+ "artform": "Wood Carving",
+ "description": "Fatih Bakır tarafından yapılan ahşap oyma ve altın varak sanat eseri",
+ "url": "https://fatihbakir.pythonanywhere.com",
+ "image": "https://fatihbakir.pythonanywhere.com/static/logo.png"
+}
+</script>
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C5T0EPBFN7"></script>
 <script>
@@ -190,8 +208,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<!-- EMAIL -->
-
 <div style="margin-top:10px;font-size:14px;opacity:.7">
 
 <a href="mailto:{{ artist.email }}?subject=Sanat%20Eseri%20Hakkında"
@@ -202,8 +218,6 @@ style="color:#D4AF37;text-decoration:none;">
 </a>
 
 </div>
-
-<!-- INSTAGRAM -->
 
 <div style="margin-top:6px;font-size:14px;opacity:.7">
 
