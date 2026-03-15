@@ -51,6 +51,48 @@ grid-template-columns:1fr;
 }
 }
 
+/* REFERANS BİLDİRİM KUTUSU */
+
+.reference-toast{
+position:fixed;
+bottom:40px;
+left:50%;
+transform:translateX(-50%) translateY(60px);
+background:rgba(0,0,0,0.92);
+color:#D4AF37;
+padding:16px 28px;
+border-radius:16px;
+font-family:'Playfair Display', serif;
+font-size:15px;
+letter-spacing:0.4px;
+opacity:0;
+pointer-events:none;
+transition:all 0.6s ease;
+box-shadow:0 12px 30px rgba(0,0,0,0.45);
+z-index:9999;
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.reference-toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+pointer-events:auto;
+}
+
+.reference-toast button{
+background:none;
+border:none;
+color:#D4AF37;
+font-size:18px;
+cursor:pointer;
+}
+
+.reference-toast button:hover{
+opacity:0.7;
+}
+
 </style>
 
 <section class="container my-5">
@@ -187,5 +229,53 @@ class="img-fluid reference-logo">
 </div>
 
 </section>
+
+<!-- REFERANS BİLDİRİM KUTUSU -->
+
+<div id="referenceToast" class="reference-toast">
+
+<span>
+
+{% if request.args.get('lang') == 'en' %}
+Click the logos to view the news pages
+{% else %}
+Haber sayfalarını görmek için logolara tıklayınız
+{% endif %}
+
+</span>
+
+<button id="closeToast">✕</button>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const refSection = document.querySelector(".news-grid");
+const toast = document.getElementById("referenceToast");
+const closeBtn = document.getElementById("closeToast");
+
+const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+toast.classList.add("show");
+}
+
+});
+
+},{threshold:0.4});
+
+observer.observe(refSection);
+
+closeBtn.addEventListener("click",()=>{
+toast.classList.remove("show");
+});
+
+});
+
+</script>
 
 {% endblock %}
